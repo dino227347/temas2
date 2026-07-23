@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biología - Membrana Celular | Sistema Preuniversitario</title>
+    
+    <!-- ===== CSS BASE REUTILIZADO ===== -->
+    <link rel="stylesheet" href="tema-base.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== SOBRESCRITURA DE VARIABLES PARA BIOLOGÍA ===== */
+        :root {
+            --primary: #059669;
+            --primary-dark: #065f46;
+            --primary-light: #6ee7b7;
+            --primary-bg: #ecfdf5;
+        }
+
+        /* ===== SOBRESCRITURA DEL FONDO ===== */
+        body {
+            background: linear-gradient(135deg, #0f172a, #065f46);
+        }
+
+        /* ===== SIDEBAR (NUEVO COMPONENTE) ===== */
+        .sidebar {
+            width: var(--sidebar-width, 280px);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-brand .logo {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .sidebar-brand h2 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .sidebar-brand span {
+            color: var(--primary-light);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+        }
+
+        .sidebar-nav .nav-label {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            padding: 15px 0 8px 0;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-bottom: 2px;
+            position: relative;
+        }
+
+        .sidebar-nav a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+
+        .sidebar-nav a.active {
+            background: rgba(5, 150, 105, 0.25);
+            color: white;
+            font-weight: 500;
+        }
+
+        .sidebar-nav a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10%;
+            height: 80%;
+            width: 3px;
+            background: var(--primary-light);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .sidebar-nav a .icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-nav a .badge-nav {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1px 10px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .sidebar-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        /* ===== CONTENIDO PRINCIPAL (CON SIDEBAR) ===== */
+        .main-content {
+            flex: 1;
+            padding: 25px 30px;
+            max-width: calc(100% - var(--sidebar-width, 280px));
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+        }
+
+        .contenedor-tema {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ===== BADGE ESPECÍFICO ===== */
+        .badge-success {
+            background: var(--success);
+        }
+
+        .badge-dark {
+            background: #1f2937;
+        }
+
+        /* ===== COMPONENTES NUEVOS PARA BIOLOGÍA ===== */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+        .grid-2col .col {
+            background: var(--gray-bg);
+            padding: 15px 18px;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .grid-2col .col h4 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .tabla-terminos {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .tabla-terminos th {
+            background: var(--primary);
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .tabla-terminos td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--gray-light);
+            color: var(--text-dark);
+        }
+
+        .tabla-terminos tr:hover td {
+            background: var(--gray-bg);
+        }
+
+        .lista-definiciones {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lista-definiciones li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-bg);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .lista-definiciones li::before {
+            content: "◆";
+            color: var(--primary);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .lista-definiciones li:last-child {
+            border-bottom: none;
+        }
+
+        /* ===== HERRAMIENTAS EN GRID ===== */
+        .herramientas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .herramienta-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .herramienta-card h3 {
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ===== RESPONSIVE PARA SIDEBAR ===== */
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 240px;
+            }
+            .herramientas-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 100%;
+            }
+
+            body {
+                flex-direction: column;
+                padding: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 12px 15px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+
+            .sidebar-brand {
+                padding-bottom: 0;
+                border-bottom: none;
+                margin-bottom: 0;
+                flex: 0 0 auto;
+            }
+
+            .sidebar-brand .logo {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+
+            .sidebar-brand h2 {
+                font-size: 0.8rem;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 3px;
+                flex: 1;
+                padding: 0 8px;
+            }
+
+            .sidebar-nav .nav-label {
+                display: none;
+            }
+
+            .sidebar-nav a {
+                padding: 4px 10px;
+                font-size: 0.65rem;
+                gap: 3px;
+                border-radius: 6px;
+            }
+
+            .sidebar-nav a .icon {
+                font-size: 0.8rem;
+                width: 16px;
+            }
+
+            .sidebar-nav a .badge-nav {
+                display: none;
+            }
+
+            .sidebar-nav a.active::before {
+                display: none;
+            }
+
+            .sidebar-footer {
+                display: none;
+            }
+
+            .main-content {
+                max-width: 100%;
+                padding: 12px 15px;
+                flex: 1;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .tabla-terminos {
+                display: block;
+                overflow-x: auto;
+                font-size: 0.8rem;
+            }
+
+            .tabla-terminos th,
+            .tabla-terminos td {
+                padding: 8px 10px;
+                min-width: 80px;
+            }
+
+            .herramientas-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar-nav a {
+                font-size: 0.55rem;
+                padding: 3px 7px;
+            }
+
+            .sidebar-nav a .icon {
+                font-size: 0.7rem;
+                width: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" role="navigation" aria-label="Navegación principal">
+        <div class="sidebar-brand">
+            <div class="logo">🧬</div>
+            <h2>Biología <span>PSA</span></h2>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-label">Contenido</div>
+            <a href="#introduccion" class="active">
+                <span class="icon">🧫</span> Introducción
+            </a>
+            <a href="#composicion">
+                <span class="icon">🧪</span> Composición
+            </a>
+            <a href="#disposicion">
+                <span class="icon">🔬</span> Disposición molecular
+            </a>
+            <a href="#fluidez">
+                <span class="icon">💧</span> Fluidez
+            </a>
+            <a href="#permeabilidad">
+                <span class="icon">🚪</span> Permeabilidad
+            </a>
+            <a href="#transportepasivo">
+                <span class="icon">⬇️</span> Transporte pasivo
+            </a>
+            <a href="#transporteactivo">
+                <span class="icon">⬆️</span> Transporte activo
+            </a>
+            <a href="#macromoleculas">
+                <span class="icon">📦</span> Macromoléculas
+            </a>
+            <a href="#funciones">
+                <span class="icon">⚙️</span> Funciones
+            </a>
+            <a href="#prueba">
+                <span class="icon">❓</span> Mini Prueba
+                <span class="badge-nav">10</span>
+            </a>
+            <a href="#herramientas">
+                <span class="icon">🛠️</span> Herramientas
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Sistema Preuniversitario
+        </div>
+    </aside>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <main class="main-content">
+        <div class="contenedor-tema">
+
+            <!-- ===== HEADER ===== -->
+            <header class="tema-header" id="introduccion">
+                <h1>🧬 Membrana Celular</h1>
+                <p>Estructura, composición, propiedades y mecanismos de transporte que permiten la vida celular</p>
+                <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px;">
+                    <span class="badge">Tema 3</span>
+                    <span class="badge badge-success">Biología Celular</span>
+                    <span class="badge badge-dark">🧪 Ciencias de la Vida</span>
+                </div>
+                <div style="margin-top: 14px; font-size: 0.9rem; opacity: 0.85;">
+                    💡 <em>"La membrana celular no es una simple barrera, sino un filtro altamente selectivo que controla el intercambio de sustancias entre la célula y el medio que la rodea, manteniendo las condiciones fisiológicas intracelulares adecuadas."</em>
+                </div>
+            </header>
+
+            <!-- ============================================================ -->
+            <!-- 1. INTRODUCCIÓN                                               -->
+            <!-- ============================================================ -->
+            <section class="card">
+                <h2>🧫 1. Introducción a la Membrana Celular</h2>
+                
+                <p>La célula tiene una <strong>composición diferente</strong> de la del medio que la rodea. Por ejemplo, el contenido iónico de nuestras células es muy diferente del que tiene el plasma o el fluido de las matrices extracelulares. Esta diferencia es mantenida durante toda la vida de la célula, en general con un importante gasto de energía, por una delgada membrana superficial: la <strong>membrana plasmática o celular</strong>.</p>
+                
+                <div class="concepto-clave">
+                    <strong>📌 Definición:</strong>
+                    <br>La membrana celular o <strong>plasmalemma</strong> es una estructura dinámica, altamente selectiva y semipermeable que envuelve a la célula, separando el <strong>medio intracelular</strong> (citoplasma) del <strong>medio extracelular</strong>. Actúa como una <strong>barrera selectiva</strong> que controla el intercambio de sustancias entre la célula y su entorno.
+                </div>
+                
+                <p><strong>Importancia biológica:</strong> La membrana celular es fundamental para la vida celular porque:</p>
+                <ul>
+                    <li><strong>Mantiene la homeostasis</strong> regulando el paso de iones, nutrientes y desechos</li>
+                    <li><strong>Permite la comunicación celular</strong> mediante receptores y señales químicas</li>
+                    <li><strong>Proporciona identidad celular</strong> a través de marcadores de superficie (glucoproteínas y glucolípidos)</li>
+                    <li><strong>Permite la adhesión celular</strong> y la formación de tejidos</li>
+                    <li><strong>Facilita la captura de moléculas grandes</strong> mediante endocitosis</li>
+                    <li><strong>Participa en la transducción de señales</strong> del exterior al interior celular</li>
+                </ul>
+                
+                <div class="cuadro-resumen">
+                    <strong>📊 Datos históricos clave:</strong>
+                    <br>• <strong>1935:</strong> HUGH DAVSON Y JAMES DANIELLI propusieron que la membrana plasmática estaba conformada por <strong>lípidos y una capa de proteínas globulares</strong>.
+                    <br>• <strong>1972:</strong> S. J. SINGER Y G. L. NICOLSON propusieron el <strong>MODELO DEL MOSAICO FLUIDO</strong>, que es la base de nuestra comprensión actual de la membrana celular.
+                    <br>• Este modelo revolucionó la biología celular al explicar la <strong>dinámica y flexibilidad</strong> de la membrana.
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 2. COMPOSICIÓN MOLECULAR                                      -->
+            <!-- ============================================================ -->
+            <section class="card" id="composicion">
+                <h2>🧪 2. Composición Molecular de la Membrana Celular</h2>
+                
+                <p>La membrana celular está constituida por tres tipos principales de moléculas: <strong>proteínas, lípidos y carbohidratos</strong>, cada uno con funciones específicas y una disposición característica.</p>
+                
+                <table class="tabla-terminos">
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Porcentaje</th>
+                            <th>Descripción</th>
+                            <th>Función</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Proteínas</strong></td>
+                            <td>60%</td>
+                            <td>Constituidas por aminoácidos en forma de cadenas plegadas sobre sí mismas</td>
+                            <td>Transporte, receptores, enzimas, adhesión, identidad celular</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lípidos</strong></td>
+                            <td>35%</td>
+                            <td>Fosfolípidos y colesterol fundamentalmente</td>
+                            <td>Estructura de la bicapa, fluidez, barrera de permeabilidad</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Carbohidratos</strong></td>
+                            <td>5%</td>
+                            <td>Oligosacáridos, de composición variable, constituidos por varios monosacáridos unidos entre sí</td>
+                            <td>Reconocimiento celular, adhesión, protección (glucocáliz)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>2.1 Estructura de los Fosfolípidos</h3>
+                <p>Los fosfolípidos son moléculas <strong>anfipáticas</strong>, es decir, poseen una parte <strong>polar (hidrofílica)</strong> y una parte <strong>apolar (hidrofóbica)</strong>:</p>
+                <ul>
+                    <li><strong>Cabeza polar (hidrofílica):</strong> Compuesta por un grupo fosfato y una base nitrogenada (colina, etanolamina, serina). Es soluble en agua y se orienta hacia las superficies acuosas (citoplasma y medio extracelular).</li>
+                    <li><strong>Colas no polares (hidrofóbicas):</strong> Compuestas por dos cadenas de ácidos grasos de 14-24 carbonos. Son insolubles en agua y se orientan hacia el interior de la bicapa, alejadas del agua.</li>
+                </ul>
+                
+                <div class="concepto-clave">
+                    <strong>🔑 El Colesterol en la Membrana:</strong>
+                    <br>El colesterol posee una <strong>pequeña cabeza polar</strong> dirigida hacia la superficie acuosa, mientras que el resto de su estructura es <strong>hidrófoba</strong> y permanece confinada en el interior de la bicapa lipídica. El colesterol:
+                    <br>• <strong>Regula la fluidez</strong> de la membrana
+                    <br>• <strong>Disminuye la permeabilidad</strong> a moléculas polares
+                    <br>• <strong>Estabiliza</strong> la bicapa lipídica
+                    <br>• <strong>Modula</strong> la actividad de proteínas de membrana
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 3. DISPOSICIÓN DE LAS MOLÉCULAS                               -->
+            <!-- ============================================================ -->
+            <section class="card" id="disposicion">
+                <h2>🔬 3. Disposición de las Moléculas en la Membrana Celular</h2>
+                
+                <p>Las moléculas que componen la membrana celular no están distribuidas al azar, sino que siguen un <strong>patrón organizado</strong> que determina su funcionalidad:</p>
+                
+                <div class="grid-2col">
+                    <div class="col">
+                        <h4>🧪 Fosfolípidos</h4>
+                        <p>Forman una <strong>bicapa</strong> donde:</p>
+                        <ul>
+                            <li>Las <strong>cabezas polares</strong> quedan en contacto con el citoplasma y el medio extracelular (ambientes acuosos)</li>
+                            <li>Las <strong>colas no polares</strong> están al centro de la bicapa, alejadas del agua</li>
+                            <li>Esta disposición es <strong>termodinámicamente estable</strong> y se forma espontáneamente</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>🧬 Proteínas</h4>
+                        <p>Se encuentran como <strong>mosaicos</strong> dentro de la bicapa lipídica:</p>
+                        <ul>
+                            <li><strong>Proteínas integrales o intrínsecas:</strong> Abarcan todo el espesor de la membrana (transmembranosas)</li>
+                            <li><strong>Proteínas periféricas o extrínsecas:</strong> Se encuentran en una de las dos superficies de la membrana</li>
+                            <li>Las proteínas integrales tienen regiones hidrofóbicas que interactúan con las colas lipídicas</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>🍬 Carbohidratos</h4>
+                        <p>Están en la <strong>superficie externa</strong> de la membrana celular:</p>
+                        <ul>
+                            <li>Unidos a <strong>lípidos</strong> → <strong>Glucolípidos</strong></li>
+                            <li>Unidos a <strong>proteínas</strong> → <strong>Glucoproteínas</strong></li>
+                            <li>Constituyen el <strong>GLUCOCÁLIZ</strong>, una cubierta delgada que rodea la superficie externa de la célula</li>
+                            <li>El glucocáliz participa en el <strong>reconocimiento celular</strong> y la <strong>adhesión</strong></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>📐 Estructura general</h4>
+                        <p>La membrana celular sigue el <strong>MODELO DEL MOSAICO FLUIDO</strong> (Singer y Nicolson, 1972):</p>
+                        <ul>
+                            <li><strong>Mosaico:</strong> Las proteínas están insertadas en la bicapa lipídica como piezas de un mosaico</li>
+                            <li><strong>Fluido:</strong> Los lípidos y proteínas pueden moverse lateralmente dentro de la membrana</li>
+                            <li>Esta estructura es <strong>dinámica y flexible</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="concepto-clave">
+                    <strong>📌 El Glucocáliz:</strong>
+                    <br>El glucocáliz es una <strong>cubierta delgada</strong> de carbohidratos que rodea la superficie externa de la membrana celular. Está compuesto por los extremos de los glucolípidos y glucoproteínas. Sus funciones incluyen:
+                    <br>• <strong>Protección</strong> contra daños mecánicos y químicos
+                    <br>• <strong>Reconocimiento celular</strong> (marcadores de identidad)
+                    <br>• <strong>Adhesión celular</strong> para la formación de tejidos
+                    <br>• <strong>Barrera</strong> contra infecciones
+                    <br>• <strong>Señalización</strong> y comunicación celular
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 4. FLUIDEZ DE LA MEMBRANA                                     -->
+            <!-- ============================================================ -->
+            <section class="card" id="fluidez">
+                <h2>💧 4. Fluidez de la Membrana Plasmática</h2>
+                
+                <p>La membrana plasmática <strong>no es una estructura estática</strong> porque sus componentes tienen posibilidades de movimiento. Esta propiedad se denomina <strong>fluidez</strong> y es esencial para el funcionamiento celular.</p>
+                
+                <p><strong>Movimientos que pueden realizar los lípidos:</strong></p>
+                
+                <table class="tabla-terminos">
+                    <thead>
+                        <tr>
+                            <th>Tipo de movimiento</th>
+                            <th>Descripción</th>
+                            <th>Frecuencia</th>
+                            <th>Energía requerida</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Rotación</strong></td>
+                            <td>Giro de la molécula en torno a su eje</td>
+                            <td>Muy frecuente</td>
+                            <td>Baja</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Difusión lateral</strong></td>
+                            <td>Desplazamiento de moléculas dentro de la misma capa</td>
+                            <td>Muy frecuente (el más común)</td>
+                            <td>Baja</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flexión</strong></td>
+                            <td>Movimientos producidos por las colas hidrófobas de los fosfolípidos</td>
+                            <td>Frecuente</td>
+                            <td>Media</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flip-flop</strong></td>
+                            <td>Movimiento de la molécula lipídica de una monocapa a la otra</td>
+                            <td>Muy poco frecuente</td>
+                            <td>Alta (requiere enzimas flipasas)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="concepto-clave">
+                    <strong>🔑 Flip-flop:</strong>
+                    <br>El movimiento <strong>flip-flop</strong> es el menos frecuente porque es <strong>energéticamente desfavorable</strong>. Para que ocurra, la cabeza polar hidrofílica debe atravesar el interior hidrofóbico de la bicapa. Este movimiento está mediado por enzimas especiales llamadas <strong>flipasas</strong>, que facilitan el traslado de lípidos específicos entre las dos capas de la bicapa.
+                    <br><br><strong>Importancia:</strong> El flip-flop es fundamental para mantener la <strong>asimetría lipídica</strong> de la membrana, que es crucial para funciones como la señalización celular y la apoptosis.
+                </div>
+                
+                <div class="ejemplo">
+                    <strong>🧪 Factores que afectan la fluidez:</strong>
+                    <br>• <strong>Temperatura:</strong> A mayor temperatura, mayor fluidez (la membrana se vuelve más líquida)
+                    <br>• <strong>Colesterol:</strong> Actúa como "amortiguador de fluidez" → a altas temperaturas reduce la fluidez, a bajas temperaturas la aumenta
+                    <br>• <strong>Longitud de ácidos grasos:</strong> Cadenas más cortas → mayor fluidez
+                    <br>• <strong>Grado de insaturación:</strong> Mayor número de dobles enlaces (insaturados) → mayor fluidez
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 5. PERMEABILIDAD                                              -->
+            <!-- ============================================================ -->
+            <section class="card" id="permeabilidad">
+                <h2>🚪 5. Permeabilidad de la Membrana Celular</h2>
+                
+                <p>La <strong>permeabilidad</strong> es una propiedad fundamental para el funcionamiento de la célula, pues mantiene las <strong>condiciones fisiológicas intracelulares</strong> adecuadas.</p>
+                
+                <p>Esta propiedad determina qué sustancias pueden ingresar a la célula, muchas de las cuales son necesarias para mantener los procesos vitales y la síntesis de sustancias. También regula el pasaje de agua y la salida de productos de desecho que deben ser eliminados de la célula.</p>
+                
+                <div class="concepto-clave">
+                    <strong>📌 Principios de permeabilidad:</strong>
+                    <br>• Las moléculas <strong>pequeñas y no polares</strong> (O₂, N₂, CO₂, etanol) atraviesan la bicapa fácilmente por <strong>difusión simple</strong>
+                    <br>• Las moléculas <strong>polares pequeñas</strong> (agua, glicerol) pueden atravesar lentamente la bicapa
+                    <br>• Las moléculas <strong>polares grandes</strong> (glucosa, aminoácidos) requieren <strong>proteínas transportadoras</strong>
+                    <br>• Los <strong>iones</strong> (Na⁺, K⁺, Ca²⁺, Cl⁻) requieren <strong>canales iónicos o bombas</strong>
+                    <br>• Las <strong>macromoléculas</strong> (proteínas, polisacáridos) requieren <strong>endocitosis o exocitosis</strong>
+                </div>
+                
+                <p>A continuación se explican los mecanismos de transporte según el tamaño de las moléculas:</p>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 6. TRANSPORTE PASIVO                                          -->
+            <!-- ============================================================ -->
+            <section class="card" id="transportepasivo">
+                <h2>⬇️ 6. Transporte Pasivo de Moléculas Pequeñas</h2>
+                
+                <p>El <strong>transporte pasivo</strong> es un mecanismo que <strong>no requiere de energía (ATP)</strong>, debido a que se realiza a <strong>favor del gradiente de concentración</strong>, es decir, desde una región de <strong>mayor concentración</strong> de la sustancia hacia otra de <strong>menor concentración</strong> de la misma.</p>
+                
+                <div class="concepto-clave">
+                    <strong>📌 Características del transporte pasivo:</strong>
+                    <br>• <strong>No requiere ATP</strong> (energía química)
+                    <br>• Va a favor del <strong>gradiente electroquímico</strong>
+                    <br>• Es un proceso <strong>espontáneo</strong>
+                    <br>• Puede ser <strong>mediado por proteínas</strong> o <strong>no mediado</strong>
+                    <br>• No se satura (excepto en difusión facilitada)
+                </div>
+                
+                <h3>a) Difusión Simple</h3>
+                <p>Es usado por moléculas <strong>pequeñas y sin carga eléctrica</strong> que pueden difundir rápidamente a través de la bicapa lipídica, a favor de su gradiente de concentración.</p>
+                
+                <p><strong>Moléculas que utilizan difusión simple:</strong></p>
+                <ul>
+                    <li><strong>Oxígeno (O₂)</strong> → esencial para la respiración celular</li>
+                    <li><strong>Dióxido de carbono (CO₂)</strong> → producto del metabolismo celular</li>
+                    <li><strong>Nitrógeno (N₂)</strong> → gas inerte</li>
+                    <li><strong>Metanol y etanol</strong> → alcoholes pequeños</li>
+                    <li><strong>Agua (H₂O)</strong> → aunque es polar, es lo suficientemente pequeña para atravesar lentamente la bicapa</li>
+                    <li><strong>Moléculas liposolubles</strong> (hormonas esteroideas, ácidos grasos)</li>
+                </ul>
+                
+                <div class="ejemplo">
+                    <strong>🧪 Ejemplo fisiológico:</strong>
+                    <br>El <strong>intercambio gaseoso en los pulmones</strong> se produce por difusión simple. El oxígeno (O₂) se difunde desde los alveolos (alta concentración) hacia la sangre (baja concentración), mientras que el dióxido de carbono (CO₂) se difunde en sentido contrario para ser eliminado en la espiración.
+                </div>
+                
+                <h3>b) Difusión Facilitada</h3>
+                <p>Este transporte es usado por las moléculas que <strong>no pueden cruzar la membrana por difusión simple</strong> porque tienen <strong>carga</strong> (iones y aminoácidos) o porque son de <strong>mayor tamaño molecular e hidrofílicas</strong>.</p>
+                
+                <p>Entonces, su transporte es <strong>"facilitado"</strong> por <strong>proteínas transmembrana</strong>, que son las "puertas" que les permiten el acceso al interior de la célula.</p>
+                
+                <p>Las proteínas transmembranosas pueden constituir:</p>
+                
+                <ul>
+                    <li><strong>Canales iónicos:</strong> Forman <strong>poros o conductos hidrofílicos</strong> que recorren el espesor de toda la membrana celular, y permiten el flujo pasivo de iones a través de ésta. Pueden ser:
+                        <ul>
+                            <li><strong>Canales no regulados</strong> (siempre abiertos)</li>
+                            <li><strong>Canales regulados</strong> (por voltaje, por ligando, por estiramiento mecánico)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Permeasas (proteínas transportadoras):</strong> La molécula a ser transportada se une a un sitio específico de la proteína transportadora y hace que ésta sufra un <strong>cambio conformacional</strong>, para finalmente trasladar el soluto a la cara opuesta de la membrana, <strong>sin gasto de energía</strong>.</li>
+                </ul>
+                
+                <div class="concepto-clave">
+                    <strong>📌 Características de la difusión facilitada:</strong>
+                    <br>• <strong>Especificidad:</strong> Cada proteína transporta moléculas específicas
+                    <br>• <strong>Saturación:</strong> Velocidad máxima cuando todos los sitios de unión están ocupados
+                    <br>• <strong>Competencia:</strong> Moléculas similares pueden competir por el mismo transportador
+                    <br>• <strong>Regulación:</strong> Puede ser modulada por señales celulares
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 7. TRANSPORTE ACTIVO                                          -->
+            <!-- ============================================================ -->
+            <section class="card" id="transporteactivo">
+                <h2>⬆️ 7. Transporte Activo</h2>
+                
+                <p>El <strong>transporte activo</strong> es el intercambio de partículas entre los dos medios en <strong>contra del gradiente electroquímico</strong>. En esta circunstancia se requiere el uso de <strong>energía (ATP)</strong> y esto hace que éste tipo de transporte sea <strong>activo</strong>.</p>
+                
+                <div class="concepto-clave">
+                    <strong>📌 Características del transporte activo:</strong>
+                    <br>• <strong>Requiere ATP</strong> (energía química)
+                    <br>• Va en <strong>contra del gradiente electroquímico</strong>
+                    <br>• <strong>No es espontáneo</strong>
+                    <br>• Es <strong>mediado por proteínas</strong> (bombas o transportadores)
+                    <br>• Es <strong>específico</strong> y puede <strong>saturarse</strong>
+                </div>
+                
+                <p>Existen dos tipos de transporte activo:</p>
+                
+                <h3>a) Transporte Activo Primario</h3>
+                <p>Este tipo de transporte está mediado por <strong>bombas o ATPasas</strong> que son proteínas integrales o transmembranosas que utilizan <strong>directamente el ATP</strong> como fuente de energía.</p>
+                
+                <p>Las bombas o ATPasas comprenden varias familias de proteínas:</p>
+                <ul>
+                    <li><strong>Bombas de protones (H⁺):</strong> Transportan H⁺ fuera de la célula (importante en lisosomas y mitocondrias)</li>
+                    <li><strong>Bombas de calcio (Ca²⁺):</strong> Transportan Ca²⁺ al retículo sarcoplásmico o al exterior celular</li>
+                    <li><strong>Glucoproteína P:</strong> Bombea fármacos y toxinas fuera de las células (implicada en resistencia a quimioterapia)</li>
+                    <li><strong>Bomba de Sodio-Potasio (Na⁺/K⁺ ATPasa):</strong> Fundamental para el metabolismo celular</li>
+                </ul>
+                
+                <div class="concepto-clave">
+                    <strong>🔑 La Bomba de Sodio-Potasio (Na⁺/K⁺ ATPasa):</strong>
+                    <br>Es de <strong>fundamental importancia</strong> para el metabolismo celular, puesto que permite el <strong>intercambio de iones de sodio y potasio</strong> a través de la membrana, con el fin de:
+                    <br>• <strong>Equilibrar la naturaleza eléctrica</strong> de la membrana
+                    <br>• <strong>Mantener una concentración óptima</strong> de sodio y potasio en el medio intracelular y extracelular
+                    <br><br><strong>Mecanismo:</strong>
+                    <br>1. Se fijan <strong>3 iones sodio (Na⁺)</strong> al dominio citosólico (interno) de la bomba
+                    <br>2. Se fijan <strong>2 iones potasio (K⁺)</strong> al dominio extracelular (externo) de la misma
+                    <br>3. Cuando la bomba se activa, se <strong>cotransporta sodio y potasio en sentidos contrarios</strong>
+                    <br>4. Se debe <strong>hidrolizar una molécula de ATP</strong> por cada 3 Na⁺ que se extraen y cada 2 K⁺ que se introducen
+                    <br><br><strong>Resultado:</strong> Se mantiene el gradiente electroquímico necesario para funciones como el potencial de membrana y el impulso nervioso.
+                </div>
+                
+                <h3>b) Transporte Activo Secundario</h3>
+                <p>Utiliza la <strong>energía potencial</strong> contenida en el gradiente favorable de la sustancia cotransportada. En este caso, el elemento más importante que motoriza el cotransporte a través de la membrana plasmática es el <strong>sodio</strong> (gradiente generado por la bomba Na⁺/K⁺).</p>
+                
+                <div class="grid-2col">
+                    <div class="col">
+                        <h4>🔹 Simporte</h4>
+                        <p>La sustancia cotransportada es <strong>introducida contra gradiente</strong> junto con el sodio.</p>
+                        <p><strong>Ejemplo:</strong> El <strong>cotransportador de glucosa-Na⁺</strong> en el intestino delgado, donde la glucosa se absorbe junto con el sodio, utilizando el gradiente de sodio generado por la bomba Na⁺/K⁺.</p>
+                    </div>
+                    <div class="col">
+                        <h4>🔹 Antiporte</h4>
+                        <p>La <strong>entrada de sodio</strong> se utiliza para <strong>extraer a otro elemento</strong> en dirección contraria.</p>
+                        <p><strong>Ejemplo:</strong> El <strong>intercambiador Na⁺/Ca²⁺</strong> en el músculo cardíaco, donde la entrada de Na⁺ impulsa la salida de Ca²⁺, regulando la contracción muscular.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 8. TRANSPORTE DE MACROMOLÉCULAS                               -->
+            <!-- ============================================================ -->
+            <section class="card" id="macromoleculas">
+                <h2>📦 8. Mecanismos de Transporte de Moléculas Grandes</h2>
+                
+                <p>Las <strong>moléculas grandes</strong> necesarias para la célula son introducidas por mecanismos diferentes a los descritos anteriormente, ya que no pueden atravesar la bicapa lipídica ni los canales iónicos.</p>
+                
+                <p>En estos casos, la membrana debe sufrir un proceso de <strong>deformación y fusión</strong> lo suficientemente efectiva como para capturar moléculas del medio extracelular y luego introducirlas al medio intracelular.</p>
+                
+                <h3>📥 Endocitosis</h3>
+                <p>La <strong>endocitosis</strong> es el mecanismo por el cual la célula <strong>captura moléculas grandes y partículas</strong> del medio extracelular, formando una <strong>vesícula endocítica</strong> que se internaliza en el citoplasma.</p>
+                
+                <p><strong>Tipos de endocitosis:</strong></p>
+                <ul>
+                    <li><strong>Fagocitosis:</strong> Captura de partículas grandes (bacterias, restos celulares). Realizada por células especializadas como <strong>macrófagos y neutrófilos</strong>.</li>
+                    <li><strong>Pinocitosis:</strong> Captura de pequeñas gotas de líquido extracelular ("la célula bebe"). Es un proceso continuo que ocurre en todas las células.</li>
+                    <li><strong>Endocitosis mediada por receptor:</strong> Captura específica de moléculas (ej: colesterol LDL, hierro-transferrina) mediante la unión a receptores de superficie que se invaginan formando vesículas recubiertas de <strong>clatrina</strong>.</li>
+                </ul>
+                
+                <h3>📤 Exocitosis</h3>
+                <p>La <strong>exocitosis</strong> es el mecanismo por el cual la célula <strong>elimina sustancias de desecho o secreta productos</strong> al medio extracelular mediante la fusión de vesículas intracelulares con la membrana plasmática.</p>
+                
+                <ul>
+                    <li><strong>Secreción constitutiva:</strong> Liberación continua de materiales (ej: proteínas de la matriz extracelular)</li>
+                    <li><strong>Secreción regulada:</strong> Liberación controlada por señales (ej: neurotransmisores, hormonas, enzimas digestivas)</li>
+                </ul>
+                
+                <div class="concepto-clave">
+                    <strong>🔑 Vía endocítica:</strong>
+                    <br>El proceso de endocitosis sigue una ruta específica:
+                    <br>1. <strong>Unión de ligando a receptores</strong> en la superficie celular
+                    <br>2. Formación de <strong>vesícula endocítica</strong> recubierta de clatrina
+                    <br>3. <strong>Reciclamiento de clatrina</strong> a la membrana plasmática
+                    <br>4. Formación de <strong>vesícula descubierta</strong> que se fusiona con el endosoma temprano
+                    <br>5. <strong>Endosoma temprano (CURL):</strong> pH = 6.0, donde se separan receptor y ligando
+                    <br>6. <strong>Reciclamiento de receptores</strong> a la membrana plasmática
+                    <br>7. Formación de <strong>vesículas recubiertas con clatrina</strong> que contienen hidrolasas lisosómicas
+                    <br>8. <strong>Endosoma tardío:</strong> pH = 5.5
+                    <br>9. Formación de <strong>cuerpo multivesicular</strong> (tipo de lisosoma)
+                    <br>10. <strong>Productos de degradación</strong> con cuerpo residual
+                    <br>11. <strong>Fusión del cuerpo residual</strong> con la membrana celular y <strong>eliminación</strong> del contenido al exterior
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 9. FUNCIONES DE LA MEMBRANA CELULAR                           -->
+            <!-- ============================================================ -->
+            <section class="card" id="funciones">
+                <h2>⚙️ 9. Funciones de la Membrana Celular</h2>
+                
+                <p>Con todo lo descrito, comprendemos que la membrana celular cumple las siguientes funciones esenciales:</p>
+                
+                <ul class="lista-definiciones">
+                    <li><strong>Conserva la integridad estructural de la célula:</strong> Mantiene la forma celular y protege el contenido intracelular.</li>
+                    <li><strong>Participa en el reconocimiento e interacción entre células:</strong> Mediante el glucocáliz y moléculas de adhesión celular (CAMs).</li>
+                    <li><strong>Actúa como una interfaz entre el citoplasma y el medio externo:</strong> Permite la comunicación bidireccional entre la célula y su entorno.</li>
+                    <li><strong>Ejerce un mecanismo de barrera selectiva semipermeable:</strong> Deja que algunas sustancias pasen fácilmente y otras no, manteniendo la homeostasis celular.</li>
+                    <li><strong>Transducción de señales:</strong> Los receptores de membrana convierten señales extracelulares en respuestas intracelulares.</li>
+                    <li><strong>Adhesión celular:</strong> Permite la formación de tejidos y la comunicación célula-célula.</li>
+                    <li><strong>Metabolismo celular:</strong> Alberga enzimas que participan en reacciones metabólicas clave.</li>
+                </ul>
+                
+                <div class="cuadro-resumen">
+                    <strong>📌 Resumen integrador:</strong>
+                    <br>La membrana celular es mucho más que una simple barrera. Es una <strong>estructura dinámica y funcional</strong> que:
+                    <br>• <strong>Separa</strong> el medio intracelular del extracelular
+                    <br>• <strong>Regula</strong> el intercambio de sustancias
+                    <br>• <strong>Comunica</strong> a la célula con su entorno
+                    <br>• <strong>Identifica</strong> a la célula mediante sus marcadores de superficie
+                    <br>• <strong>Protege</strong> a la célula del ambiente externo
+                    <br>• <strong>Permite</strong> la formación de tejidos y la comunicación celular
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 10. MINI PRUEBA                                               -->
+            <!-- ============================================================ -->
+            <section class="card" id="prueba" style="border: 2px solid var(--primary);">
+                <h2>❓ Mini Prueba - 10 Preguntas Nivel Universitario</h2>
+                <p style="color: var(--text-light); margin-bottom: 15px;">Selecciona la respuesta correcta. Haz clic en "Ver respuesta" para comprobar.</p>
+                
+                <!-- Pregunta 1 -->
+                <div class="pregunta">
+                    <p><strong>1.</strong> ¿Qué científicos propusieron el Modelo del Mosaico Fluido y en qué año, y cómo revolucionó este modelo la comprensión de la membrana celular?</p>
+                    <div class="opciones">
+                        a) Davson y Danielli (1935) - propusieron que la membrana era una estructura rígida y estática<br>
+                        b) Singer y Nicolson (1972) - establecieron que la membrana es dinámica, con proteínas insertadas en una bicapa lipídica fluida<br>
+                        c) Singer y Nicolson (1935) - demostraron que la membrana está compuesta solo de lípidos<br>
+                        d) Davson y Danielli (1972) - propusieron que las proteínas son periféricas a la membrana<br>
+                        e) Watson y Crick (1953) - describieron la estructura de la membrana celular
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b)</strong><br>S. J. Singer y G. L. Nicolson (1972) propusieron el Modelo del Mosaico Fluido, que revolucionó la biología celular al establecer que la membrana es una estructura dinámica donde las proteínas están insertadas en una bicapa lipídica fluida, y no una estructura estática como se creía anteriormente.</div>
+                </div>
+                
+                <!-- Pregunta 2 -->
+                <div class="pregunta">
+                    <p><strong>2.</strong> ¿Qué tipo de movimiento lipídico es el menos frecuente en la membrana celular y por qué requiere energía?</p>
+                    <div class="opciones">
+                        a) Difusión lateral - porque requiere moverse entre capas<br>
+                        b) Rotación - porque implica un giro completo de la molécula<br>
+                        c) Flip-flop - porque la cabeza polar debe atravesar el interior hidrofóbico de la bicapa<br>
+                        d) Flexión - porque las colas hidrofóbicas deben doblarse completamente<br>
+                        e) Difusión transversal - porque requiere atravesar proteínas de membrana
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) Flip-flop</strong><br>El movimiento <strong>flip-flop</strong> es el menos frecuente porque la cabeza polar hidrofílica debe atravesar el interior hidrofóbico de la bicapa, lo que es energéticamente desfavorable. Este movimiento está mediado por enzimas llamadas <strong>flipasas</strong>.</div>
+                </div>
+                
+                <!-- Pregunta 3 -->
+                <div class="pregunta">
+                    <p><strong>3.</strong> La bomba de sodio-potasio (Na⁺/K⁺ ATPasa) es fundamental para el metabolismo celular. ¿Qué relación estequiométrica existe entre el transporte de iones y la hidrólisis de ATP?</p>
+                    <div class="opciones">
+                        a) 2 Na⁺ salen y 3 K⁺ entran por cada ATP hidrolizado<br>
+                        b) 3 Na⁺ salen y 2 K⁺ entran por cada ATP hidrolizado<br>
+                        c) 1 Na⁺ sale y 1 K⁺ entra por cada ATP hidrolizado<br>
+                        d) 3 Na⁺ entran y 2 K⁺ salen por cada ATP hidrolizado<br>
+                        e) 2 Na⁺ entran y 3 K⁺ salen por cada ATP hidrolizado
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) 3 Na⁺ salen y 2 K⁺ entran por cada ATP hidrolizado</strong><br>La bomba Na⁺/K⁺ transporta <strong>3 iones sodio (Na⁺) hacia el exterior</strong> y <strong>2 iones potasio (K⁺) hacia el interior</strong> por cada molécula de <strong>ATP hidrolizada</strong> a ADP + Pᵢ.</div>
+                </div>
+                
+                <!-- Pregunta 4 -->
+                <div class="pregunta">
+                    <p><strong>4.</strong> ¿Cuál es la diferencia fundamental entre un canal iónico y una permeasa (proteína transportadora) en la difusión facilitada?</p>
+                    <div class="opciones">
+                        a) Los canales iónicos requieren ATP, las permeasas no<br>
+                        b) Los canales iónicos forman poros continuos, mientras que las permeasas sufren cambios conformacionales<br>
+                        c) Las permeasas son proteínas integrales, los canales iónicos son periféricos<br>
+                        d) Los canales iónicos transportan moléculas grandes, las permeasas transportan iones<br>
+                        e) No hay diferencia, ambos términos son sinónimos
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b)</strong><br>Los <strong>canales iónicos</strong> forman <strong>poros o conductos hidrofílicos</strong> continuos que recorren la membrana, mientras que las <strong>permeasas</strong> son proteínas transportadoras que sufren <strong>cambios conformacionales</strong> para trasladar el soluto a través de la membrana.</div>
+                </div>
+                
+                <!-- Pregunta 5 -->
+                <div class="pregunta">
+                    <p><strong>5.</strong> ¿Qué estructuras constituyen el glucocáliz y cuáles son sus funciones principales en la célula?</p>
+                    <div class="opciones">
+                        a) Proteínas integrales y lípidos; función de transporte y barrera<br>
+                        b) Glucolípidos y glucoproteínas; función de reconocimiento celular, adhesión y protección<br>
+                        c) Fosfolípidos y colesterol; función de fluidez y permeabilidad<br>
+                        d) Carbohidratos libres en el citoplasma; función de almacenamiento de energía<br>
+                        e) Oligosacáridos unidos a lípidos internos; función de señalización intracelular
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) Glucolípidos y glucoproteínas; función de reconocimiento celular, adhesión y protección</strong><br>El <strong>glucocáliz</strong> está constituido por los extremos de los <strong>glucolípidos y glucoproteínas</strong> en la superficie externa de la membrana. Sus funciones incluyen reconocimiento celular, adhesión, protección y señalización.</div>
+                </div>
+                
+                <!-- Pregunta 6 -->
+                <div class="pregunta">
+                    <p><strong>6.</strong> ¿Qué tipo de transporte utiliza el cotransportador de glucosa-Na⁺ en el intestino delgado y cómo se clasifica dentro del transporte activo?</p>
+                    <div class="opciones">
+                        a) Transporte activo primario - utiliza ATP directamente<br>
+                        b) Transporte activo secundario - utiliza el gradiente de sodio generado por la bomba Na⁺/K⁺ (simporte)<br>
+                        c) Transporte pasivo - va a favor del gradiente de glucosa<br>
+                        d) Transporte activo secundario - utiliza el gradiente de sodio (antiporte)<br>
+                        e) Difusión facilitada - mediado por canales iónicos
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) Transporte activo secundario - utiliza el gradiente de sodio generado por la bomba Na⁺/K⁺ (simporte)</strong><br>El cotransportador de glucosa-Na⁺ utiliza la energía del gradiente de sodio (generado por la bomba Na⁺/K⁺) para <strong>introducir glucosa contra su gradiente</strong> junto con el sodio, en un mecanismo de <strong>simporte</strong>.</div>
+                </div>
+                
+                <!-- Pregunta 7 -->
+                <div class="pregunta">
+                    <p><strong>7.</strong> ¿Qué moléculas pueden atravesar la membrana celular por difusión simple y cuál es la característica común que comparten?</p>
+                    <div class="opciones">
+                        a) Moléculas grandes y polares - comparten alta solubilidad en agua<br>
+                        b) Moléculas pequeñas y sin carga eléctrica - comparten liposolubilidad y pequeño tamaño<br>
+                        c) Iones y aminoácidos - comparten carga eléctrica positiva<br>
+                        d) Proteínas y polisacáridos - comparten alto peso molecular<br>
+                        e) Solo el agua y el oxígeno - comparten polaridad
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) Moléculas pequeñas y sin carga eléctrica</strong><br>La difusión simple está limitada a moléculas como O₂, CO₂, N₂, etanol y metanol, que comparten la característica de ser <strong>pequeñas, sin carga eléctrica y liposolubles</strong>, lo que les permite atravesar la bicapa lipídica.</div>
+                </div>
+                
+                <!-- Pregunta 8 -->
+                <div class="pregunta">
+                    <p><strong>8.</strong> ¿Cuál es la secuencia correcta de eventos en la vía endocítica desde la captura de una molécula hasta su degradación?</p>
+                    <div class="opciones">
+                        a) Vesícula descubierta → Endosoma tardío → Cuerpo multivesicular → Fusión con membrana<br>
+                        b) Unión a receptor → Vesícula de clatrina → Endosoma temprano → Endosoma tardío → Lisosoma<br>
+                        c) Vesícula de clatrina → Fagocitosis → Endosoma temprano → Exocitosis<br>
+                        d) Unión a receptor → Pinocitosis → Endosoma tardío → Cuerpo multivesicular<br>
+                        e) Vesícula descubierta → Endosoma temprano → Reciclamiento de receptores → Degradación
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) Unión a receptor → Vesícula de clatrina → Endosoma temprano → Endosoma tardío → Lisosoma</strong><br>La vía endocítica sigue la secuencia: <strong>unión del ligando al receptor</strong> → formación de <strong>vesícula recubierta de clatrina</strong> → <strong>endosoma temprano</strong> (pH 6.0) → <strong>endosoma tardío</strong> (pH 5.5) → <strong>lisosoma</strong> para la degradación del contenido.</div>
+                </div>
+                
+                <!-- Pregunta 9 -->
+                <div class="pregunta">
+                    <p><strong>9.</strong> ¿Cómo contribuye el colesterol a la regulación de la fluidez de la membrana celular en diferentes temperaturas?</p>
+                    <div class="opciones">
+                        a) Aumenta la fluidez a altas temperaturas y la disminuye a bajas temperaturas<br>
+                        b) Disminuye la fluidez a altas temperaturas y la aumenta a bajas temperaturas<br>
+                        c) Aumenta la fluidez a todas las temperaturas por igual<br>
+                        d) Disminuye la fluidez a todas las temperaturas por igual<br>
+                        e) No afecta la fluidez de la membrana
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b)</strong><br>El colesterol actúa como un <strong>"amortiguador de fluidez"</strong>: a <strong>altas temperaturas</strong> reduce la fluidez (estabiliza la membrana), mientras que a <strong>bajas temperaturas</strong> la aumenta (evita que la membrana se vuelva rígida).</div>
+                </div>
+                
+                <!-- Pregunta 10 -->
+                <div class="pregunta">
+                    <p><strong>10.</strong> ¿Qué diferencia fundamental existe entre la fagocitosis y la pinocitosis como mecanismos de endocitosis, y qué tipos celulares realizan principalmente cada uno?</p>
+                    <div class="opciones">
+                        a) Fagocitosis: captura de líquido (todas las células); Pinocitosis: captura de partículas (macrófagos)<br>
+                        b) Fagocitosis: captura de partículas grandes (macrófagos y neutrófilos); Pinocitosis: captura de líquido (todas las células)<br>
+                        c) Fagocitosis: requiere receptores; Pinocitosis: no requiere receptores (ambos son realizados por macrófagos)<br>
+                        d) Fagocitosis: captura de moléculas específicas; Pinocitosis: captura inespecífica (ambos en todas las células)<br>
+                        e) No hay diferencia, son sinónimos
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b)</strong><br>La <strong>fagocitosis</strong> es la captura de <strong>partículas grandes</strong> (bacterias, restos celulares) realizada principalmente por <strong>macrófagos y neutrófilos</strong>. La <strong>pinocitosis</strong> es la captura de <strong>pequeñas gotas de líquido</strong> y es un proceso continuo que ocurre en <strong>todas las células</strong>.</div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 11. HERRAMIENTAS                                              -->
+            <!-- ============================================================ -->
+            <section id="herramientas">
+                <h2 style="color: white; font-weight: 600; margin-bottom: 15px;">🛠️ Herramientas de Estudio</h2>
+                <div class="herramientas-grid">
+                    
+                    <!-- Pomodoro -->
+                    <div class="herramienta-card">
+                        <h3>⏱️ Pomodoro</h3>
+                        <div class="pomodoro-circle" id="timerDisplay">25:00</div>
+                        <div class="pomodoro-controls">
+                            <button class="btn btn-primary" id="startBtn">▶ Iniciar</button>
+                            <button class="btn btn-secondary" id="pauseBtn">⏸ Pausar</button>
+                            <button class="btn btn-danger" id="resetBtn">↻ Reiniciar</button>
+                        </div>
+                        <div class="pomodoro-info">Ciclo: <span id="cycleCount">1</span> de 4</div>
+                    </div>
+                    
+                    <!-- Tareas -->
+                    <div class="herramienta-card">
+                        <h3>📋 Tareas</h3>
+                        <ul class="task-list" id="taskList">
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Leer todo el tema de Membrana Celular</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Memorizar los tipos de transporte de membrana</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Hacer las 10 preguntas de autoevaluación</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Dibujar el modelo del mosaico fluido</span>
+                            </li>
+                        </ul>
+                        <div class="task-input-group">
+                            <input type="text" id="taskInput" placeholder="Nueva tarea..." aria-label="Nueva tarea">
+                            <button class="btn" id="addTaskBtn" aria-label="Agregar tarea">+</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Notas -->
+                    <div class="herramienta-card notas-card">
+                        <h3>📝 Apuntes</h3>
+                        <textarea id="notesArea" placeholder="Escribe tus notas aquí..." aria-label="Área de notas"></textarea>
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- ===== FOOTER ===== -->
+            <footer class="tema-footer">
+                Sistema Preuniversitario - Biología Tema 3: Membrana Celular
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== FUNCIÓN PARA MOSTRAR RESPUESTAS =====
+        function mostrarRespuesta(btn) {
+            const respuesta = btn.nextElementSibling;
+            if (respuesta && respuesta.classList) {
+                respuesta.classList.toggle('mostrar');
+                btn.textContent = respuesta.classList.contains('mostrar') ? 'Ocultar respuesta' : 'Ver respuesta';
+            }
+        }
+
+        // ===== POMODORO =====
+        let timeLeft = 25 * 60;
+        let timerId = null;
+        let isRunning = false;
+        let cycleCount = 1;
+
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const cycleSpan = document.getElementById('cycleCount');
+
+        function updateDisplay() {
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            timerId = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                if (timeLeft === 0) {
+                    clearInterval(timerId);
+                    isRunning = false;
+                    alert('¡Tiempo completado! 🎉');
+                    if (cycleCount < 4) {
+                        cycleCount++;
+                        cycleSpan.textContent = cycleCount;
+                        timeLeft = 25 * 60;
+                        updateDisplay();
+                    } else {
+                        alert('¡Ciclo completo! Descansa 15 minutos.');
+                        cycleCount = 1;
+                        cycleSpan.textContent = cycleCount;
+                        timeLeft = 25 * 60;
+                        updateDisplay();
+                    }
+                }
+            }, 1000);
+        }
+
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', () => {
+            clearInterval(timerId);
+            isRunning = false;
+        });
+        resetBtn.addEventListener('click', () => {
+            clearInterval(timerId);
+            isRunning = false;
+            timeLeft = 25 * 60;
+            updateDisplay();
+            cycleCount = 1;
+            cycleSpan.textContent = cycleCount;
+        });
+
+        // ===== TAREAS (CON SANITIZACIÓN) =====
+        const taskList = document.getElementById('taskList');
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+
+        function sanitizeText(text) {
+            const element = document.createElement('div');
+            element.textContent = text;
+            return element.innerHTML;
+        }
+
+        const savedTasks = localStorage.getItem('tasks-BiologiaTema3');
+        if (savedTasks) {
+            try {
+                taskList.innerHTML = savedTasks;
+                document.querySelectorAll('.task-item input[type="checkbox"]').forEach(cb => {
+                    cb.addEventListener('change', function() {
+                        this.parentElement.classList.toggle('completed');
+                        saveTasks();
+                    });
+                });
+            } catch (e) {
+                console.warn('Error al cargar tareas:', e);
+            }
+        }
+
+        function saveTasks() {
+            localStorage.setItem('tasks-BiologiaTema3', taskList.innerHTML);
+        }
+
+        function addTask() {
+            const text = taskInput.value.trim();
+            if (!text) {
+                alert('Por favor, escribe una tarea.');
+                return;
+            }
+
+            const safeText = sanitizeText(text);
+
+            const li = document.createElement('li');
+            li.className = 'task-item';
+            li.innerHTML = `
+                <input type="checkbox">
+                <span>${safeText}</span>
+            `;
+            taskList.appendChild(li);
+            taskInput.value = '';
+            saveTasks();
+
+            li.querySelector('input[type="checkbox"]').addEventListener('change', function() {
+                this.parentElement.classList.toggle('completed');
+                saveTasks();
+            });
+        }
+
+        addTaskBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask();
+        });
+
+        // ===== NOTAS =====
+        const notesArea = document.getElementById('notesArea');
+        
+        const savedNotes = localStorage.getItem('notes-BiologiaTema3');
+        if (savedNotes) notesArea.value = savedNotes;
+
+        notesArea.addEventListener('input', () => {
+            localStorage.setItem('notes-BiologiaTema3', notesArea.value);
+        });
+
+        // ===== SCROLL SUAVE PARA LA SIDEBAR =====
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
+                document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // ===== DETECTAR SECCIÓN ACTIVA AL HACER SCROLL =====
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

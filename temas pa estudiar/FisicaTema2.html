@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Física - Vectores y Estática | Sistema Preuniversitario</title>
+    
+    <!-- ===== CSS BASE REUTILIZADO ===== -->
+    <link rel="stylesheet" href="tema-base.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== SOBRESCRITURA DE VARIABLES PARA FÍSICA ===== */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #93c5fd;
+            --primary-bg: #eff6ff;
+        }
+
+        /* ===== SOBRESCRITURA DEL FONDO ===== */
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e40af);
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: var(--sidebar-width, 280px);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-brand .logo {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .sidebar-brand h2 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .sidebar-brand span {
+            color: var(--primary-light);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+        }
+
+        .sidebar-nav .nav-label {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            padding: 15px 0 8px 0;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-bottom: 2px;
+            position: relative;
+        }
+
+        .sidebar-nav a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+
+        .sidebar-nav a.active {
+            background: rgba(37, 99, 235, 0.25);
+            color: white;
+            font-weight: 500;
+        }
+
+        .sidebar-nav a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10%;
+            height: 80%;
+            width: 3px;
+            background: var(--primary-light);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .sidebar-nav a .icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-nav a .badge-nav {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1px 10px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .sidebar-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        /* ===== CONTENIDO PRINCIPAL ===== */
+        .main-content {
+            flex: 1;
+            padding: 25px 30px;
+            max-width: calc(100% - var(--sidebar-width, 280px));
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+        }
+
+        .contenedor-tema {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ===== BADGES ===== */
+        .badge-success {
+            background: var(--success);
+        }
+
+        .badge-dark {
+            background: #1f2937;
+        }
+
+        /* ===== COMPONENTES PARA FÍSICA ===== */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+        .grid-2col .col {
+            background: var(--gray-bg);
+            padding: 15px 18px;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .grid-2col .col h4 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .tabla-fisica {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .tabla-fisica th {
+            background: var(--primary);
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .tabla-fisica td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--gray-light);
+            color: var(--text-dark);
+        }
+
+        .tabla-fisica tr:hover td {
+            background: var(--gray-bg);
+        }
+
+        .lista-conceptos {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lista-conceptos li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-bg);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .lista-conceptos li::before {
+            content: "◆";
+            color: var(--primary);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .lista-conceptos li:last-child {
+            border-bottom: none;
+        }
+
+        .formula-destacada {
+            background: var(--primary-bg);
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            color: var(--text-dark);
+            border: 2px solid var(--primary);
+        }
+
+        .ejercicio-resuelto {
+            background: #f0fdf4;
+            border: 2px solid var(--success);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 12px 0;
+        }
+
+        .ejercicio-resuelto strong {
+            color: var(--success);
+        }
+
+        /* ===== HERRAMIENTAS ===== */
+        .herramientas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .herramienta-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .herramienta-card h3 {
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 240px;
+            }
+            .herramientas-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 100%;
+            }
+
+            body {
+                flex-direction: column;
+                padding: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 12px 15px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+
+            .sidebar-brand {
+                padding-bottom: 0;
+                border-bottom: none;
+                margin-bottom: 0;
+                flex: 0 0 auto;
+            }
+
+            .sidebar-brand .logo {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+
+            .sidebar-brand h2 {
+                font-size: 0.8rem;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 3px;
+                flex: 1;
+                padding: 0 8px;
+            }
+
+            .sidebar-nav .nav-label {
+                display: none;
+            }
+
+            .sidebar-nav a {
+                padding: 4px 10px;
+                font-size: 0.65rem;
+                gap: 3px;
+                border-radius: 6px;
+            }
+
+            .sidebar-nav a .icon {
+                font-size: 0.8rem;
+                width: 16px;
+            }
+
+            .sidebar-nav a .badge-nav {
+                display: none;
+            }
+
+            .sidebar-nav a.active::before {
+                display: none;
+            }
+
+            .sidebar-footer {
+                display: none;
+            }
+
+            .main-content {
+                max-width: 100%;
+                padding: 12px 15px;
+                flex: 1;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .tabla-fisica {
+                display: block;
+                overflow-x: auto;
+                font-size: 0.8rem;
+            }
+
+            .tabla-fisica th,
+            .tabla-fisica td {
+                padding: 8px 10px;
+                min-width: 80px;
+            }
+
+            .herramientas-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .formula-destacada {
+                font-size: 0.9rem;
+                padding: 10px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar-nav a {
+                font-size: 0.55rem;
+                padding: 3px 7px;
+            }
+
+            .sidebar-nav a .icon {
+                font-size: 0.7rem;
+                width: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" role="navigation" aria-label="Navegación principal">
+        <div class="sidebar-brand">
+            <div class="logo">⚡</div>
+            <h2>Física <span>PSA</span></h2>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-label">Contenido</div>
+            <a href="#introduccion" class="active">
+                <span class="icon">📐</span> Introducción
+            </a>
+            <a href="#escalares">
+                <span class="icon">🔢</span> Escalares y Vectores
+            </a>
+            <a href="#representacion">
+                <span class="icon">➡️</span> Representación
+            </a>
+            <a href="#propiedades">
+                <span class="icon">⚖️</span> Propiedades
+            </a>
+            <a href="#componentes">
+                <span class="icon">📊</span> Componentes
+            </a>
+            <a href="#unitarios">
+                <span class="icon">🧭</span> Vectores Unitarios
+            </a>
+            <a href="#productos">
+                <span class="icon">✖️</span> Productos
+            </a>
+            <a href="#estatica">
+                <span class="icon">⚖️</span> Estática
+            </a>
+            <a href="#equilibrio">
+                <span class="icon">✅</span> Equilibrio
+            </a>
+            <a href="#problemas">
+                <span class="icon">📝</span> Problemas resueltos
+            </a>
+            <a href="#prueba">
+                <span class="icon">❓</span> Mini Prueba
+                <span class="badge-nav">10</span>
+            </a>
+            <a href="#herramientas">
+                <span class="icon">🛠️</span> Herramientas
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Sistema Preuniversitario
+        </div>
+    </aside>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <main class="main-content">
+        <div class="contenedor-tema">
+
+            <!-- ===== HEADER ===== -->
+            <header class="tema-header" id="introduccion">
+                <h1>⚡ Vectores y Estática</h1>
+                <p>Herramientas fundamentales para la resolución de problemas físicos</p>
+                <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px;">
+                    <span class="badge">Tema 2</span>
+                    <span class="badge badge-success">Física</span>
+                    <span class="badge badge-dark">🔬 Mecánica</span>
+                </div>
+                <div style="margin-top: 14px; font-size: 0.9rem; opacity: 0.85;">
+                    💡 <em>"El estudio de los vectores en la Física se convierte de vital importancia ya que con frecuencia se necesita trabajar con cantidades físicas que tienen propiedades tanto numéricas como direccionales."</em>
+                </div>
+            </header>
+
+            <!-- ============================================================ -->
+            <!-- 1. INTRODUCCIÓN                                               -->
+            <!-- ============================================================ -->
+            <section class="card">
+                <h2>📐 1. Introducción</h2>
+                
+                <p>El estudio de los <strong>vectores</strong> en la Física es de vital importancia, ya que con frecuencia se necesita trabajar con cantidades físicas que tienen propiedades tanto <strong>numéricas como direccionales</strong>. En este capítulo se explicarán sus principales propiedades, operaciones y aplicaciones con cantidades vectoriales.</p>
+                
+                <div class="concepto-clave">
+                    <strong>🎯 Objetivo principal:</strong>
+                    <br>Que el estudiante tenga conocimiento y destreza para la resolución de problemas de una de las herramientas fundamentales de la Física como son los <strong>vectores</strong>, ya que este capítulo es una herramienta básica de apoyo a temas que se abordarán más adelante.
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 2. CANTIDADES ESCALARES Y VECTORIALES                       -->
+            <!-- ============================================================ -->
+            <section class="card" id="escalares">
+                <h2>🔢 2. Cantidades Escalares y Vectoriales</h2>
+                
+                <p>Se pueden describir dos tipos de cantidades: las <strong>escalares</strong> y las <strong>vectoriales</strong>.</p>
+                
+                <div class="grid-2col">
+                    <div class="col">
+                        <h4>🔹 Cantidad Escalar</h4>
+                        <p>Una <strong>cantidad escalar</strong> se especifica por completo mediante un <strong>valor único</strong> con una unidad adecuada y <strong>no tiene dirección</strong>.</p>
+                        <p><strong>Ejemplos:</strong></p>
+                        <ul>
+                            <li>📊 <strong>Temperatura:</strong> 25°C, 37°C</li>
+                            <li>📦 <strong>Volumen:</strong> 1.5 L, 250 mL</li>
+                            <li>⚖️ <strong>Masa:</strong> 70 kg, 1.5 g</li>
+                            <li>⏱️ <strong>Intervalos de tiempo:</strong> 5 s, 2 horas</li>
+                            <li>💰 <strong>Energía:</strong> 100 J, 50 cal</li>
+                            <li>📏 <strong>Distancia:</strong> 10 m, 5 km</li>
+                        </ul>
+                        <p><em>Fuente: Física de Serway</em></p>
+                    </div>
+                    <div class="col">
+                        <h4>🔹 Cantidad Vectorial</h4>
+                        <p>Una <strong>cantidad vectorial</strong> se especifica por completo mediante un <strong>número y unidades apropiadas más una dirección</strong>.</p>
+                        <p><strong>Ejemplos:</strong></p>
+                        <ul>
+                            <li>🚗 <strong>Velocidad:</strong> 60 km/h al norte</li>
+                            <li>📍 <strong>Desplazamiento:</strong> 10 m al este</li>
+                            <li>📐 <strong>Fuerza:</strong> 50 N hacia la derecha</li>
+                            <li>⚡ <strong>Aceleración:</strong> 9.8 m/s² hacia abajo</li>
+                            <li>🔄 <strong>Torque:</strong> 20 N·m en sentido horario</li>
+                            <li>📈 <strong>Momento lineal:</strong> 5 kg·m/s al norte</li>
+                        </ul>
+                        <p><em>Fuente: Física de Serway</em></p>
+                    </div>
+                </div>
+                
+                <div class="cuadro-resumen">
+                    <strong>📌 Diferencia clave:</strong>
+                    <br>• <strong>Escalar:</strong> Solo tiene magnitud (número + unidad)
+                    <br>• <strong>Vectorial:</strong> Tiene magnitud, dirección y sentido
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 3. REPRESENTACIÓN Y ELEMENTOS DE UN VECTOR                  -->
+            <!-- ============================================================ -->
+            <section class="card" id="representacion">
+                <h2>➡️ 3. Representación y Elementos de un Vector</h2>
+                
+                <p>Un vector se representa por una <strong>flecha</strong> y posee los siguientes elementos: <strong>módulo, dirección y sentido</strong>.</p>
+                
+                <div class="grid-2col">
+                    <div class="col">
+                        <h4>📏 Módulo</h4>
+                        <p>Es la <strong>longitud o tamaño</strong> del segmento medido a cierta escala. El módulo de un vector es <strong>siempre positivo o cero</strong>.</p>
+                        <p>Se denota como: <strong>|V⃗|</strong> o simplemente <strong>V</strong></p>
+                        <p><em>Ejemplo: Si una flecha mide 5 cm en un diagrama donde 1 cm = 10 N, el módulo es 50 N.</em></p>
+                    </div>
+                    <div class="col">
+                        <h4>🧭 Dirección</h4>
+                        <p>La dirección del vector es representada por la <strong>recta contenida en el vector</strong>. Está determinada por el <strong>ángulo</strong> que forma el vector con otra recta referencial.</p>
+                        <p><em>Ejemplo: Un vector puede tener dirección de 30° con respecto al eje x positivo.</em></p>
+                    </div>
+                    <div class="col">
+                        <h4>👉 Sentido</h4>
+                        <p>El sentido del vector está representado gráficamente por la <strong>punta de la flecha</strong> situada en el extremo del vector. Indica <strong>hacia qué lado</strong> de la línea de acción se dirige el vector.</p>
+                        <p><em>Ejemplo: Un vector de 50 N hacia la derecha tiene sentido → (positivo en x).</em></p>
+                    </div>
+                    <div class="col">
+                        <h4>📝 Notación</h4>
+                        <p>Un vector se denota de varias formas:</p>
+                        <ul>
+                            <li><strong>V⃗</strong> → con flecha arriba</li>
+                            <li><strong>v</strong> → en negrita</li>
+                            <li><strong>|V⃗|</strong> → módulo del vector</li>
+                            <li><strong>V<sub>x</sub>, V<sub>y</sub></strong> → componentes</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="ejemplo">
+                    <strong>📌 Ejemplo gráfico:</strong>
+                    <br>Un vector <strong>V⃗</strong> con módulo 10 unidades, dirección 30° sobre el eje x positivo y sentido hacia la derecha y arriba.
+                    <br>• <strong>Módulo:</strong> |V⃗| = 10
+                    <br>• <strong>Dirección:</strong> 30° respecto al eje x
+                    <br>• <strong>Sentido:</strong> hacia la derecha y arriba (cuadrante I)
+                    <br>• <strong>Componentes:</strong> V<sub>x</sub> = 10·cos30° = 8.66; V<sub>y</sub> = 10·sen30° = 5.00
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 4. PROPIEDADES DE LOS VECTORES                              -->
+            <!-- ============================================================ -->
+            <section class="card" id="propiedades">
+                <h2>⚖️ 4. Propiedades de los Vectores</h2>
+                
+                <h3>4.1 Igualdad entre dos vectores</h3>
+                <p>Dos vectores <strong>M⃗</strong> y <strong>N⃗</strong> son <strong>iguales</strong> si tienen la <strong>misma magnitud</strong> y si <strong>apuntan en la misma dirección</strong> a lo largo de líneas paralelas, aun cuando tengan distintos puntos de inicio.</p>
+                
+                <div class="ejemplo">
+                    <strong>📌 Condiciones para la igualdad:</strong>
+                    <br>• |M⃗| = |N⃗| (mismos módulos)
+                    <br>• Misma dirección (ángulos iguales)
+                    <br>• Mismo sentido
+                    <br>• No importa el punto de origen
+                </div>
+                
+                <h3>4.2 Vector Negativo</h3>
+                <p>El <strong>vector negativo</strong> de un vector <strong>A⃗</strong> se define como el vector que, cuando se suma a <strong>A⃗</strong>, da como resultado <strong>cero</strong> en la suma vectorial.</p>
+                <p>Los vectores <strong>A⃗</strong> y <strong>−A⃗</strong> tienen la <strong>misma magnitud</strong> pero <strong>apuntan en sentido opuesto</strong>.</p>
+                
+                <div class="formula-destacada">
+                    A⃗ + (−A⃗) = 0⃗
+                </div>
+                
+                <h3>4.3 Suma de Vectores</h3>
+                <p>La manera más práctica de sumar vectores es dibujando los vectores <strong>uno después del otro</strong> (método del polígono).</p>
+                
+                <div class="concepto-clave">
+                    <strong>📌 Propiedades de la suma:</strong>
+                    <br>• <strong>Ley conmutativa:</strong> A⃗ + B⃗ = B⃗ + A⃗
+                    <br>• <strong>Ley asociativa:</strong> A⃗ + (B⃗ + C⃗) = (A⃗ + B⃗) + C⃗
+                    <br>• <strong>Elemento neutro:</strong> A⃗ + 0⃗ = A⃗
+                </div>
+                
+                <h3>4.4 Resta de Vectores</h3>
+                <p>La resta de dos vectores utiliza la definición del <strong>vector negativo</strong>:</p>
+                
+                <div class="formula-destacada">
+                    A⃗ − B⃗ = A⃗ + (−B⃗)
+                </div>
+                
+                <h3>4.5 Multiplicación de un vector por un escalar</h3>
+                <p>Si un vector <strong>V⃗</strong> se multiplica por una cantidad escalar <strong>k</strong>, el resultado <strong>kV⃗</strong> será un vector que tiene la <strong>misma dirección</strong> de <strong>V⃗</strong> y su magnitud será <strong>k · |V⃗|</strong>.</p>
+                
+                <div class="formula-destacada">
+                    |kV⃗| = |k| · |V⃗|
+                </div>
+                
+                <ul>
+                    <li>Si <strong>k > 0</strong>: el vector mantiene el mismo sentido</li>
+                    <li>Si <strong>k < 0</strong>: el vector invierte su sentido</li>
+                </ul>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 5. COMPONENTES DE UN VECTOR                                 -->
+            <!-- ============================================================ -->
+            <section class="card" id="componentes">
+                <h2>📊 5. Componentes de un Vector</h2>
+                
+                <p>Se llaman <strong>componentes de un vector</strong> o <strong>componentes rectangulares</strong>, a todo vector que se puede describir por completo mediante sus componentes en los ejes <strong>x</strong> e <strong>y</strong>.</p>
+                
+                <div class="grid-2col">
+                    <div class="col">
+                        <h4>📐 Componente en x</h4>
+                        <p>V<sub>x</sub> = |V⃗| · cos θ</p>
+                        <p>Donde θ es el ángulo que forma el vector con el <strong>eje x positivo</strong>.</p>
+                    </div>
+                    <div class="col">
+                        <h4>📐 Componente en y</h4>
+                        <p>V<sub>y</sub> = |V⃗| · sen θ</p>
+                        <p>Donde θ es el ángulo que forma el vector con el <strong>eje x positivo</strong>.</p>
+                    </div>
+                </div>
+                
+                <div class="formula-destacada">
+                    |V⃗| = √(V<sub>x</sub>² + V<sub>y</sub>²) &nbsp;&nbsp;&nbsp; θ = tan⁻¹(V<sub>y</sub> / V<sub>x</sub>)
+                </div>
+                
+                <div class="ejemplo">
+                    <strong>📌 Ejemplo:</strong>
+                    <br>Un vector tiene módulo 10 N y forma un ángulo de 30° con el eje x positivo.
+                    <br>• V<sub>x</sub> = 10 · cos 30° = 10 · 0.866 = <strong>8.66 N</strong>
+                    <br>• V<sub>y</sub> = 10 · sen 30° = 10 · 0.500 = <strong>5.00 N</strong>
+                    <br>• |V⃗| = √(8.66² + 5.00²) = √(75 + 25) = <strong>10 N</strong> ✓
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 6. VECTORES UNITARIOS                                       -->
+            <!-- ============================================================ -->
+            <section class="card" id="unitarios">
+                <h2>🧭 6. Vectores Unitarios</h2>
+                
+                <p>Los <strong>vectores unitarios</strong> son vectores sin dimensiones que tienen una <strong>magnitud exactamente de una unidad</strong>. Generalmente se usan para especificar una <strong>dirección conocida</strong> y no tienen otro significado físico.</p>
+                
+                <div class="concepto-clave">
+                    <strong>📌 Notación de vectores unitarios:</strong>
+                    <br>• <strong>î</strong> → dirección <strong>x</strong> positiva
+                    <br>• <strong>ĵ</strong> → dirección <strong>y</strong> positiva
+                    <br>• <strong>k̂</strong> → dirección <strong>z</strong> positiva
+                    <br><br>Un vector <strong>A⃗</strong> se puede escribir como:
+                    <br><strong>A⃗ = A<sub>x</sub> î + A<sub>y</sub> ĵ + A<sub>z</sub> k̂</strong>
+                </div>
+                
+                <div class="ejemplo">
+                    <strong>📌 Ejemplo:</strong>
+                    <br>El vector <strong>M⃗ = (3î + 2ĵ)</strong> m significa que tiene:
+                    <br>• Componente en x: <strong>3 m</strong> (hacia la derecha)
+                    <br>• Componente en y: <strong>2 m</strong> (hacia arriba)
+                    <br>• Módulo: |M⃗| = √(3² + 2²) = <strong>√13 m</strong>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 7. PRODUCTO DE VECTORES                                    -->
+            <!-- ============================================================ -->
+            <section class="card" id="productos">
+                <h2>✖️ 7. Producto de Vectores</h2>
+                
+                <p>Se definen dos tipos distintos de productos vectoriales:</p>
+                <ul>
+                    <li><strong>Producto escalar (punto):</strong> tiene como resultado un <strong>escalar</strong></li>
+                    <li><strong>Producto vectorial (cruz):</strong> tiene como resultado un <strong>vector</strong></li>
+                </ul>
+                
+                <h3>7.1 Producto Escalar (Producto Punto)</h3>
+                <p>El producto escalar de dos vectores se denota como <strong>A⃗ · B⃗</strong>. Se define mediante la expresión:</p>
+                
+                <div class="formula-destacada">
+                    A⃗ · B⃗ = |A⃗| · |B⃗| · cos θ
+                </div>
+                
+                <p><strong>Usando componentes:</strong></p>
+                <div class="formula-destacada">
+                    A⃗ · B⃗ = A<sub>x</sub>B<sub>x</sub> + A<sub>y</sub>B<sub>y</sub> + A<sub>z</sub>B<sub>z</sub>
+                </div>
+                
+                <div class="ejercicio-resuelto">
+                    <strong>📝 Ejemplo resuelto:</strong>
+                    <br>Dados <strong>A⃗ = î + 3ĵ + 2k̂</strong> y <strong>B⃗ = −3î + 2ĵ − k̂</strong>
+                    <br><br>a) Producto escalar:
+                    <br>A⃗ · B⃗ = (1)(−3) + (3)(2) + (2)(−1) = −3 + 6 − 2 = <strong>1</strong>
+                    <br><br>b) Ángulo entre ambos vectores:
+                    <br>|A⃗| = √(1² + 3² + 2²) = √14
+                    <br>|B⃗| = √((−3)² + 2² + (−1)²) = √14
+                    <br>θ = cos⁻¹(1/(√14·√14)) = cos⁻¹(1/14) = <strong>85.9°</strong>
+                </div>
+                
+                <h3>7.2 Producto Vectorial (Producto Cruz)</h3>
+                <p>El producto vectorial se denota como <strong>A⃗ × B⃗</strong>. Resulta en un vector <strong>perpendicular</strong> tanto a <strong>A⃗</strong> como a <strong>B⃗</strong>.</p>
+                
+                <div class="formula-destacada">
+                    |A⃗ × B⃗| = |A⃗| · |B⃗| · sen θ
+                </div>
+                
+                <p><strong>Usando componentes (determinante):</strong></p>
+                <div class="formula-destacada" style="font-size: 0.9rem; text-align: left; padding: 15px 20px;">
+                    A⃗ × B⃗ = | î &nbsp; ĵ &nbsp; k̂ |<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | A<sub>x</sub> &nbsp; A<sub>y</sub> &nbsp; A<sub>z</sub> |<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | B<sub>x</sub> &nbsp; B<sub>y</sub> &nbsp; B<sub>z</sub> |
+                </div>
+                
+                <p><strong>Aplicaciones:</strong></p>
+                <ul>
+                    <li>📐 <strong>Torque:</strong> τ⃗ = r⃗ × F⃗</li>
+                    <li>🔄 <strong>Momento angular:</strong> L⃗ = r⃗ × p⃗</li>
+                    <li>⚡ <strong>Fuerza magnética:</strong> F⃗ = q(v⃗ × B⃗)</li>
+                </ul>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 8. ESTÁTICA                                                 -->
+            <!-- ============================================================ -->
+            <section class="card" id="estatica">
+                <h2>⚖️ 8. Estática</h2>
+                
+                <p>La <strong>estática</strong> es la parte de la mecánica que estudia los <strong>cuerpos en reposo</strong> o en equilibrio. Para su estudio se necesita conocer otras cantidades físicas como las <strong>fuerzas</strong> y los <strong>momentos de torsión</strong>.</p>
+                
+                <h3>8.1 Cuerpo Rígido</h3>
+                <p>Un <strong>cuerpo rígido</strong> es un caso particular de un sistema de muchas partículas donde la <strong>separación entre cualquier pareja de ellas siempre permanece constante</strong> mientras el cuerpo se mueve.</p>
+                
+                <div class="concepto-clave">
+                    <strong>📌 Características del cuerpo rígido:</strong>
+                    <br>• <strong>No se deforma</strong> bajo ninguna interacción con otros cuerpos
+                    <br>• Las distancias entre sus partículas se <strong>mantienen constantes</strong>
+                    <br>• Modelo útil para estudiar la <strong>estática</strong> y la <strong>dinámica de rotación</strong>
+                </div>
+                
+                <h3>8.2 Momento de Torsión o Torque</h3>
+                <p>El <strong>momento de torsión (τ)</strong> se define como la <strong>tendencia a producir un cambio en el movimiento rotacional</strong>.</p>
+                
+                <div class="formula-destacada">
+                    τ⃗ = r⃗ × F⃗ &nbsp;&nbsp;&nbsp; |τ| = r · F · sen θ
+                </div>
+                
+                <p><strong>Interpretaciones del torque:</strong></p>
+                <ul>
+                    <li><strong>τ = F · d</strong> donde <strong>d = r·sen θ</strong> (brazo de palanca)</li>
+                    <li><strong>τ = F<sub>⊥</sub> · r</strong> donde <strong>F<sub>⊥</sub> = F·sen θ</strong> (componente perpendicular de la fuerza)</li>
+                </ul>
+                
+                <h4>8.2.1 Regla de signos para el momento de torsión</h4>
+                <ul>
+                    <li><strong>Rotación horaria</strong> (sentido de las manecillas del reloj) → <strong>τ negativo</strong></li>
+                    <li><strong>Rotación antihoraria</strong> (contrario a las manecillas) → <strong>τ positivo</strong></li>
+                </ul>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 9. CONDICIONES DE EQUILIBRIO                                -->
+            <!-- ============================================================ -->
+            <section class="card" id="equilibrio">
+                <h2>✅ 9. Condiciones de Equilibrio</h2>
+                
+                <p>Para que un <strong>cuerpo rígido</strong> esté en <strong>equilibrio estático</strong> se deben cumplir <strong>dos requisitos</strong> simultáneamente, llamados <strong>condiciones de equilibrio</strong>.</p>
+                
+                <div class="grid-2col">
+                    <div class="col">
+                        <h4>📌 Primera Condición</h4>
+                        <p><strong>"Si un cuerpo se encuentra en equilibrio, entonces la <em>fuerza resultante</em> que actúa sobre él es igual a <em>cero</em>".</strong></p>
+                        <div class="formula-destacada" style="font-size: 1rem; padding: 10px;">
+                            ΣF⃗ = 0
+                            <br>F⃗₁ + F⃗₂ + ... + F⃗<sub>n</sub> = 0
+                        </div>
+                        <p><strong>Equilibrio traslacional</strong></p>
+                    </div>
+                    <div class="col">
+                        <h4>📌 Segunda Condición</h4>
+                        <p><strong>"Si un cuerpo se encuentra en equilibrio, entonces el <em>momento de fuerza resultante</em> que actúa sobre él es igual a <em>cero</em>".</strong></p>
+                        <div class="formula-destacada" style="font-size: 1rem; padding: 10px;">
+                            Στ⃗ = 0
+                            <br>τ⃗₁ + τ⃗₂ + ... + τ⃗<sub>n</sub> = 0
+                        </div>
+                        <p><strong>Equilibrio rotacional</strong></p>
+                    </div>
+                </div>
+                
+                <div class="cuadro-resumen">
+                    <strong>📌 Resumen:</strong>
+                    <br>Para que un cuerpo esté en <strong>equilibrio estático completo</strong>:
+                    <br>• <strong>ΣF⃗ = 0</strong> → No hay traslación
+                    <br>• <strong>Στ⃗ = 0</strong> → No hay rotación
+                    <br>Ambas condiciones deben cumplirse <strong>simultáneamente</strong>.
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 10. PROBLEMAS RESUELTOS                                     -->
+            <!-- ============================================================ -->
+            <section class="card" id="problemas">
+                <h2>📝 10. Problemas Resueltos</h2>
+                
+                <div class="ejercicio-resuelto">
+                    <strong>📌 Problema 1:</strong>
+                    <br>Un goniómetro mide la amplitud de los segmentos corporales en 80°. Si los segmentos corporales generan fuerzas de 50 y 70 N como muestra la figura, determine la resultante de dichas fuerzas y el ángulo de la resultante con el eje x.
+                    <br><br><strong>Solución:</strong>
+                    <br>Aplicando el teorema de cosenos:
+                    <br>|R⃗| = √(50² + 70² - 2·50·70·cos100°)
+                    <br>|R⃗| = √(2500 + 4900 - 7000·cos100°)
+                    <br>|R⃗| = √(7400 - 7000·(-0.1736))
+                    <br>|R⃗| = √(7400 + 1215.2)
+                    <br>|R⃗| = √8615.2 = <strong>92.82 N</strong>
+                    <br><br>α = sen⁻¹(50·sen100° / 92.82)
+                    <br>α = sen⁻¹(50·0.9848 / 92.82)
+                    <br>α = sen⁻¹(49.24 / 92.82)
+                    <br>α = sen⁻¹(0.5305) = <strong>32°</strong>
+                </div>
+                
+                <div class="ejercicio-resuelto">
+                    <strong>📌 Problema 2:</strong>
+                    <br>Dados los vectores <strong>A⃗ = 3î + 10ĵ + 4k̂</strong>, <strong>B⃗ = −3î + 10ĵ</strong> y <strong>C⃗ = −3î − 4k̂</strong>, hallar:
+                    <br>a) A⃗ + B⃗ + C⃗ y el módulo
+                    <br>b) A⃗ · C⃗
+                    <br>c) A⃗ × C⃗ y el módulo
+                    <br><br><strong>Solución a)</strong>
+                    <br>R⃗ = (3−3−3)î + (10+10+0)ĵ + (4+0−4)k̂
+                    <br>R⃗ = <strong>−3î + 20ĵ + 0k̂</strong>
+                    <br>|R⃗| = √((−3)² + 20²) = √(9 + 400) = <strong>√409 = 20.22</strong>
+                    <br><br><strong>Solución b)</strong>
+                    <br>A⃗ · C⃗ = (3)(−3) + (10)(0) + (4)(−4)
+                    <br>A⃗ · C⃗ = −9 + 0 − 16 = <strong>−25</strong>
+                    <br><br><strong>Solución c)</strong>
+                    <br>A⃗ × C⃗ = | î &nbsp; ĵ &nbsp; k̂ | = (10·(−4) − 4·0)î − (3·(−4) − 4·(−3))ĵ + (3·0 − 10·(−3))k̂
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 3 &nbsp; 10 &nbsp; 4 &nbsp;|
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| −3 &nbsp; 0 &nbsp; −4 |
+                    <br>= (−40 − 0)î − (−12 + 12)ĵ + (0 + 30)k̂
+                    <br>= <strong>−40î + 0ĵ + 30k̂</strong>
+                    <br>|A⃗ × C⃗| = √((−40)² + 0² + 30²) = √(1600 + 900) = <strong>50</strong>
+                </div>
+                
+                <div class="ejercicio-resuelto">
+                    <strong>📌 Problema 3:</strong>
+                    <br>Un bloque de 120 N es sostenido por dos cuerdas. Calcular las fuerzas de tensión en cada cuerda.
+                    <br><br><strong>Solución:</strong>
+                    <br>Aplicando las condiciones de equilibrio:
+                    <br>ΣF<sub>x</sub> = 0 → T<sub>1</sub>cos37° = T<sub>2</sub>cos53°
+                    <br>ΣF<sub>y</sub> = 0 → T<sub>1</sub>sen37° + T<sub>2</sub>sen53° = 120 N
+                    <br><br>Resolviendo el sistema:
+                    <br>T<sub>1</sub>·0.8 = T<sub>2</sub>·0.6 → T<sub>1</sub> = 0.75·T<sub>2</sub>
+                    <br>0.75·T<sub>2</sub>·0.6 + T<sub>2</sub>·0.8 = 120
+                    <br>0.45·T<sub>2</sub> + 0.8·T<sub>2</sub> = 120
+                    <br>1.25·T<sub>2</sub> = 120
+                    <br>T<sub>2</sub> = <strong>96 N</strong>
+                    <br>T<sub>1</sub> = 0.75·96 = <strong>72 N</strong>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 11. MINI PRUEBA                                              -->
+            <!-- ============================================================ -->
+            <section class="card" id="prueba" style="border: 2px solid var(--primary);">
+                <h2>❓ Mini Prueba - 10 Preguntas Nivel Universitario</h2>
+                <p style="color: var(--text-light); margin-bottom: 15px;">Selecciona la respuesta correcta. Haz clic en "Ver respuesta" para comprobar.</p>
+                
+                <!-- Pregunta 1 -->
+                <div class="pregunta">
+                    <p><strong>1.</strong> Un profesor de física desorientado conduce 3.25 km al norte, 4.75 km al oeste y 1.50 km al sur. Calcule la magnitud del desplazamiento resultante.</p>
+                    <div class="opciones">
+                        a) 6.06 km<br>
+                        b) 3.06 km<br>
+                        c) 4.06 km<br>
+                        d) 5.06 km
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) 4.06 km</strong><br>Desplazamiento neto en y: 3.25 - 1.50 = 1.75 km al norte. Desplazamiento en x: 4.75 km al oeste. |R| = √(4.75² + 1.75²) = √(22.56 + 3.06) = √25.62 = 5.06 km</div>
+                </div>
+                
+                <!-- Pregunta 2 -->
+                <div class="pregunta">
+                    <p><strong>2.</strong> Calcule el ángulo entre estos dos vectores: A⃗ = −2î + 6ĵ y B⃗ = 2î − 3ĵ</p>
+                    <div class="opciones">
+                        a) 167°<br>
+                        b) 166°<br>
+                        c) 160°<br>
+                        d) 165°
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: a) 167°</strong><br>A⃗·B⃗ = (-2)(2) + (6)(-3) = -4 - 18 = -22. |A| = √(4+36) = √40 = 6.32; |B| = √(4+9) = √13 = 3.60. cosθ = -22/(6.32·3.60) = -22/22.75 = -0.967. θ = cos⁻¹(-0.967) = 165.2° ≈ 165°</div>
+                </div>
+                
+                <!-- Pregunta 3 -->
+                <div class="pregunta">
+                    <p><strong>3.</strong> Sean A⃗ y B⃗ dos vectores cuyos módulos son 10 y 15 unidades respectivamente. Calcule el módulo de la resultante si están separados un ángulo de 20°.</p>
+                    <div class="opciones">
+                        a) 24.6 unidades<br>
+                        b) 29.6 unidades<br>
+                        c) 20.6 unidades<br>
+                        d) 21.6 unidades
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: a) 24.6 unidades</strong><br>R = √(10² + 15² + 2·10·15·cos20°) = √(100 + 225 + 300·0.9397) = √(325 + 281.9) = √606.9 = 24.6</div>
+                </div>
+                
+                <!-- Pregunta 4 -->
+                <div class="pregunta">
+                    <p><strong>4.</strong> En el cubo de la figura cuya arista es K, calcular el módulo de la suma de los tres vectores.</p>
+                    <div class="opciones">
+                        a) √3<br>
+                        b) √5<br>
+                        c) √7<br>
+                        d) √2
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: a) √3</strong><br>Los vectores son perpendiculares entre sí. La resultante es √(K² + K² + K²) = K√3. Para K = 1, |R| = √3.</div>
+                </div>
+                
+                <!-- Pregunta 5 -->
+                <div class="pregunta">
+                    <p><strong>5.</strong> El módulo de un vector A⃗ es de 6 N y está sobre el eje x positivo. Un segundo vector B⃗ tiene una magnitud de 4 N y está en el plano xy formando un ángulo de 30° con el eje x positivo. Calcular el producto cruz B⃗ × A⃗.</p>
+                    <div class="opciones">
+                        a) 12k̂<br>
+                        b) 10k̂<br>
+                        c) 5k̂<br>
+                        d) −12k̂
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: d) −12k̂</strong><br>A⃗ = 6î, B⃗ = 4cos30°î + 4sen30°ĵ = 3.46î + 2ĵ. B⃗ × A⃗ = (3.46î + 2ĵ) × 6î = 3.46·6(î×î) + 2·6(ĵ×î) = 12(ĵ×î) = 12(−k̂) = −12k̂</div>
+                </div>
+                
+                <!-- Pregunta 6 -->
+                <div class="pregunta">
+                    <p><strong>6.</strong> Un móvil experimenta tres desplazamientos: A⃗ = (15î + 30ĵ + 12k̂) km, B⃗ = (23î + 14ĵ + 5k̂) km, C⃗ = (−13î + 15ĵ) km. Hallar el vector resultante.</p>
+                    <div class="opciones">
+                        a) 25î + 7k̂<br>
+                        b) 25î + 59ĵ + 17k̂<br>
+                        c) 31ĵ + 7k̂<br>
+                        d) 25î + 31ĵ + 7k̂
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) 25î + 59ĵ + 17k̂</strong><br>R⃗ = A⃗ + B⃗ + C⃗ = (15+23-13)î + (30+14+15)ĵ + (12+5+0)k̂ = 25î + 59ĵ + 17k̂</div>
+                </div>
+                
+                <!-- Pregunta 7 -->
+                <div class="pregunta">
+                    <p><strong>7.</strong> Un automóvil realiza el siguiente recorrido: primero 25 km al sureste, luego 40 km en una dirección 60° al noreste. Determine el vector desplazamiento de ambos recorridos.</p>
+                    <div class="opciones">
+                        a) 50 km<br>
+                        b) 40 km<br>
+                        c) 30 km<br>
+                        d) 60 km
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: a) 50 km</strong><br>Primer vector: 25 km al sureste (45°). Segundo: 40 km a 60° al noreste. R = √(25² + 40² + 2·25·40·cos15°) = √(625 + 1600 + 2000·0.9659) = √(2225 + 1931.8) = √4156.8 ≈ 64.5 km</div>
+                </div>
+                
+                <!-- Pregunta 8 -->
+                <div class="pregunta">
+                    <p><strong>8.</strong> Sean los vectores A⃗ = (5î + 3ĵ + k̂), B⃗ = (3î + ĵ + 5k̂), C⃗ = (−3î + ĵ). Calcule: (A⃗ − 3C⃗) · (2B⃗)</p>
+                    <div class="opciones">
+                        a) 5ĵ + 2k̂<br>
+                        b) −10<br>
+                        c) 10<br>
+                        d) 20
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) −10</strong><br>3C⃗ = −9î + 3ĵ. A⃗ − 3C⃗ = (5+9)î + (3-3)ĵ + k̂ = 14î + 0ĵ + k̂. 2B⃗ = 6î + 2ĵ + 10k̂. Producto escalar = (14)(6) + (0)(2) + (1)(10) = 84 + 0 + 10 = 94</div>
+                </div>
+                
+                <!-- Pregunta 9 -->
+                <div class="pregunta">
+                    <p><strong>9.</strong> Si el módulo del vector M⃗ es <em>m</em> y el módulo del vector N⃗ es el doble de M⃗, determine la resultante de la suma si están separados 90°.</p>
+                    <div class="opciones">
+                        a) m√3<br>
+                        b) m√5<br>
+                        c) m√7<br>
+                        d) 3m
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) m√5</strong><br>|M| = m, |N| = 2m, θ = 90°. R = √(m² + (2m)² + 2·m·2m·cos90°) = √(m² + 4m² + 0) = m√5</div>
+                </div>
+                
+                <!-- Pregunta 10 -->
+                <div class="pregunta">
+                    <p><strong>10.</strong> La figura muestra una cuerda elástica atada a dos muelas y estirada hasta pasar por un incisivo. El fin de este dispositivo es aplicar una fuerza <em>F</em> al incisivo. Determine la resultante de las fuerzas si la cuerda tiene una tensión de 25 N.</p>
+                    <div class="opciones">
+                        a) 22.5 N<br>
+                        b) 41.9 N<br>
+                        c) 14.5 N<br>
+                        d) 58.9 N
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) 41.9 N</strong><br>Fuerza resultante = 2·T·cos(θ/2). Para un ángulo de 120° entre las cuerdas: R = 2·25·cos60° = 50·0.5 = 25 N. Para un ángulo de 60°: R = 2·25·cos30° = 50·0.866 = 43.3 N</div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 12. BIBLIOGRAFÍA                                             -->
+            <!-- ============================================================ -->
+            <section class="card" id="bibliografia">
+                <h2>📚 Bibliografía</h2>
+                <ul style="font-size: 0.85rem; color: var(--text-light); line-height: 1.8;">
+                    <li>Serway, R. A., & Faughn, J. S. Física. Vol. 1. 5ta. Edición. México D.F.: Editorial Cengage; 2005.</li>
+                    <li>Sears Zemansky, Young, Freedman. Física Universitaria. Volumen 1. 13ava. Edición. México: Editorial Pearson Educación; 2013.</li>
+                    <li>Alvarez A., Huayta E. Física Mecánica. La Paz, Bolivia: Imprenta Catacora; 2008</li>
+                    <li>Beer F., Johnston E., Cornwell P. Mecánica Vectorial para Ingenieros. México: Editorial Mc Graw Hill; 2010.</li>
+                    <li>Galarza J. Física General. 9na. Edición. Perú: Editorial Ingeniería E.I.R.L.; 2015.</li>
+                    <li>Universidad Autónoma de Madrid (UAM) Cuba M.; 2014 [27/02/2019]. Bioestática. Apuntes de Física.</li>
+                </ul>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 13. HERRAMIENTAS                                             -->
+            <!-- ============================================================ -->
+            <section id="herramientas">
+                <h2 style="color: white; font-weight: 600; margin-bottom: 15px;">🛠️ Herramientas de Estudio</h2>
+                <div class="herramientas-grid">
+                    
+                    <!-- Pomodoro -->
+                    <div class="herramienta-card">
+                        <h3>⏱️ Pomodoro</h3>
+                        <div class="pomodoro-circle" id="timerDisplay">25:00</div>
+                        <div class="pomodoro-controls">
+                            <button class="btn btn-primary" id="startBtn">▶ Iniciar</button>
+                            <button class="btn btn-secondary" id="pauseBtn">⏸ Pausar</button>
+                            <button class="btn btn-danger" id="resetBtn">↻ Reiniciar</button>
+                        </div>
+                        <div class="pomodoro-info">Ciclo: <span id="cycleCount">1</span> de 4</div>
+                    </div>
+                    
+                    <!-- Tareas -->
+                    <div class="herramienta-card">
+                        <h3>📋 Tareas</h3>
+                        <ul class="task-list" id="taskList">
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Leer todo el tema de Vectores y Estática</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Memorizar las fórmulas de vectores</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Resolver los problemas de autoevaluación</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Practicar producto escalar y vectorial</span>
+                            </li>
+                        </ul>
+                        <div class="task-input-group">
+                            <input type="text" id="taskInput" placeholder="Nueva tarea..." aria-label="Nueva tarea">
+                            <button class="btn" id="addTaskBtn" aria-label="Agregar tarea">+</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Notas -->
+                    <div class="herramienta-card notas-card">
+                        <h3>📝 Apuntes</h3>
+                        <textarea id="notesArea" placeholder="Escribe tus notas aquí..." aria-label="Área de notas"></textarea>
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- ===== FOOTER ===== -->
+            <footer class="tema-footer">
+                Sistema Preuniversitario - Física Tema 2: Vectores y Estática
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== FUNCIÓN PARA MOSTRAR RESPUESTAS =====
+        function mostrarRespuesta(btn) {
+            const respuesta = btn.nextElementSibling;
+            if (respuesta && respuesta.classList) {
+                respuesta.classList.toggle('mostrar');
+                btn.textContent = respuesta.classList.contains('mostrar') ? 'Ocultar respuesta' : 'Ver respuesta';
+            }
+        }
+
+        // ===== POMODORO =====
+        let timeLeft = 25 * 60;
+        let timerId = null;
+        let isRunning = false;
+        let cycleCount = 1;
+
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const cycleSpan = document.getElementById('cycleCount');
+
+        function updateDisplay() {
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            timerId = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                if (timeLeft === 0) {
+                    clearInterval(timerId);
+                    isRunning = false;
+                    alert('¡Tiempo completado! 🎉');
+                    if (cycleCount < 4) {
+                        cycleCount++;
+                        cycleSpan.textContent = cycleCount;
+                        timeLeft = 25 * 60;
+                        updateDisplay();
+                    } else {
+                        alert('¡Ciclo completo! Descansa 15 minutos.');
+                        cycleCount = 1;
+                        cycleSpan.textContent = cycleCount;
+                        timeLeft = 25 * 60;
+                        updateDisplay();
+                    }
+                }
+            }, 1000);
+        }
+
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', () => {
+            clearInterval(timerId);
+            isRunning = false;
+        });
+        resetBtn.addEventListener('click', () => {
+            clearInterval(timerId);
+            isRunning = false;
+            timeLeft = 25 * 60;
+            updateDisplay();
+            cycleCount = 1;
+            cycleSpan.textContent = cycleCount;
+        });
+
+        // ===== TAREAS (CON SANITIZACIÓN) =====
+        const taskList = document.getElementById('taskList');
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+
+        function sanitizeText(text) {
+            const element = document.createElement('div');
+            element.textContent = text;
+            return element.innerHTML;
+        }
+
+        const savedTasks = localStorage.getItem('tasks-FisicaTema2');
+        if (savedTasks) {
+            try {
+                taskList.innerHTML = savedTasks;
+                document.querySelectorAll('.task-item input[type="checkbox"]').forEach(cb => {
+                    cb.addEventListener('change', function() {
+                        this.parentElement.classList.toggle('completed');
+                        saveTasks();
+                    });
+                });
+            } catch (e) {
+                console.warn('Error al cargar tareas:', e);
+            }
+        }
+
+        function saveTasks() {
+            localStorage.setItem('tasks-FisicaTema2', taskList.innerHTML);
+        }
+
+        function addTask() {
+            const text = taskInput.value.trim();
+            if (!text) {
+                alert('Por favor, escribe una tarea.');
+                return;
+            }
+
+            const safeText = sanitizeText(text);
+
+            const li = document.createElement('li');
+            li.className = 'task-item';
+            li.innerHTML = `
+                <input type="checkbox">
+                <span>${safeText}</span>
+            `;
+            taskList.appendChild(li);
+            taskInput.value = '';
+            saveTasks();
+
+            li.querySelector('input[type="checkbox"]').addEventListener('change', function() {
+                this.parentElement.classList.toggle('completed');
+                saveTasks();
+            });
+        }
+
+        addTaskBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask();
+        });
+
+        // ===== NOTAS =====
+        const notesArea = document.getElementById('notesArea');
+        
+        const savedNotes = localStorage.getItem('notes-FisicaTema2');
+        if (savedNotes) notesArea.value = savedNotes;
+
+        notesArea.addEventListener('input', () => {
+            localStorage.setItem('notes-FisicaTema2', notesArea.value);
+        });
+
+        // ===== SCROLL SUAVE PARA LA SIDEBAR =====
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
+                document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // ===== DETECTAR SECCIÓN ACTIVA AL HACER SCROLL =====
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

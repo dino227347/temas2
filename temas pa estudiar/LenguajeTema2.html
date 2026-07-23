@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenguaje - Signos de Puntuación | Sistema Preuniversitario</title>
+    
+    <!-- ===== CSS BASE REUTILIZADO ===== -->
+    <link rel="stylesheet" href="tema-base.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== SOBRESCRITURA DE VARIABLES PARA LENGUAJE ===== */
+        :root {
+            --primary: #d97706;
+            --primary-dark: #92400e;
+            --primary-light: #fcd34d;
+            --primary-bg: #fffbeb;
+        }
+
+        /* ===== SOBRESCRITURA DEL FONDO ===== */
+        body {
+            background: linear-gradient(135deg, #0f172a, #92400e);
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: var(--sidebar-width, 280px);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-brand .logo {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .sidebar-brand h2 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .sidebar-brand span {
+            color: var(--primary-light);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+        }
+
+        .sidebar-nav .nav-label {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            padding: 15px 0 8px 0;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-bottom: 2px;
+            position: relative;
+        }
+
+        .sidebar-nav a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+
+        .sidebar-nav a.active {
+            background: rgba(217, 119, 6, 0.25);
+            color: white;
+            font-weight: 500;
+        }
+
+        .sidebar-nav a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10%;
+            height: 80%;
+            width: 3px;
+            background: var(--primary-light);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .sidebar-nav a .icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-nav a .badge-nav {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1px 10px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .sidebar-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        /* ===== CONTENIDO PRINCIPAL ===== */
+        .main-content {
+            flex: 1;
+            padding: 25px 30px;
+            max-width: calc(100% - var(--sidebar-width, 280px));
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+        }
+
+        .contenedor-tema {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ===== BADGES ===== */
+        .badge-success {
+            background: var(--success);
+        }
+
+        .badge-dark {
+            background: #1f2937;
+        }
+
+        /* ===== COMPONENTES PARA LENGUAJE ===== */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+        .grid-2col .col {
+            background: var(--gray-bg);
+            padding: 15px 18px;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .grid-2col .col h4 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .tabla-signos {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .tabla-signos th {
+            background: var(--primary);
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .tabla-signos td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--gray-light);
+            color: var(--text-dark);
+        }
+
+        .tabla-signos tr:hover td {
+            background: var(--gray-bg);
+        }
+
+        .tabla-signos .ejemplo-texto {
+            color: var(--primary-dark);
+            font-style: italic;
+        }
+
+        .lista-signos {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lista-signos li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-bg);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .lista-signos li::before {
+            content: "◆";
+            color: var(--primary);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .lista-signos li:last-child {
+            border-bottom: none;
+        }
+
+        .ejemplo-cita {
+            background: #fef3c7;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin: 8px 0;
+            font-style: italic;
+        }
+
+        .ejemplo-cita strong {
+            color: var(--primary-dark);
+            font-style: normal;
+        }
+
+        .signo-destacado {
+            display: inline-block;
+            background: var(--primary-bg);
+            padding: 2px 12px;
+            border-radius: 4px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+        }
+
+        /* ===== HERRAMIENTAS ===== */
+        .herramientas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .herramienta-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .herramienta-card h3 {
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 240px;
+            }
+            .herramientas-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 100%;
+            }
+
+            body {
+                flex-direction: column;
+                padding: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 12px 15px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+
+            .sidebar-brand {
+                padding-bottom: 0;
+                border-bottom: none;
+                margin-bottom: 0;
+                flex: 0 0 auto;
+            }
+
+            .sidebar-brand .logo {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+
+            .sidebar-brand h2 {
+                font-size: 0.8rem;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 3px;
+                flex: 1;
+                padding: 0 8px;
+            }
+
+            .sidebar-nav .nav-label {
+                display: none;
+            }
+
+            .sidebar-nav a {
+                padding: 4px 10px;
+                font-size: 0.65rem;
+                gap: 3px;
+                border-radius: 6px;
+            }
+
+            .sidebar-nav a .icon {
+                font-size: 0.8rem;
+                width: 16px;
+            }
+
+            .sidebar-nav a .badge-nav {
+                display: none;
+            }
+
+            .sidebar-nav a.active::before {
+                display: none;
+            }
+
+            .sidebar-footer {
+                display: none;
+            }
+
+            .main-content {
+                max-width: 100%;
+                padding: 12px 15px;
+                flex: 1;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .tabla-signos {
+                display: block;
+                overflow-x: auto;
+                font-size: 0.8rem;
+            }
+
+            .tabla-signos th,
+            .tabla-signos td {
+                padding: 8px 10px;
+                min-width: 80px;
+            }
+
+            .herramientas-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar-nav a {
+                font-size: 0.55rem;
+                padding: 3px 7px;
+            }
+
+            .sidebar-nav a .icon {
+                font-size: 0.7rem;
+                width: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" role="navigation" aria-label="Navegación principal">
+        <div class="sidebar-brand">
+            <div class="logo">✍️</div>
+            <h2>Lenguaje <span>PSA</span></h2>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-label">Contenido</div>
+            <a href="#introduccion" class="active">
+                <span class="icon">📝</span> Introducción
+            </a>
+            <a href="#definicion">
+                <span class="icon">📖</span> Definición
+            </a>
+            <a href="#punto">
+                <span class="icon">🔴</span> El Punto
+            </a>
+            <a href="#coma">
+                <span class="icon">⏸️</span> La Coma
+            </a>
+            <a href="#puntoycoma">
+                <span class="icon">🔹</span> Punto y Coma
+            </a>
+            <a href="#dospuntos">
+                <span class="icon">⏺️</span> Dos Puntos
+            </a>
+            <a href="#parentesis">
+                <span class="icon">( )</span> Paréntesis
+            </a>
+            <a href="#corchetes">
+                <span class="icon">[ ]</span> Corchetes
+            </a>
+            <a href="#raya">
+                <span class="icon">—</span> Raya
+            </a>
+            <a href="#comillas">
+                <span class="icon">" "</span> Comillas
+            </a>
+            <a href="#interrogacion">
+                <span class="icon">❓</span> Interrogación
+            </a>
+            <a href="#suspensivos">
+                <span class="icon">…</span> Suspensivos
+            </a>
+            <a href="#auxiliares">
+                <span class="icon">🔧</span> Signos auxiliares
+            </a>
+            <a href="#prueba">
+                <span class="icon">❓</span> Mini Prueba
+                <span class="badge-nav">10</span>
+            </a>
+            <a href="#herramientas">
+                <span class="icon">🛠️</span> Herramientas
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Sistema Preuniversitario
+        </div>
+    </aside>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <main class="main-content">
+        <div class="contenedor-tema">
+
+            <!-- ===== HEADER ===== -->
+            <header class="tema-header" id="introduccion">
+                <h1>✍️ Signos de Puntuación</h1>
+                <p>Normas para una redacción fluida, precisa y clara</p>
+                <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px;">
+                    <span class="badge">Tema 2</span>
+                    <span class="badge badge-success">Lenguaje</span>
+                    <span class="badge badge-dark">📚 Comunicación</span>
+                </div>
+                <div style="margin-top: 14px; font-size: 0.9rem; opacity: 0.85;">
+                    💡 <em>"Redactar podría considerarse como un arte; sin embargo, al momento de expresar en forma escrita una idea o pensamiento, los signos de puntuación juegan un papel importante para traducirlo, porque le dan vida al escrito."</em>
+                </div>
+            </header>
+
+            <!-- ============================================================ -->
+            <!-- 1. INTRODUCCIÓN                                               -->
+            <!-- ============================================================ -->
+            <section class="card">
+                <h2>📝 1. Introducción</h2>
+                
+                <p>En la búsqueda de una <strong>redacción fluida, precisa y clara</strong>, se hace necesario el dominio de ciertas reglas entre las cuales se encuentra la <strong>puntuación</strong>. Puesto que redactar podría considerarse como un arte, sin embargo, al momento de expresar en forma escrita una idea o pensamiento, los <strong>signos de puntuación</strong> juegan un papel importante para traducirlo, porque le <strong>dan vida al escrito</strong>.</p>
+                
+                <div class="concepto-clave">
+                    <strong>📌 Función principal:</strong>
+                    <br>La principal función de los signos de puntuación radica en <strong>delimitar las unidades lingüísticas</strong> (palabras, enunciado, frases, oración, proposiciones, párrafo, texto) tanto desde el punto de vista del escritor como del lector para <strong>facilitar la comprensión del mensaje</strong>.
+                </div>
+                
+                <p>Los signos de puntuación no solo se utilizan para la reproducción de <strong>pausas o entonación</strong>, sino que <strong>ordenan y clarifican</strong> las ideas expuestas a través del lenguaje escrito.</p>
+                
+                <div class="cuadro-resumen">
+                    <strong>🎯 Objetivo del tema:</strong>
+                    <br>Identificar y aplicar las normas de puntuación durante la redacción de oraciones, párrafos y textos, evitándose de esta manera la <strong>acumulación de palabras con significado incompleto, confuso y ambiguo</strong>.
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 2. DEFINICIÓN                                                -->
+            <!-- ============================================================ -->
+            <section class="card" id="definicion">
+                <h2>📖 2. Definición de Signos de Puntuación</h2>
+                
+                <p>Los <strong>signos de puntuación</strong> son signos ortográficos cuya función principal es <strong>delimitar las unidades del discurso</strong>, para facilitar la correcta interpretación de los textos y ofrecer ciertas informaciones adicionales sobre el carácter de esas unidades.</p>
+                
+                <p>Los signos de puntuación son:</p>
+                <ul>
+                    <li><strong>Punto (.)</strong> – Finaliza enunciados</li>
+                    <li><strong>Coma (,)</strong> – Indica pausa breve</li>
+                    <li><strong>Punto y coma (;)</strong> – Pausa mayor que la coma</li>
+                    <li><strong>Dos puntos (:)</strong> – Detiene el discurso para llamar la atención</li>
+                    <li><strong>Paréntesis ( )</strong> – Delimitan incisos</li>
+                    <li><strong>Corchetes [ ]</strong> – Información complementaria</li>
+                    <li><strong>Raya (—)</strong> – Indica pausa mayor que la coma</li>
+                    <li><strong>Comillas (" ")</strong> – Encierran citas textuales</li>
+                    <li><strong>Signos de interrogación (¿ ?)</strong> – Preguntas directas</li>
+                    <li><strong>Signos de exclamación (¡ !)</strong> – Expresiones enfáticas</li>
+                    <li><strong>Puntos suspensivos (...)</strong> – Indican interrupción</li>
+                </ul>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 3. EL PUNTO                                                  -->
+            <!-- ============================================================ -->
+            <section class="card" id="punto">
+                <h2>🔴 3. El Punto (.)</h2>
+                
+                <p>El punto es un signo ortográfico de forma circular, considerado como uno de los signos más importantes. Su función principal es <strong>señalar el final o la conclusión de un enunciado con sentido completo</strong>.</p>
+                
+                <div class="concepto-clave">
+                    <strong>📌 Características:</strong>
+                    <br>• Indica la culminación de una oración, párrafo o texto
+                    <br>• Le corresponde una <strong>pausa larga o fuerte</strong>, mayor que la indicada por la coma y el punto y coma
+                    <br>• Separa entre sí unidades sintácticas
+                    <br>• Después del punto, <strong>siempre se inicia con mayúscula</strong>, salvo que se trate del punto utilizado en las abreviaturas
+                </div>
+                
+                <table class="tabla-signos">
+                    <thead>
+                        <tr>
+                            <th>Uso</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>En abreviaturas</strong></td>
+                            <td>Luego de las abreviaturas e iniciales de nombres propios y apellidos</td>
+                            <td class="ejemplo-texto">El Dr. L.A. Pacheco fue un profesional exitoso.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Punto y seguido</strong></td>
+                            <td>Separa dos oraciones dentro del mismo párrafo</td>
+                            <td class="ejemplo-texto">Llegó tarde. No pudo ingresar al examen.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Punto y aparte</strong></td>
+                            <td>Separa dos párrafos diferentes</td>
+                            <td class="ejemplo-texto">[...] Fin del primer párrafo. [Punto y aparte] Inicio del segundo párrafo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Punto final</strong></td>
+                            <td>Concluye un texto completo</td>
+                            <td class="ejemplo-texto">Y así terminó la historia.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="ejemplo">
+                    <strong>⚠️ Casos especiales:</strong>
+                    <br>• Las <strong>abreviaturas</strong> llevan punto: <em>Sr., Sra., Dr., ej., pág.</em>
+                    <br>• Los <strong>acrónimos y siglas</strong> no llevan punto: <em>ONU, UNESCO, OMS</em>
+                    <br>• Los <strong>números</strong> en algunas regiones usan punto como separador de miles: <em>1.000.000</em>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 4. LA COMA                                                   -->
+            <!-- ============================================================ -->
+            <section class="card" id="coma">
+                <h2>⏸️ 4. La Coma (,)</h2>
+                
+                <p>Desde su incorporación hasta la actualidad, es quizás el signo de puntuación más usual. Se utiliza para indicar una <strong>pausa breve</strong>.</p>
+                
+                <table class="tabla-signos">
+                    <thead>
+                        <tr>
+                            <th>Uso</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Vocativa</strong></td>
+                            <td>Separa el vocativo del resto de la oración. El vocativo es el llamado que se hace de manera personificada.</td>
+                            <td class="ejemplo-texto">Aquí está tu guardapolvo, Arturo.<br>Arturo, aquí está tu guardapolvo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enumerativa</strong></td>
+                            <td>Separa elementos de una misma clase gramatical, excepto si el último está enlazado por <em>y (e), o (u), ni</em></td>
+                            <td class="ejemplo-texto">El botiquín contiene jeringas, alcohol, tijeras, gasas y aspirinas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Circunstancial</strong></td>
+                            <td>Separa cada uno de los complementos circunstanciales (lugar, tiempo, modo, etc.)</td>
+                            <td class="ejemplo-texto">Nos iremos de paseo, el fin de semana.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>En aposiciones</strong></td>
+                            <td>Antes y después de frases explicativas que pueden suprimirse sin cambiar el significado</td>
+                            <td class="ejemplo-texto">La Paz, ciudad maravilla, es la sede legislativa más alta del mundo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adversativa</strong></td>
+                            <td>Separa la oración subordinada adversativa de la principal (aunque, mas, pero, sino)</td>
+                            <td class="ejemplo-texto">Quisiera seguir estudiando, mas estoy cansado.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>De enlace</strong></td>
+                            <td>Después de expresiones de enlace (así mismo, sin embargo, por lo tanto)</td>
+                            <td class="ejemplo-texto">Por lo tanto, recibirán muchos regalos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Decimal</strong></td>
+                            <td>Separa los enteros de los decimales</td>
+                            <td class="ejemplo-texto">El 53,33% de los encuestados opina así.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Para suplir un verbo</strong></td>
+                            <td>Se escribe una coma en el lugar del verbo omitido en la oración</td>
+                            <td class="ejemplo-texto">Yo soy médico; mi hermano, pintor.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="ejemplo">
+                    <strong>⚠️ Errores comunes:</strong>
+                    <br>• <strong>Coma entre sujeto y verbo:</strong> ❌ "El estudiante, aprobó el examen." → ✅ "El estudiante aprobó el examen."
+                    <br>• <strong>Coma antes de "y" en enumeraciones:</strong> ❌ "Compré pan, leche, y huevos." → ✅ "Compré pan, leche y huevos."
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 5. PUNTO Y COMA                                              -->
+            <!-- ============================================================ -->
+            <section class="card" id="puntoycoma">
+                <h2>🔹 5. El Punto y Coma (;)</h2>
+                
+                <p>Este signo ortográfico está compuesto de un punto en la parte superior y una coma en la parte inferior. Señala una <strong>pausa mayor que la coma y menor que el punto</strong>.</p>
+                
+                <table class="tabla-signos">
+                    <thead>
+                        <tr>
+                            <th>Uso</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Enumeraciones complejas</strong></td>
+                            <td>Para separar elementos de una enumeración cuando ya contienen comas</td>
+                            <td class="ejemplo-texto">El saco es azul; los pantalones, grises; la camisa, blanca.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pensamientos opuestos</strong></td>
+                            <td>Para separar pensamientos opuestos unidos por yuxtaposición</td>
+                            <td class="ejemplo-texto">El trabajo dignifica al hombre; la ociosidad lo desacredita.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Antes de conjunciones adversativas</strong></td>
+                            <td>Antes de <em>pero, más, aunque, sin embargo, no obstante</em> en enunciados largos</td>
+                            <td class="ejemplo-texto">Adquirimos una casa a precio elevado; pero la lluvia la inundó.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enunciados extensos</strong></td>
+                            <td>Para separar enunciados de cierta extensión con un solo sujeto</td>
+                            <td class="ejemplo-texto">El hombre pudo llegar al medio del río; pero allí sus manos dormidas dejaron caer la pala.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relación de comparación</strong></td>
+                            <td>Para separar enunciados que guardan relación de comparación</td>
+                            <td class="ejemplo-texto">Irene fue excelente estudiante; Esther, una destacada profesional.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Proposiciones relacionadas</strong></td>
+                            <td>Para separar proposiciones con sentido general (equivale a "por eso")</td>
+                            <td class="ejemplo-texto">Siempre se esforzó bastante; ha tenido éxito en todo.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 6. DOS PUNTOS                                                -->
+            <!-- ============================================================ -->
+            <section class="card" id="dospuntos">
+                <h2>⏺️ 6. Los Dos Puntos (:)</h2>
+                
+                <p>Representados con dos puntos, uno suspendido sobre el otro. Indican una <strong>pausa más pequeña que la del punto</strong>. Cumplen la función de <strong>delimitar unidades sintácticas inferiores a la oración</strong>.</p>
+                
+                <p><strong>Detienen el discurso para llamar la atención</strong> sobre lo que sigue, que siempre está en relación con el texto precedente.</p>
+                
+                <table class="tabla-signos">
+                    <thead>
+                        <tr>
+                            <th>Uso</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Vocativo en cartas</strong></td>
+                            <td>Luego del vocativo en cartas, discursos, oficios</td>
+                            <td class="ejemplo-texto">Estimado hermano:<br>Querido amigo:<br>Distinguido Licenciado:</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Documentos legales</strong></td>
+                            <td>Luego de "DECRETA", "CERTIFICA", "CONSIDERANDO"</td>
+                            <td class="ejemplo-texto">CERTIFICA: "Que el Dr. José Muñoz cursó con éxito..."</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Resumen o consecuencia</strong></td>
+                            <td>Antes de un enunciado que es resumen, consecuencia o aclaración</td>
+                            <td class="ejemplo-texto">Perdió su cédula de identidad: no podrá cobrar su cheque.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cita literal</strong></td>
+                            <td>Para anunciar una cita textual en estilo directo</td>
+                            <td class="ejemplo-texto">Séneca dijo: "La verdadera tranquilidad es la de la conciencia".</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enumeración</strong></td>
+                            <td>Para anunciar una enumeración de elementos análogos</td>
+                            <td class="ejemplo-texto">Los verbos se conjugan en cuatro modos: indicativo, subjuntivo, condicional e imperativo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Horas</strong></td>
+                            <td>Para separar horas de minutos y minutos de segundos</td>
+                            <td class="ejemplo-texto">8:30 a.m.<br>01:23:52</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relación de causa</strong></td>
+                            <td>Equivale a "porque"</td>
+                            <td class="ejemplo-texto">Hoy no asistiré a la Universidad; no me siento bien.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 7. PARÉNTESIS                                                -->
+            <!-- ============================================================ -->
+            <section class="card" id="parentesis">
+                <h2>( ) 7. Los Paréntesis</h2>
+                
+                <p>Son un signo ortográfico doble (de apertura y de cierre) con forma de línea curva semicóncava. <strong>Delimitan incisos</strong> de oraciones, sintagmas, palabras, letras e incluso párrafos enteros.</p>
+                
+                <table class="tabla-signos">
+                    <thead>
+                        <tr>
+                            <th>Uso</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Aclarar sentido</strong></td>
+                            <td>Para aclarar el sentido de una palabra o agregar algún dato</td>
+                            <td class="ejemplo-texto">Oscar Alfaro (poeta, cuentista, profesor y periodista boliviano) se distinguió por su dedicación a la literatura infantil.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fechas importantes</strong></td>
+                            <td>Para encerrar fechas, datos que remiten a alguna obra, autor</td>
+                            <td class="ejemplo-texto">Adela Zamudio (1854 - 1928) fue una destacada escritora pionera del feminismo en Bolivia.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Expresiones aclaratorias</strong></td>
+                            <td>Para encerrar expresiones que no tienen relación directa con la proposición principal</td>
+                            <td class="ejemplo-texto">El fuerte calor reinante (la temperatura era de 38 grados) y la sequedad del ambiente hicieron que las llamas se propagaran.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Segunda posibilidad</strong></td>
+                            <td>Para ofrecer una segunda posibilidad de empleo de una palabra</td>
+                            <td class="ejemplo-texto">Señor(es) niño(as) usuario(a)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Omisión</strong></td>
+                            <td>Para encerrar los puntos suspensivos cuando se omite alguna palabra</td>
+                            <td class="ejemplo-texto">(...) celebraba entre risas (...) la agonía de un año (...)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 8. CORCHETES                                                 -->
+            <!-- ============================================================ -->
+            <section class="card" id="corchetes">
+                <h2>[ ] 8. Los Corchetes</h2>
+                
+                <p>Son poco usuales, sin embargo, son importantes porque permiten <strong>brindar información complementaria</strong>.</p>
+                
+                <table class="tabla-signos">
+                    <thead>
+                        <tr>
+                            <th>Uso</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Principio y fin</strong></td>
+                            <td>Para marcar el principio y el fin de una oración</td>
+                            <td class="ejemplo-texto">[Te proporcionaré un boleto para Tarija.] [De ahí podrás pasar a la Argentina.]</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Matemáticas</strong></td>
+                            <td>Al igual que la llave, se usan en las matemáticas</td>
+                            <td class="ejemplo-texto">[(a / b) - (c + d)] = 0<br>[(3+2) x (8+2)] – (5 – 3)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 9. LA RAYA                                                   -->
+            <!-- ============================================================ -->
+            <section class="card" id="raya">
+                <h2>— 9. La Raya (Guion Largo)</h2>
+                
+                <p>Llamada también guion largo. Indica una <strong>pausa mayor que la de la coma y menor que la de los paréntesis</strong>.</p>
+                
+                <table class="tabla-signos">
+                    <thead>
+                        <tr>
+                            <th>Uso</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Notas aclaratorias</strong></td>
+                            <td>En forma similar a los paréntesis para intercalar notas aclaratorias</td>
+                            <td class="ejemplo-texto">Gregor Mendel –monje agustiniano y naturalista– fue quien describió las leyes que rigen la herencia genética.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Diálogos</strong></td>
+                            <td>En los diálogos para indicar el cambio de interlocutor</td>
+                            <td class="ejemplo-texto">— ¿Mío, dices? ¡Pero mira cómo me queda!<br>— Te dije que no lo mandaras a la tintorería.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Proposiciones subordinadas</strong></td>
+                            <td>Para separar la proposición subordinada sustantiva que precede a la principal</td>
+                            <td class="ejemplo-texto">"Solo sé que nada sé" —dijo Sócrates.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 10. COMILLAS                                                 -->
+            <!-- ============================================================ -->
+            <section class="card" id="comillas">
+                <h2>" " 10. Las Comillas</h2>
+                
+                <p>Son un signo ortográfico doble (" ") que se escribe al inicio y al final de una frase.</p>
+                
+                <table class="tabla-signos">
+                    <thead>
+                        <tr>
+                            <th>Uso</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cita textual</strong></td>
+                            <td>Al principio y al final de una cita textual</td>
+                            <td class="ejemplo-texto">Séneca dijo: "Quien de verdad quiere ser bueno, lo será".</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Títulos</strong></td>
+                            <td>Para encerrar el título de una disertación o conferencia</td>
+                            <td class="ejemplo-texto">El conferencista disertó sobre "Los cuidados de enfermería y nutrición en tuberculosis".</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Palabras extranjeras</strong></td>
+                            <td>Para destacar palabras extranjeras</td>
+                            <td class="ejemplo-texto">Ropa "sport". Jugaremos "ping-ball".</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sentido irónico</strong></td>
+                            <td>Para conferir un sentido irónico a ciertas palabras</td>
+                            <td class="ejemplo-texto">Abel es la persona "ideal". ¡"Bonita" tu hora de llegar!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Énfasis</strong></td>
+                            <td>Para resaltar el valor de ciertas palabras</td>
+                            <td class="ejemplo-texto">Como modelo de la conjugación verbal, se utiliza frecuentemente un verbo "regular".</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 11. INTERROGACIÓN Y EXCLAMACIÓN                              -->
+            <!-- ============================================================ -->
+            <section class="card" id="interrogacion">
+                <h2>❓ ¡! 11. Signos de Interrogación y Exclamación</h2>
+                
+                <p>Estos signos tienen la función de proporcionar a las oraciones una expresión directamente relacionada con la <strong>entonación del hablante</strong>. Se ubican al principio y al final de la oración.</p>
+                
+                <table class="tabla-signos">
+                    <thead>
+                        <tr>
+                            <th>Uso</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Interrogativas directas</strong></td>
+                            <td>Para encerrar oraciones interrogativas directas</td>
+                            <td class="ejemplo-texto">¿Por qué obtuviste esa nota?</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Exclamativas</strong></td>
+                            <td>Para encerrar oraciones exclamativas</td>
+                            <td class="ejemplo-texto">¡No temas!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Interjecciones</strong></td>
+                            <td>Para encerrar las interjecciones</td>
+                            <td class="ejemplo-texto">¡Oh! ¡Auxilio!</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="ejemplo">
+                    <strong>⚠️ Regla importante:</strong>
+                    <br>En español, los signos de interrogación y exclamación son <strong>dobles</strong> (apertura y cierre). ❌ "Por qué?" → ✅ "¿Por qué?"
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 12. PUNTOS SUSPENSIVOS                                       -->
+            <!-- ============================================================ -->
+            <section class="card" id="suspensivos">
+                <h2>… 12. Los Puntos Suspensivos</h2>
+                
+                <p>Están representados por <strong>tres puntos (...)</strong> alineados horizontalmente al nivel de la línea base de escritura. Señalan una <strong>pausa inesperada</strong> que marca la interrupción del mensaje.</p>
+                
+                <table class="tabla-signos">
+                    <thead>
+                        <tr>
+                            <th>Uso</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Interrupción por sobrentendido</strong></td>
+                            <td>Cuando se obvian palabras que se sobrentienden</td>
+                            <td class="ejemplo-texto">En casa del herrero, cuchillo...<br>A Dios rogando y con el...</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cita inconclusa</strong></td>
+                            <td>Al final de una cita textual inconclusa</td>
+                            <td class="ejemplo-texto">Jesús dijo: "Dad al César lo que es del César y..."</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Temor o duda</strong></td>
+                            <td>Para expresar temor, duda o sorprender al lector</td>
+                            <td class="ejemplo-texto">Me resisto a creer que ese candidato es... corrupto.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>En lugar de "etcétera"</strong></td>
+                            <td>En una enumeración que podría continuar</td>
+                            <td class="ejemplo-texto">Encontramos sillas viejas, escritorios, estantes...</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pausa o silencio</strong></td>
+                            <td>Para indicar una pausa o silencio prolongado</td>
+                            <td class="ejemplo-texto">Todos callan... se oye un grito... no debemos desesperarnos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Omisión en párrafo extenso</strong></td>
+                            <td>Cuando se omiten frases en un párrafo extenso</td>
+                            <td class="ejemplo-texto">"Óscar Alfaro recreó a los niños (...) pero no siempre porque a menudo enseñaba consignas políticas (...)"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 13. SIGNOS AUXILIARES                                        -->
+            <!-- ============================================================ -->
+            <section class="card" id="auxiliares">
+                <h2>🔧 13. Signos Auxiliares de Puntuación</h2>
+                
+                <p>Estos signos cumplen muy variadas funciones. Se constituyen en un inventario abierto que puede variar según el tipo de texto o disciplina en la que se utilice.</p>
+                
+                <h3>13.1 El Guion (-)</h3>
+                <p>Es un trazo horizontal de menor longitud que la raya.</p>
+                <ul>
+                    <li><strong>División de palabras:</strong> <em>je - rin - ga</em>, <em>ter - mo - me - tro</em></li>
+                    <li><strong>Palabras compuestas:</strong> <em>peruano - boliviana</em>, <em>teórico - práctico</em></li>
+                    <li><strong>Separar fechas:</strong> <em>(1947-1999)</em></li>
+                    <li><strong>Intervalos numéricos:</strong> <em>páginas 23-45</em>, <em>siglos X-XII</em></li>
+                </ul>
+                
+                <h3>13.2 La Barra ( / )</h3>
+                <p>Es un signo auxiliar en forma de línea inclinada que desciende de derecha a izquierda.</p>
+                <ul>
+                    <li><strong>Separar versos:</strong> <em>"Habrá un silencio verde/ todo hecho de guitarras destrenzadas"</em></li>
+                    <li><strong>Expresar relación:</strong> <em>180 km/h (kilómetros por hora)</em></li>
+                    <li><strong>Disyunción:</strong> <em>Querido/a Amigo/a</em>, <em>examen/es</em></li>
+                    <li><strong>Fechas:</strong> <em>30/11/2018</em></li>
+                    <li><strong>Representar fonemas:</strong> <em>/s/, /l/, /n/, /o/</em></li>
+                    <li><strong>Informática:</strong> <em>www.universia.com.bo/universidades</em></li>
+                    <li><strong>Matemáticas:</strong> <em>15/3</em>, <em>3/4 (tres cuartos)</em></li>
+                </ul>
+                
+                <h3>13.3 La Llave ({ })</h3>
+                <p>Es un signo gráfico con variante de apertura y de cierre.</p>
+                <ul>
+                    <li><strong>Representaciones esquemáticas:</strong> Organización jerárquica de contenido</li>
+                    <li><strong>Matemáticas:</strong> <em>A = {1, 3, 5, 7, 9}</em> ; <em>B = {2, 4, 6, 8}</em></li>
+                </ul>
+                
+                <h3>13.4 Apóstrofo (')</h3>
+                <p>Es un signo en forma de coma alta, poco usado actualmente.</p>
+                <ul>
+                    <li><strong>Omisión de vocal:</strong> <em>Para q' (para que)</em>, <em>P' la Federación</em></li>
+                </ul>
+                
+                <h3>13.5 Asterisco (*)</h3>
+                <p>Es un signo con forma de estrella que se ubica en la parte superior del renglón.</p>
+                <ul>
+                    <li><strong>Llamada de nota:</strong> Para explicar el significado o aclaración de una palabra</li>
+                    <li><strong>Formularios electrónicos:</strong> Para indicar campos obligatorios</li>
+                </ul>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 14. MINI PRUEBA                                              -->
+            <!-- ============================================================ -->
+            <section class="card" id="prueba" style="border: 2px solid var(--primary);">
+                <h2>❓ Mini Prueba - 10 Preguntas Nivel Universitario</h2>
+                <p style="color: var(--text-light); margin-bottom: 15px;">Selecciona la respuesta correcta. Haz clic en "Ver respuesta" para comprobar.</p>
+                
+                <!-- Pregunta 1 -->
+                <div class="pregunta">
+                    <p><strong>1.</strong> Uno de los enunciados es correcto respecto al uso del punto:</p>
+                    <div class="opciones">
+                        a) Luego de las abreviaturas e iniciales de nombres propios y apellidos<br>
+                        b) En los acrónimos y siglas<br>
+                        c) Antes de las comillas de cierre<br>
+                        d) Separa los elementos de una misma clase<br>
+                        e) Antes y después de los vocativos
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: a) Luego de las abreviaturas e iniciales de nombres propios y apellidos</strong><br>El punto se utiliza después de abreviaturas (Dr., Sr., etc.) y en iniciales de nombres y apellidos (L.A., M.A., etc.).</div>
+                </div>
+                
+                <!-- Pregunta 2 -->
+                <div class="pregunta">
+                    <p><strong>2.</strong> En la siguiente oración: "Antonio Díaz Villamil, escritor boliviano, nació en La Paz en junio del año 1897", el uso de la coma es:</p>
+                    <div class="opciones">
+                        a) Vocativa<br>
+                        b) En la aposición<br>
+                        c) Adversativa<br>
+                        d) Circunstancial<br>
+                        e) De enlace
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) En la aposición</strong><br>"Escritor boliviano" es una aposición explicativa que puede suprimirse sin que cambie el significado de la oración.</div>
+                </div>
+                
+                <!-- Pregunta 3 -->
+                <div class="pregunta">
+                    <p><strong>3.</strong> ¿Cuál de los enunciados hace referencia al uso del punto y coma?</p>
+                    <div class="opciones">
+                        a) Se utiliza para separar ideas semejantes unidas por dos puntos<br>
+                        b) Se utiliza para separar elementos de una enumeración de expresiones complejas que contienen una o más comas<br>
+                        c) Se utiliza para separar oraciones que tiene en su estructura uno o más sujetos<br>
+                        d) Se utiliza para detener el discurso y llamar la atención<br>
+                        e) Se utiliza en lugar de las comas y puntos seguidos
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) Se utiliza para separar elementos de una enumeración de expresiones complejas que contienen una o más comas</strong><br>El punto y coma se usa en enumeraciones complejas donde los elementos ya contienen comas internas.</div>
+                </div>
+                
+                <!-- Pregunta 4 -->
+                <div class="pregunta">
+                    <p><strong>4.</strong> Uno de los enunciados menciona la función de los dos puntos:</p>
+                    <div class="opciones">
+                        a) Permiten relacionar las oraciones entre sí<br>
+                        b) Restringen los enunciados y frases<br>
+                        c) Delimitan unidades sintácticas inferiores a la oración<br>
+                        d) Separan las proposiciones que no guardan relación<br>
+                        e) Se anticipan al Vocativo
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) Delimitan unidades sintácticas inferiores a la oración</strong><br>Los dos puntos delimitan unidades sintácticas inferiores a la oración y detienen el discurso para llamar la atención sobre lo que sigue.</div>
+                </div>
+                
+                <!-- Pregunta 5 -->
+                <div class="pregunta">
+                    <p><strong>5.</strong> ¿En cuál de las oraciones se utilizan correctamente los paréntesis?</p>
+                    <div class="opciones">
+                        a) Según la OPS, Organización Panamericana de Salud los riesgos...<br>
+                        b) Costa du Rels (1891-1980) recibió del gobierno boliviano el "Premio Nacional de Literatura".<br>
+                        c) Mi hermana, la menor, está estudiando (medicina).<br>
+                        d) Se necesita un joven o (señorita) para la venta de ropa.<br>
+                        e) Toda su vida radicó en (Tupiza) Bolivia.
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) Costa du Rels (1891-1980) recibió del gobierno boliviano el "Premio Nacional de Literatura".</strong><br>Los paréntesis se usan correctamente para encerrar fechas importantes y datos complementarios.</div>
+                </div>
+                
+                <!-- Pregunta 6 -->
+                <div class="pregunta">
+                    <p><strong>6.</strong> La raya indica:</p>
+                    <div class="opciones">
+                        a) Una pausa mayor que la del punto y menor que la de los paréntesis<br>
+                        b) Una pausa mayor que la de la coma y mayor que la de los paréntesis<br>
+                        c) Una pausa igual a la de la coma y menor que la de los paréntesis<br>
+                        d) Una pausa menor que la del punto y coma y menor que la coma<br>
+                        e) Una pausa mayor que la de la coma y menor que la de los paréntesis
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: e) Una pausa mayor que la de la coma y menor que la de los paréntesis</strong><br>La raya (guion largo) indica una pausa intermedia: mayor que la coma pero menor que los paréntesis.</div>
+                </div>
+                
+                <!-- Pregunta 7 -->
+                <div class="pregunta">
+                    <p><strong>7.</strong> Al principio y al final de una cita textual se utilizan:</p>
+                    <div class="opciones">
+                        a) Los paréntesis<br>
+                        b) Los corchetes<br>
+                        c) Las comillas<br>
+                        d) Los apóstrofes<br>
+                        e) Los puntos suspensivos
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) Las comillas</strong><br>Las comillas (" ") se utilizan al principio y al final de una cita textual para indicar que es una transcripción literal.</div>
+                </div>
+                
+                <!-- Pregunta 8 -->
+                <div class="pregunta">
+                    <p><strong>8.</strong> El signo ortográfico que se usa para reflejar en la escritura la omisión de una vocal es:</p>
+                    <div class="opciones">
+                        a) El asterisco<br>
+                        b) El apóstrofo<br>
+                        c) El guion<br>
+                        d) La raya<br>
+                        e) La barra
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) El apóstrofo</strong><br>El apóstrofo (') se usa para reflejar en la escritura la omisión de una vocal, como en "para q'" (para que) o "P' la Federación".</div>
+                </div>
+                
+                <!-- Pregunta 9 -->
+                <div class="pregunta">
+                    <p><strong>9.</strong> Los puntos suspensivos son representados por:</p>
+                    <div class="opciones">
+                        a) 2 puntos<br>
+                        b) 3 puntos<br>
+                        c) 4 puntos<br>
+                        d) 5 puntos<br>
+                        e) 6 puntos
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) 3 puntos</strong><br>Los puntos suspensivos están representados por <strong>tres puntos</strong> (...), alineados horizontalmente al nivel de la línea base de escritura.</div>
+                </div>
+                
+                <!-- Pregunta 10 -->
+                <div class="pregunta">
+                    <p><strong>10.</strong> Como llamada de nota para explicar el significado o aclaración de una palabra se utiliza:</p>
+                    <div class="opciones">
+                        a) La llave<br>
+                        b) La raya<br>
+                        c) El asterisco<br>
+                        d) El corchete<br>
+                        e) El guion
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) El asterisco</strong><br>El asterisco (*) se utiliza como llamada de nota para explicar el significado o aclaración de una palabra en el texto.</div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 15. BIBLIOGRAFÍA                                             -->
+            <!-- ============================================================ -->
+            <section class="card" id="bibliografia">
+                <h2>📚 Bibliografía</h2>
+                <ul style="font-size: 0.85rem; color: var(--text-light); line-height: 1.8;">
+                    <li>Real Academia Española editors. Ortografía de la Lengua Española. Madrid: Asociación de Academias de la Lengua Española; 2010.</li>
+                    <li>Fernández Meléndez W. Curso completo de Lengua Española. 2da ed. Lima, Perú: San Marcos; 2005.</li>
+                    <li>Ávila, F. Dónde va la coma. Bogotá, Colombia: Norma; 2001.</li>
+                    <li>Amusquivar Fernández L. Aprender a puntuar para leer y escribir bien. La Paz, Bolivia; 2013.</li>
+                    <li>Miranda Campos A. Comunicación, Ortografía, Verbos y Redacción. Alfa Editores.</li>
+                    <li>Caceres Chaupin J. Gramática Descriptiva y Funcional. Lima, Perú: SAN MARCOS.</li>
+                    <li>Ortega W. Ortografía Programada. 2ª ed. México: Mc Graw Hill; 2005.</li>
+                </ul>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 16. HERRAMIENTAS                                             -->
+            <!-- ============================================================ -->
+            <section id="herramientas">
+                <h2 style="color: white; font-weight: 600; margin-bottom: 15px;">🛠️ Herramientas de Estudio</h2>
+                <div class="herramientas-grid">
+                    
+                    <!-- Pomodoro -->
+                    <div class="herramienta-card">
+                        <h3>⏱️ Pomodoro</h3>
+                        <div class="pomodoro-circle" id="timerDisplay">25:00</div>
+                        <div class="pomodoro-controls">
+                            <button class="btn btn-primary" id="startBtn">▶ Iniciar</button>
+                            <button class="btn btn-secondary" id="pauseBtn">⏸ Pausar</button>
+                            <button class="btn btn-danger" id="resetBtn">↻ Reiniciar</button>
+                        </div>
+                        <div class="pomodoro-info">Ciclo: <span id="cycleCount">1</span> de 4</div>
+                    </div>
+                    
+                    <!-- Tareas -->
+                    <div class="herramienta-card">
+                        <h3>📋 Tareas</h3>
+                        <ul class="task-list" id="taskList">
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Leer todo el tema de Signos de Puntuación</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Memorizar los usos de cada signo de puntuación</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Hacer las 10 preguntas de autoevaluación</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Redactar un texto usando correctamente todos los signos</span>
+                            </li>
+                        </ul>
+                        <div class="task-input-group">
+                            <input type="text" id="taskInput" placeholder="Nueva tarea..." aria-label="Nueva tarea">
+                            <button class="btn" id="addTaskBtn" aria-label="Agregar tarea">+</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Notas -->
+                    <div class="herramienta-card notas-card">
+                        <h3>📝 Apuntes</h3>
+                        <textarea id="notesArea" placeholder="Escribe tus notas aquí..." aria-label="Área de notas"></textarea>
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- ===== FOOTER ===== -->
+            <footer class="tema-footer">
+                Sistema Preuniversitario - Lenguaje Tema 2: Signos de Puntuación
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== FUNCIÓN PARA MOSTRAR RESPUESTAS =====
+        function mostrarRespuesta(btn) {
+            const respuesta = btn.nextElementSibling;
+            if (respuesta && respuesta.classList) {
+                respuesta.classList.toggle('mostrar');
+                btn.textContent = respuesta.classList.contains('mostrar') ? 'Ocultar respuesta' : 'Ver respuesta';
+            }
+        }
+
+        // ===== POMODORO =====
+        let timeLeft = 25 * 60;
+        let timerId = null;
+        let isRunning = false;
+        let cycleCount = 1;
+
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const cycleSpan = document.getElementById('cycleCount');
+
+        function updateDisplay() {
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            timerId = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                if (timeLeft === 0) {
+                    clearInterval(timerId);
+                    isRunning = false;
+                    alert('¡Tiempo completado! 🎉');
+                    if (cycleCount < 4) {
+                        cycleCount++;
+                        cycleSpan.textContent = cycleCount;
+                        timeLeft = 25 * 60;
+                        updateDisplay();
+                    } else {
+                        alert('¡Ciclo completo! Descansa 15 minutos.');
+                        cycleCount = 1;
+                        cycleSpan.textContent = cycleCount;
+                        timeLeft = 25 * 60;
+                        updateDisplay();
+                    }
+                }
+            }, 1000);
+        }
+
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', () => {
+            clearInterval(timerId);
+            isRunning = false;
+        });
+        resetBtn.addEventListener('click', () => {
+            clearInterval(timerId);
+            isRunning = false;
+            timeLeft = 25 * 60;
+            updateDisplay();
+            cycleCount = 1;
+            cycleSpan.textContent = cycleCount;
+        });
+
+        // ===== TAREAS (CON SANITIZACIÓN) =====
+        const taskList = document.getElementById('taskList');
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+
+        function sanitizeText(text) {
+            const element = document.createElement('div');
+            element.textContent = text;
+            return element.innerHTML;
+        }
+
+        const savedTasks = localStorage.getItem('tasks-LenguajeTema2');
+        if (savedTasks) {
+            try {
+                taskList.innerHTML = savedTasks;
+                document.querySelectorAll('.task-item input[type="checkbox"]').forEach(cb => {
+                    cb.addEventListener('change', function() {
+                        this.parentElement.classList.toggle('completed');
+                        saveTasks();
+                    });
+                });
+            } catch (e) {
+                console.warn('Error al cargar tareas:', e);
+            }
+        }
+
+        function saveTasks() {
+            localStorage.setItem('tasks-LenguajeTema2', taskList.innerHTML);
+        }
+
+        function addTask() {
+            const text = taskInput.value.trim();
+            if (!text) {
+                alert('Por favor, escribe una tarea.');
+                return;
+            }
+
+            const safeText = sanitizeText(text);
+
+            const li = document.createElement('li');
+            li.className = 'task-item';
+            li.innerHTML = `
+                <input type="checkbox">
+                <span>${safeText}</span>
+            `;
+            taskList.appendChild(li);
+            taskInput.value = '';
+            saveTasks();
+
+            li.querySelector('input[type="checkbox"]').addEventListener('change', function() {
+                this.parentElement.classList.toggle('completed');
+                saveTasks();
+            });
+        }
+
+        addTaskBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask();
+        });
+
+        // ===== NOTAS =====
+        const notesArea = document.getElementById('notesArea');
+        
+        const savedNotes = localStorage.getItem('notes-LenguajeTema2');
+        if (savedNotes) notesArea.value = savedNotes;
+
+        notesArea.addEventListener('input', () => {
+            localStorage.setItem('notes-LenguajeTema2', notesArea.value);
+        });
+
+        // ===== SCROLL SUAVE PARA LA SIDEBAR =====
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
+                document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // ===== DETECTAR SECCIÓN ACTIVA AL HACER SCROLL =====
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

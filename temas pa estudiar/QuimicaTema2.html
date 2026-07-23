@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Química - Materia y Energía | Sistema Preuniversitario</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== RESET Y VARIABLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1d4ed8;
+            --primary-dark: #1e3a8a;
+            --primary-light: #3b82f6;
+            --primary-bg: #eef2ff;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --gray: #6b7280;
+            --gray-light: #e5e7eb;
+            --gray-bg: #f3f4f6;
+            --text-dark: #1f2937;
+            --text-medium: #374151;
+            --text-light: #6b7280;
+            --bg-white: #ffffff;
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.2);
+            --radius-lg: 16px;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1d4ed8);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-brand .logo {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .sidebar-brand h2 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .sidebar-brand span {
+            color: var(--primary-light);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+        }
+
+        .sidebar-nav .nav-label {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            padding: 15px 0 8px 0;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-bottom: 2px;
+            position: relative;
+        }
+
+        .sidebar-nav a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+
+        .sidebar-nav a.active {
+            background: rgba(29, 78, 216, 0.3);
+            color: white;
+            font-weight: 500;
+        }
+
+        .sidebar-nav a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10%;
+            height: 80%;
+            width: 3px;
+            background: var(--primary-light);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .sidebar-nav a .icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-nav a .badge-nav {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1px 10px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .sidebar-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        /* ===== CONTENIDO PRINCIPAL ===== */
+        .main-content {
+            flex: 1;
+            padding: 25px 30px;
+            max-width: calc(100% - var(--sidebar-width));
+            overflow-x: hidden;
+        }
+
+        .contenedor-tema {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER ===== */
+        .tema-header {
+            background: rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius-lg);
+            padding: 30px 35px;
+            color: white;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+        }
+
+        .tema-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .tema-header .subtitulo {
+            opacity: 0.75;
+            font-weight: 300;
+            font-size: 1rem;
+        }
+
+        .tema-header .meta {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 3px 16px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-success {
+            background: var(--success);
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 25px 30px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 {
+            color: var(--text-medium);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .card ul, .card ol {
+            padding-left: 22px;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .card ul li, .card ol li {
+            margin-bottom: 4px;
+        }
+
+        /* ===== COMPONENTES DE CONTENIDO ===== */
+        .concepto-clave {
+            background: var(--primary-bg);
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 12px 0;
+        }
+
+        .concepto-clave strong {
+            color: var(--primary);
+        }
+
+        .ejemplo {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            margin: 10px 0;
+        }
+
+        .ejemplo strong {
+            color: #d97706;
+        }
+
+        .cuadro-resumen {
+            background: #f0fdf4;
+            border: 2px solid var(--success);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 12px 0;
+        }
+
+        .cuadro-resumen strong {
+            color: var(--success);
+        }
+
+        .formula {
+            background: var(--gray-bg);
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1rem;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            color: var(--text-dark);
+        }
+
+        .tabla-propiedades {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .tabla-propiedades th {
+            background: var(--primary);
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .tabla-propiedades td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--gray-light);
+            color: var(--text-dark);
+        }
+
+        .tabla-propiedades tr:hover td {
+            background: var(--gray-bg);
+        }
+
+        .lista-estados {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lista-estados li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-bg);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .lista-estados li::before {
+            content: "▸";
+            color: var(--primary);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .lista-estados li:last-child {
+            border-bottom: none;
+        }
+
+        /* ===== PREGUNTAS ===== */
+        .pregunta {
+            background: var(--gray-bg);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border: 1px solid var(--gray-light);
+        }
+
+        .pregunta strong {
+            color: var(--primary);
+        }
+
+        .pregunta .opciones {
+            margin-top: 8px;
+            padding-left: 20px;
+            color: var(--text-medium);
+            line-height: 1.8;
+        }
+
+        .pregunta .respuesta {
+            background: #dcfce7;
+            padding: 8px 15px;
+            border-radius: 6px;
+            margin-top: 8px;
+            display: none;
+            border-left: 3px solid var(--success);
+            color: var(--text-dark);
+        }
+
+        .pregunta .respuesta.mostrar {
+            display: block;
+        }
+
+        .btn-ver-respuesta {
+            background: var(--gray-light);
+            border: none;
+            padding: 4px 16px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            transition: 0.3s;
+            margin-top: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+        }
+
+        .btn-ver-respuesta:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ===== HERRAMIENTAS ===== */
+        .herramientas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .herramienta-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .herramienta-card h3 {
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Pomodoro */
+        .pomodoro-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 10px auto;
+            color: var(--text-dark);
+            background: var(--gray-bg);
+        }
+
+        .pomodoro-controls {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .pomodoro-controls .btn {
+            padding: 6px 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--gray-bg);
+            color: var(--text-dark);
+        }
+        .btn-secondary:hover {
+            background: var(--gray-light);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        .btn-success:hover {
+            background: #15803d;
+        }
+
+        .pomodoro-info {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+
+        /* Tareas */
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--gray-bg);
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-item input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            accent-color: var(--primary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .task-item span {
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            word-break: break-word;
+        }
+
+        .task-item.completed span {
+            text-decoration: line-through;
+            color: var(--text-light);
+        }
+
+        .task-input-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .task-input-group input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid var(--gray-light);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.3s;
+        }
+
+        .task-input-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .task-input-group .btn {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: 'Poppins', sans-serif;
+            background: var(--primary);
+            color: white;
+            transition: 0.3s;
+        }
+
+        .task-input-group .btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Notas */
+        .notas-card textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 2px solid var(--gray-light);
+            border-radius: 10px;
+            font-size: 0.85rem;
+            resize: vertical;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            background: #fafbfc;
+            color: var(--text-dark);
+            transition: 0.3s;
+        }
+
+        .notas-card textarea:focus {
+            border-color: var(--primary);
+        }
+
+        /* ===== FOOTER ===== */
+        .tema-footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 30px 0 10px;
+            font-size: 0.8rem;
+            font-weight: 300;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 20px;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 240px;
+            }
+            .herramientas-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 15px 20px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+
+            .sidebar-brand {
+                padding-bottom: 0;
+                border-bottom: none;
+                margin-bottom: 0;
+                flex: 0 0 auto;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+                flex: 1;
+                padding: 0 10px;
+            }
+
+            .sidebar-nav .nav-label {
+                display: none;
+            }
+
+            .sidebar-nav a {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+                gap: 4px;
+            }
+
+            .sidebar-nav a .icon {
+                font-size: 1rem;
+                width: 20px;
+            }
+
+            .sidebar-nav a .badge-nav {
+                display: none;
+            }
+
+            .sidebar-footer {
+                display: none;
+            }
+
+            .main-content {
+                max-width: 100%;
+                padding: 15px;
+            }
+
+            .tema-header {
+                padding: 20px;
+            }
+
+            .tema-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .herramientas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabla-propiedades {
+                display: block;
+                overflow-x: auto;
+                font-size: 0.75rem;
+            }
+
+            .tabla-propiedades th,
+            .tabla-propiedades td {
+                padding: 6px 10px;
+                min-width: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar-nav a {
+                font-size: 0.6rem;
+                padding: 4px 8px;
+            }
+
+            .sidebar-nav a .icon {
+                font-size: 0.8rem;
+                width: 16px;
+            }
+
+            .tema-header h1 {
+                font-size: 1.1rem;
+            }
+
+            .card {
+                padding: 12px;
+            }
+
+            .pomodoro-circle {
+                width: 90px;
+                height: 90px;
+                font-size: 1.5rem;
+            }
+        }
+        /* ===== MEJORAS DE LEGIBILIDAD EN MÓVIL ===== */
+
+/* Tablets y móviles */
+@media (max-width: 768px) {
+    /* Aumentamos el tamaño base del texto */
+    body {
+        font-size: 16px; /* Base más grande */
+    }
+
+    /* Contenido principal: más ancho y cómodo */
+    .main-content {
+        padding: 12px 15px;
+    }
+
+    /* Cards con más padding para respirar */
+    .card {
+        padding: 20px 18px;
+        border-radius: 14px;
+    }
+
+    /* Títulos más grandes y legibles */
+    .tema-header h1 {
+        font-size: 1.6rem;
+        line-height: 1.2;
+    }
+
+    .tema-header .subtitulo {
+        font-size: 0.95rem;
+    }
+
+    .card h2 {
+        font-size: 1.2rem;
+    }
+
+    .card h3 {
+        font-size: 1.05rem;
+        margin-top: 18px;
+    }
+
+    .card h4 {
+        font-size: 0.95rem;
+    }
+
+    .card h5 {
+        font-size: 0.9rem;
+    }
+
+    /* Párrafos con tamaño cómodo */
+    .card p {
+        font-size: 0.95rem;
+        line-height: 1.8;
+        margin-bottom: 12px;
+    }
+
+    /* Listas más legibles */
+    .card ul, .card ol {
+        padding-left: 24px;
+        font-size: 0.95rem;
+        line-height: 1.8;
+    }
+
+    .card ul li, .card ol li {
+        margin-bottom: 6px;
+    }
+
+    /* Listas con estilo (▸) */
+    .lista-estados li {
+        font-size: 0.92rem;
+        padding: 7px 0;
+        gap: 10px;
+        line-height: 1.7;
+    }
+
+    /* Conceptos clave, ejemplos y resúmenes */
+    .concepto-clave {
+        font-size: 0.95rem;
+        padding: 14px 18px;
+        margin: 12px 0;
+        line-height: 1.7;
+    }
+
+    .ejemplo {
+        font-size: 0.95rem;
+        padding: 12px 16px;
+        margin: 12px 0;
+        line-height: 1.7;
+    }
+
+    .cuadro-resumen {
+        font-size: 0.95rem;
+        padding: 14px 18px;
+        margin: 12px 0;
+        line-height: 1.7;
+    }
+
+    /* Fórmulas */
+    .formula {
+        font-size: 0.95rem;
+        padding: 12px 16px;
+        margin: 12px 0;
+        word-break: break-word;
+    }
+
+    /* Tablas: scroll horizontal pero texto legible */
+    .tabla-propiedades {
+        font-size: 0.85rem;
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tabla-propiedades th,
+    .tabla-propiedades td {
+        padding: 10px 14px;
+        min-width: 100px;
+        white-space: normal; /* Permite que el texto haga wrap */
+        word-break: break-word;
+    }
+
+    /* Preguntas */
+    .pregunta {
+        padding: 14px 18px;
+        margin: 12px 0;
+    }
+
+    .pregunta p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .pregunta .opciones {
+        font-size: 0.92rem;
+        padding-left: 18px;
+        line-height: 1.8;
+    }
+
+    .pregunta .respuesta {
+        font-size: 0.92rem;
+        padding: 10px 16px;
+        line-height: 1.6;
+    }
+
+    .btn-ver-respuesta {
+        font-size: 0.8rem;
+        padding: 6px 16px;
+    }
+
+    /* Badges */
+    .badge {
+        font-size: 0.7rem;
+        padding: 3px 14px;
+    }
+
+    /* Tareas */
+    .task-item {
+        font-size: 0.92rem;
+        padding: 8px 0;
+    }
+
+    .task-item input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+
+    .task-input-group input {
+        font-size: 0.92rem;
+        padding: 10px 14px;
+    }
+
+    .task-input-group .btn {
+        font-size: 0.92rem;
+        padding: 10px 16px;
+    }
+
+    /* Notas */
+    .notas-card textarea {
+        font-size: 0.92rem;
+        padding: 12px 14px;
+        min-height: 120px;
+    }
+
+    /* Pomodoro */
+    .pomodoro-circle {
+        width: 140px;
+        height: 140px;
+        font-size: 2.2rem;
+        border-width: 5px;
+    }
+
+    .pomodoro-controls .btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+
+    .pomodoro-info {
+        font-size: 0.9rem;
+    }
+
+    /* Footer */
+    .tema-footer {
+        font-size: 0.8rem;
+        padding: 20px 0 10px;
+    }
+}
+
+/* ===== MÓVILES MUY PEQUEÑOS (menos de 420px) ===== */
+@media (max-width: 420px) {
+    .main-content {
+        padding: 8px 10px;
+    }
+
+    .card {
+        padding: 16px 14px;
+    }
+
+    .tema-header {
+        padding: 16px 18px;
+    }
+
+    .tema-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .card p {
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+
+    .card ul, .card ol {
+        font-size: 0.9rem;
+        padding-left: 20px;
+    }
+
+    .lista-estados li {
+        font-size: 0.88rem;
+        padding: 6px 0;
+    }
+
+    .concepto-clave,
+    .ejemplo,
+    .cuadro-resumen {
+        font-size: 0.9rem;
+        padding: 12px 14px;
+    }
+
+    .formula {
+        font-size: 0.9rem;
+        padding: 10px 12px;
+    }
+
+    .tabla-propiedades {
+        font-size: 0.78rem;
+    }
+
+    .tabla-propiedades th,
+    .tabla-propiedades td {
+        padding: 8px 10px;
+        min-width: 80px;
+    }
+
+    .pregunta {
+        padding: 12px 14px;
+    }
+
+    .pregunta p {
+        font-size: 0.9rem;
+    }
+
+    .pregunta .opciones {
+        font-size: 0.88rem;
+        padding-left: 14px;
+    }
+
+    .pregunta .respuesta {
+        font-size: 0.88rem;
+        padding: 8px 12px;
+    }
+
+    .pomodoro-circle {
+        width: 110px;
+        height: 110px;
+        font-size: 1.8rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" role="navigation" aria-label="Navegación principal">
+        <div class="sidebar-brand">
+            <div class="logo">🧪</div>
+            <h2>Química <span>PSA</span></h2>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-label">Contenido</div>
+            <a href="#introduccion" class="active">
+                <span class="icon">📖</span> Introducción
+            </a>
+            <a href="#materia">
+                <span class="icon">⚛️</span> Materia
+            </a>
+            <a href="#propiedades">
+                <span class="icon">📊</span> Propiedades
+            </a>
+            <a href="#estados">
+                <span class="icon">🌡️</span> Estados
+            </a>
+            <a href="#cambios">
+                <span class="icon">🔄</span> Cambios de estado
+            </a>
+            <a href="#clasificacion">
+                <span class="icon">📂</span> Clasificación
+            </a>
+            <a href="#energia">
+                <span class="icon">⚡</span> Energía
+            </a>
+            <a href="#prueba">
+                <span class="icon">📝</span> Mini Prueba
+                <span class="badge-nav">10</span>
+            </a>
+            <a href="#herramientas">
+                <span class="icon">🛠️</span> Herramientas
+            </a>
+            <a href="#bibliografia">
+                <span class="icon">📚</span> Bibliografía
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Sistema Preuniversitario
+        </div>
+    </aside>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <main class="main-content">
+        <div class="contenedor-tema">
+
+            <!-- ===== HEADER ===== -->
+            <header class="tema-header" id="introduccion">
+                <h1>🧪 Materia y Energía</h1>
+                <p class="subtitulo">Continuando con la química, este tema no me hizo sufrir tanto como el otro... mucha historia jajajaja</p>
+                <div class="meta">
+                    <span class="badge">Tema 2</span>
+                    <span class="badge badge-success">Materia y Energía</span>
+                </div>
+                <div style="margin-top: 14px; font-size: 0.9rem; opacity: 0.85;">
+                    💡 <em>"Transforma la materia para sanar la vida. Cada elemento que estudias es una vida que salvarás, cada reacción un puente hacia la salud"</em>
+                </div>
+            </header>
+
+            <!-- ===== INTRODUCCIÓN ===== -->
+            <section class="card">
+                <h2>📖 Introducción</h2>
+                <p>En el anterior tema vimos cómo se originó la química hasta ser consolidada como ciencia que estudia la materia. Ahora profundizaremos en lo que se refiere a la <strong>materia y todas sus características y propiedades</strong>, también se abordará lo referente a la <strong>energía y los tipos de energía que existen</strong>, puesto que tanto energía y materia están íntimamente relacionados.</p>
+                
+                <div class="concepto-clave">
+                    <strong>🔑 Contexto histórico:</strong> El físico estadounidense <strong>George Gamow</strong>, junto a <strong>Ralph Alpher</strong>, publicaron en 1948 el artículo <em>"El origen de los elementos químicos"</em>, que permitió fundamentar la teoría de la gran explosión <strong>"Big Bang"</strong> (anteriormente planteada por Albert Einstein), explicó la distribución actual de los elementos químicos y la radiación cósmica que se comprobó posteriormente.
+                </div>
+                
+                <p>Gamow estuvo involucrado en el <strong>Proyecto Manhattan</strong>, ayudando a desarrollar la bomba atómica. A su vez, predijo—a diferencia de otros científicos y filósofos—que <strong>las estrellas se calientan en vez de enfriarse</strong> cuando su combustible se agota, explicando así el calentamiento progresivo del Sol como causa probable de la extinción de la vida terrestre, en base a la explicación de la <strong>Energía Estelar</strong>. También teorizó la composición del código genético, aunque de forma errónea.</p>
+                
+                <div class="cuadro-resumen">
+                    <strong>💡 Reflexión:</strong> El estudio de la materia y la energía desde el punto de vista químico permitió, permite y permitirá dilucidar el origen del universo y predecir el futuro del mismo. Basta con ver la relación de la química y otras ciencias como la <strong>astroquímica</strong>, que ya nos permite comprender el origen de los sistemas planetarios y los elementos químicos fuera de nuestro planeta. El objetivo, beneficio o perjudicial, estará determinado por los valores de quien profundice en estos conocimientos.
+                </div>
+            </section>
+
+            <!-- ===== MATERIA ===== -->
+            <section class="card" id="materia">
+                <h2>⚛️ 2.1 Materia</h2>
+                
+                <h3>Definición tradicional vs. definición actual</h3>
+                
+                <p><strong>Definición tradicional:</strong> "Todo aquello que tiene masa y ocupa un lugar en el espacio". Esta descripción considera a la energía como una entidad enteramente distinta y complementaria de la materia, lo que no permite explicar la interacción de la materia con la energía.</p>
+                
+                <div class="concepto-clave">
+                    <strong>📌 Definición actual:</strong> La materia es <strong>"todo cuanto existe en el universo físico, ocupando un lugar en el espacio y susceptible a poseer distintas formas, siendo percibida por los sentidos"</strong>.
+                </div>
+                
+                <p>Esta afirmación implica que <strong>tanto la masa como la energía son las dos formas en las que puede existir la materia</strong>. Entiéndase:</p>
+                
+                <ul>
+                    <li><strong>Masa:</strong> existencia de materia en forma de partículas.</li>
+                    <li><strong>Energía:</strong> capacidad para realizar un trabajo.</li>
+                </ul>
+                
+                <div class="ejemplo">
+                    <strong>🌍 Ejemplos de materia:</strong> Las estrellas, el aire que se respira, la gasolina de un automóvil, los tejidos del cerebro, los plásticos (producidos por el hombre), todos compuestos por moléculas, átomos e iones, disponibles en sus diversas formas: líquido, sólido y gaseoso.
+                </div>
+            </section>
+
+            <!-- ===== PROPIEDADES ===== -->
+            <section class="card" id="propiedades">
+                <h2>📊 2.1.1 Propiedades de la materia</h2>
+                
+                <p>Las características que se utilizan para describir o identificar a la materia se denominan <strong>propiedades</strong>. Existen diferentes maneras de clasificarlas.</p>
+                
+                <h3>a) Según la dependencia con la cantidad de materia</h3>
+                
+                <table class="tabla-propiedades">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Definición</th>
+                            <th>Ejemplos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Intensivas</strong></td>
+                            <td>No dependen de la cantidad de sustancia presente en un cuerpo</td>
+                            <td>Temperatura, punto de fusión, punto de ebullición, velocidad, densidad</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Extensivas</strong></td>
+                            <td>Sí dependen de la cantidad de sustancia presente en un cuerpo</td>
+                            <td>Volumen, longitud, masa, peso, energía</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="ejemplo">
+                    <strong>🔍 Ejemplo:</strong> La <strong>temperatura</strong> de una taza de café es la misma aunque la dividas en dos tazas más pequeñas (intensiva). En cambio, la <strong>masa</strong> total del café sí se divide (extensiva).
+                </div>
+                
+                <h3>b) Según su naturaleza</h3>
+                
+                <h4>Propiedades generales o extrínsecas</h4>
+                <p>Son aquellas en las que depende la cantidad de masa y se consideran <strong>generales por ser propiedades comunes a toda clase de materia</strong>.</p>
+                
+                <ul class="lista-estados">
+                    <li><strong>Masa:</strong> cantidad de materia contenida en los cuerpos. Su unidad de medida es el kilogramo (kg) o el gramo (g) en el trabajo científico.</li>
+                    <li><strong>Peso:</strong> fuerza con la que la Tierra u otro astro atrae a los cuerpos por acción de la gravedad.</li>
+                    <li><strong>Volumen:</strong> espacio tridimensional que ocupa una sustancia.</li>
+                    <li><strong>Inercia:</strong> tendencia de los cuerpos a conservar su estado de reposo o de movimiento.</li>
+                    <li><strong>Divisibilidad:</strong> la materia puede dividirse hasta cierto límite, que puede ser microscópico o macroscópico.</li>
+                    <li><strong>Impenetrabilidad:</strong> resistencia que opone un cuerpo a que otro ocupe simultáneamente su lugar.</li>
+                    <li><strong>Elasticidad:</strong> propiedad que tienen los cuerpos de cambiar de forma cuando son afectados por una fuerza, recobrando la original cuando tal fuerza ha cesado.</li>
+                    <li><strong>Porosidad:</strong> presencia de espacios vacíos o poros en la materia.</li>
+                </ul>
+                
+                <h4>Propiedades específicas o intrínsecas</h4>
+                <p>Se les considera <strong>específicas porque nos permiten distinguir una sustancia de otra</strong>. Se subclasifican en:</p>
+                
+                <h5>🔬 Propiedades físicas</h5>
+                <p><em>Son aquellas características propias de la sustancia que, al ser observadas o medidas, <strong>no producen nuevas especies químicas</strong>. Ocurren cuando la materia interactúa con la luz, el calor, la electricidad y otras formas de energía, o cuando es sometida a diferentes tensiones y fuerzas, por lo que <strong>la materia no experimenta cambio en su composición o estructura molecular</strong>.</em></p>
+                
+                <ul class="lista-estados">
+                    <li><strong>Organolépticas:</strong> percibidas por los sentidos: color, olor, sabor, sonido, textura.</li>
+                    <li><strong>Estado físico:</strong> sólido, líquido, gaseoso, plasma y superfluído.</li>
+                    <li><strong>Densidad:</strong> relación de la masa de un objeto y su volumen (masa/volumen).</li>
+                    <li><strong>Punto de congelación:</strong> temperatura en la que una sustancia cambia del estado líquido al sólido.</li>
+                    <li><strong>Punto de ebullición:</strong> temperatura en la cual la presión de vapor de un líquido se iguala con la presión atmosférica, es decir, pasa de estado líquido a gaseoso.</li>
+                    <li><strong>Punto de fusión:</strong> temperatura a la cual los cuerpos en estado sólido pasan al estado líquido.</li>
+                    <li><strong>Maleabilidad:</strong> capacidad de un material para deformarse antes de fracturarse.</li>
+                    <li><strong>Conductividad:</strong> capacidad de una sustancia para permitir el flujo de la electricidad.</li>
+                    <li><strong>Ductibilidad:</strong> capacidad de deformarse sin sufrir fracturas, pudiendo transformarse en hilos.</li>
+                    <li><strong>Dureza:</strong> resistencia a ser rayados.</li>
+                    <li><strong>Solubilidad:</strong> capacidad de disolverse en una sustancia a una temperatura determinada.</li>
+                    <li><strong>Tenacidad:</strong> resistencia de los cuerpos a romperse.</li>
+                    <li><strong>Fragilidad:</strong> tendencia a romperse o fracturarse.</li>
+                </ul>
+                
+                <div class="ejemplo">
+                    <strong>🧪 Ejemplo de propiedad física:</strong> El <strong>punto de fusión</strong> del hielo es 0°C. Al calentarlo, se derrite, pero <strong>sigue siendo agua</strong> (H₂O), no cambia su composición química.
+                </div>
+                
+                <h5>⚗️ Propiedades químicas</h5>
+                <p><em>Son aquellas que pueden ser observadas cuando una sustancia sufre un <strong>cambio en su composición o naturaleza</strong>. Se detectan únicamente cuando se produce una <strong>transformación interna</strong> en la sustancia, es decir, cuando participa en una <strong>reacción química</strong>.</em></p>
+                
+                <ul class="lista-estados">
+                    <li><strong>Reactividad:</strong> capacidad de producir una reacción química.</li>
+                    <li><strong>Valencia:</strong> capacidad de combinación de un átomo.</li>
+                    <li><strong>Oxidabilidad:</strong> propiedad de algunos elementos que los hace capaces de formar óxidos.</li>
+                    <li><strong>Combustibilidad:</strong> propiedad de las sustancias que las hace capaces de arder.</li>
+                    <li><strong>Inflamabilidad:</strong> nos informa si la sustancia es capaz de encenderse con facilidad y desprender llamas.</li>
+                </ul>
+                
+                <div class="ejemplo">
+                    <strong>🔥 Ejemplo de propiedad química:</strong> El <strong>hierro</strong> tiene la propiedad química de <strong>oxidarse</strong> al reaccionar con el oxígeno, formando óxido de hierro (herrumbre). <strong>Su composición cambia</strong>, ya no es hierro puro.
+                </div>
+                
+                <div class="cuadro-resumen">
+                    <strong>📌 Diferencia clave:</strong>
+                    <br><strong>Propiedades físicas:</strong> No cambian la composición de la materia.
+                    <br><strong>Propiedades químicas:</strong> Cambian la composición de la materia (se forman nuevas sustancias).
+                </div>
+            </section>
+
+            <!-- ===== ESTADOS ===== -->
+            <section class="card" id="estados">
+                <h2>🌡️ 2.1.2 Estados de agregación de la materia</h2>
+                
+                <p>Las diversas sustancias pueden presentarse en forma de <strong>sólidos, líquidos o gases</strong>. Esta manera de manifestarse se conoce como <strong>estado de agregación de la materia</strong>, debido a que las características de cada estado tienen relación con la forma en que están dispuestos los átomos o moléculas que componen al cuerpo en estudio.</p>
+                
+                <p>Al cambiar la energía del sistema, los elementos y los compuestos pueden cambiar el estado de agregación en el que se encuentren. Esto representa una <strong>relación entre la energía y la materia</strong>.</p>
+                
+                <div class="concepto-clave">
+                    <strong>🔑 Factores determinantes:</strong> El estado de agregación de la materia está determinado principalmente por:
+                    <br>• <strong>Fuerzas de atracción o repulsión</strong> entre moléculas.
+                    <br>• <strong>Distancia intermolecular</strong> (depende de la presión).
+                    <br>• <strong>Velocidad promedio de las moléculas</strong> (depende de la temperatura).
+                </div>
+                
+                <h3>a) Estado sólido</h3>
+                <p>Las moléculas o átomos se encuentran en un <strong>ordenamiento rígido y geométrico</strong> que solo posee movimiento vibracional cuya velocidad depende de la temperatura. Las fuerzas de atracción son <strong>fuertes y mucho mayores que las fuerzas de repulsión</strong>; por ello se afirma que en este estado <strong>la energía potencial es mucho mayor que la energía cinética</strong>.</p>
+                
+                <p><strong>Características del estado sólido:</strong></p>
+                <ul class="lista-estados">
+                    <li><strong>Expansión:</strong> no se expanden cuando la temperatura varía.</li>
+                    <li><strong>Forma:</strong> tienen forma definida, pudiendo ser <strong>cristalinos</strong> (ordenados) o <strong>amorfos</strong> (desordenados).</li>
+                    <li><strong>Volumen:</strong> su volumen es definido.</li>
+                    <li><strong>Compresibilidad:</strong> no se pueden comprimir; si se intenta, tienden a romperse.</li>
+                    <li><strong>Densidad:</strong> tienen una mayor densidad que los gases y los líquidos.</li>
+                    <li><strong>Miscibilidad:</strong> se mezclan con gran lentitud debido a su difusión lenta.</li>
+                    <li><strong>Cristalización:</strong> tendencia a formar cristales.</li>
+                </ul>
+                
+                <div class="ejemplo">
+                    <strong>💎 Sólidos cristalinos vs. amorfos:</strong>
+                    <br>• <strong>Cristalinos:</strong> Enfriamiento gradual → partículas ordenadas → redes tridimensionales (ej: sal, diamante).
+                    <br>• <strong>Amorfos:</strong> Enfriamiento abrupto → partículas desordenadas → "vidrio" (ej: ópalo, vidrio común).
+                </div>
+                
+                <div class="concepto-clave">
+                    <strong>🔬 Importancia de los cristales:</strong> Son esenciales en la industria química, fabricación de cosméticos, equipamiento electrónico, agricultura y biociencias como material para el mejoramiento de la calidad del agua.
+                </div>
+                
+                <h3>b) Estado líquido</h3>
+                <p>En este estado, la distancia entre las moléculas es pequeña. El movimiento para cambiar de lugar lo realizan lentamente sin ocupar posiciones definidas. Las fuerzas de atracción y de repulsión se encuentran <strong>equilibradas</strong>, contribuyendo a mantener a las moléculas en continuo movimiento. Por lo tanto, <strong>la energía cinética molecular es aproximadamente igual a su energía potencial</strong>, debido a que las moléculas al poseer las mismas cargas externas tienden a repelerse al encontrarse demasiado cerca.</p>
+                
+                <p><strong>Características del estado líquido:</strong></p>
+                <ul class="lista-estados">
+                    <li><strong>Volumen:</strong> presentan volumen fijo sin importar la forma del recipiente que los contiene.</li>
+                    <li><strong>Expansibilidad:</strong> no se expanden de manera indefinida al igual que los gases, debido a que la fuerza intermolecular es lo suficientemente alta.</li>
+                    <li><strong>Compresibilidad:</strong> se comprimen ligeramente cuando ocurre algún cambio de temperatura o presión.</li>
+                    <li><strong>Forma:</strong> tiene una forma indefinida, adquieren la forma del recipiente que los contiene.</li>
+                    <li><strong>Densidad:</strong> su densidad es mucho mayor que la de los gases.</li>
+                    <li><strong>Miscibilidad:</strong> un líquido se mezcla con otro siempre y cuando los dos sean solubles.</li>
+                    <li><strong>Tensión superficial:</strong> fuerza que permite la flotación de los cuerpos en los líquidos, por la atracción diferencial entre las partículas del líquido y del aire.</li>
+                    <li><strong>Capilaridad:</strong> tendencia al ascenso espontáneo por tubos estrechos (capilares). Resultado de las fuerzas de <strong>cohesión</strong> (entre partículas del líquido) y fuerzas de <strong>adhesión</strong> (entre líquido y pared del recipiente).</li>
+                </ul>
+                
+                <div class="ejemplo">
+                    <strong>💧 Capilaridad:</strong>
+                    <br>• El <strong>agua</strong> asciende por un tubo capilar si la <strong>fuerza de adhesión &gt; fuerza de cohesión</strong> → menisco <strong>cóncavo</strong>.
+                    <br>• El <strong>mercurio</strong> no asciende (cohesión &gt; adhesión) → menisco <strong>convexo</strong>.
+                </div>
+                
+                <h3>c) Estado gaseoso</h3>
+                <p>Las moléculas están <strong>muy separadas</strong>, cada una se mueve a grandes velocidades y choca con las demás, de tal manera que <strong>no se pierde ni se gana energía</strong> (choques perfectamente elásticos). Las fuerzas de atracción entre las moléculas son <strong>casi nulas</strong>, predominando las fuerzas de repulsión. En este estado, <strong>la energía cinética es considerablemente mayor que la energía potencial</strong>.</p>
+                
+                <p>Algunas sustancias que se presentan en estado gaseoso a temperatura ambiente son: N₂, O₂, H₂, CO₂ y Cl₂.</p>
+                
+                <p><strong>Magnitudes para definir el estado de un gas:</strong></p>
+                <ul class="lista-estados">
+                    <li><strong>Masa:</strong> cantidad de materia del gas. Se asocia al número de moles.</li>
+                    <li><strong>Presión:</strong> fuerza ejercida contra las paredes del recipiente. Se expresa en atmósferas (atm), milímetros de mercurio (mmHg), pascales (Pa) o kilopascales (kPa).</li>
+                    <li><strong>Volumen:</strong> espacio en el que se mueven las partículas, dado por el recipiente que lo contiene. Se mide en litros.</li>
+                    <li><strong>Temperatura:</strong> determinada por la dirección del flujo del calor. Se expresa en Kelvin (K).</li>
+                </ul>
+                
+                <div class="formula">
+                    1 atm = 760 mmHg = 101,3 kPa &nbsp;&nbsp;|&nbsp;&nbsp; 1 K = t(°C) + 273,15
+                </div>
+                
+                <p><strong>Características del estado gaseoso:</strong></p>
+                <ul class="lista-estados">
+                    <li><strong>Expansibilidad:</strong> llenan todo el espacio donde se encuentran.</li>
+                    <li><strong>Forma:</strong> forma indefinida, adquieren la forma del recipiente que los contiene.</li>
+                    <li><strong>Volumen:</strong> indefinido; pueden expandirse y contraerse.</li>
+                    <li><strong>Compresibilidad:</strong> se pueden comprimir, disminuyendo su volumen al aplicárseles presión.</li>
+                    <li><strong>Densidad:</strong> inferiores a las de líquidos y sólidos, debido a las débiles fuerzas entre sus partículas.</li>
+                    <li><strong>Miscibilidad:</strong> cuando dos o más gases que no reaccionan entre sí se mezclan, lo hacen de manera uniforme.</li>
+                </ul>
+                
+                <h3>d) Plasma</h3>
+                <p>Es considerado el <strong>cuarto estado de agregación de la materia</strong>, siendo la forma más común de la materia en el universo (<strong>99%</strong>), no tanto así en la Tierra.</p>
+                
+                <ul class="lista-estados">
+                    <li><strong>Ejemplos:</strong> estrellas, bordes de relámpagos, ionosfera terrestre.</li>
+                    <li>Es un <strong>gas ionizado energizado</strong> que conduce la corriente eléctrica.</li>
+                    <li>Es <strong>eléctricamente neutro</strong> porque contiene el mismo número de electrones y de iones positivos que se mueven libremente.</li>
+                    <li>Se forma a <strong>temperaturas muy elevadas</strong>, como en las estrellas, donde la energía que ioniza los gases se produce por <strong>reacciones de fusión nuclear</strong>.</li>
+                </ul>
+                
+                <h3>e) Condensado de Bose-Einstein (BEC)</h3>
+                <p>Es el <strong>quinto estado</strong> en el cual los científicos descubrieron que se puede observar la materia, también conocido como <strong>"cubo de hielo cuántico"</strong>.</p>
+                
+                <ul class="lista-estados">
+                    <li><strong>Descubrimiento:</strong> 1995 por <strong>Wolfgang Ketterle, Eric A. Cornell y Carl Wieman</strong> (Nobel de Física 2001).</li>
+                    <li>Se logra al <strong>enfriar vapor de rubidio a -273,15 °C</strong> (cero absoluto) usando rayos láser.</li>
+                    <li>Una cantidad macroscópica de partículas pasa al <strong>nivel de mínima energía</strong>, quedándose casi inmóviles.</li>
+                    <li>Los átomos crean un <strong>"superátomo"</strong> más denso que en el estado sólido.</li>
+                    <li>Fue predicho en <strong>1925</strong> por <strong>Satyendra Nath Bose y Albert Einstein</strong>.</li>
+                </ul>
+            </section>
+
+            <!-- ===== CAMBIOS DE ESTADO ===== -->
+            <section class="card" id="cambios">
+                <h2>🔄 2.1.3 Cambios o transformaciones de los estados de la materia</h2>
+                
+                <p>Son <strong>cambios físicos que no alteran la composición de la materia</strong>. Dichos cambios están sujetos a los cambios de <strong>presión y temperatura</strong>.</p>
+                
+                <ul class="lista-estados">
+                    <li><strong>Fusión:</strong> sólido → líquido. El punto de fusión es variable para cada elemento y compuesto. Ej: Azufre a 115°C, Hierro a 1540°C, Alcohol a -117°C.</li>
+                    <li><strong>Solidificación:</strong> líquido → sólido. Ocurre por descenso de la temperatura. Ej: formación de cubitos de hielo, velas de parafina, vidrio.</li>
+                    <li><strong>Evaporación:</strong> líquido → gaseoso. Puede ocurrir a cualquier temperatura. Ej: evaporación del éter, alcohol, hielo seco.</li>
+                    <li><strong>Ebullición:</strong> líquido → gaseoso por aumento de temperatura. Depende de la presión atmosférica. Ej: agua hirviendo a 100°C (a nivel del mar).</li>
+                    <li><strong>Condensación/Licuación:</strong> gaseoso → líquido. Ocurre por descenso de temperatura y aumento de presión. Ej: formación de nubes, Gas Licuado de Petróleo (GLP).</li>
+                    <li><strong>Sublimación:</strong> sólido → gaseoso (sin pasar por líquido). Ej: naftalina (repelente de polillas), yodo (cristales a gas morado), arsénico (a 615°C).</li>
+                    <li><strong>Deposición o sublimación regresiva:</strong> gaseoso → sólido (sin pasar por líquido). Ej: formación de escarcha, lluvia ácida.</li>
+                </ul>
+                
+                <div class="cuadro-resumen">
+                    <strong>📌 Recuerda:</strong> Todos estos cambios son <strong>físicos</strong> porque <strong>no alteran la composición química</strong> de la materia. La sustancia sigue siendo la misma, solo cambia su estado.
+                </div>
+            </section>
+
+            <!-- ===== CLASIFICACIÓN ===== -->
+            <section class="card" id="clasificacion">
+                <h2>📂 2.1.4 Clasificación de la materia</h2>
+                
+                <h3>Sustancias puras</h3>
+                <p>Se considera una sustancia pura cuando la <strong>composición es definida e invariable</strong>. Debe cumplir con tres propiedades:</p>
+                
+                <ul class="lista-estados">
+                    <li>Presenta la <strong>misma composición</strong> en toda la materia.</li>
+                    <li>La separación de sus componentes <strong>no puede realizarse mediante métodos físicos</strong>.</li>
+                    <li>Todos los cambios de estado ocurren a <strong>temperatura constante</strong>.</li>
+                </ul>
+                
+                <div class="ejemplo">
+                    <strong>💧 Ejemplo:</strong> El <strong>agua pura</strong> contiene 11% en peso de hidrógeno y 89% en peso de oxígeno. Si la proporción fuera diferente, no sería agua pura.
+                    <br>Son sustancias puras: hierro, agua, azúcar, cal. <strong>No</strong> lo es el agua salada (mezcla).
+                </div>
+                
+                <h4>Elementos</h4>
+                <p>Un elemento es una sustancia <strong>formada por un solo tipo de átomo</strong> que <strong>no se puede descomponer</strong> en otras más sencillas por medios químicos.</p>
+                
+                <ul class="lista-estados">
+                    <li>La <strong>IUPAC</strong> (Unión Internacional de Química Pura y Aplicada) ha identificado <strong>118 elementos</strong>.</li>
+                    <li>En la naturaleza encontramos aproximadamente <strong>90 elementos</strong>.</li>
+                    <li>El resto no aparece de forma natural y solo se obtienen de forma <strong>artificial</strong>.</li>
+                    <li>Ejemplos: carbono, hidrógeno, oxígeno, hierro, plata, lutecio, tulio.</li>
+                </ul>
+                
+                <h4>Compuestos</h4>
+                <p>Los compuestos son sustancias que se originan de la <strong>unión química de dos o más elementos diferentes</strong>. Pueden descomponerse químicamente en sus elementos constituyentes.</p>
+                
+                <ul class="lista-estados">
+                    <li>Los elementos que los conforman <strong>pierden sus propiedades originales</strong>.</li>
+                    <li>En su formación existe una <strong>pérdida o ganancia de energía</strong>.</li>
+                    <li>La <strong>proporción de los elementos</strong> que forma el compuesto es <strong>fija</strong>.</li>
+                    <li>Sus constituyentes solo se pueden separar por <strong>medios químicos</strong>.</li>
+                </ul>
+                
+                <div class="ejemplo">
+                    <strong>🧪 Ejemplos de compuestos:</strong> Cloruro de sodio (NaCl), amoniaco (NH₃), ácido sulfúrico (H₂SO₄), dióxido de carbono (CO₂), etanol (C₂H₅OH), glucosa (C₆H₁₂O₆).
+                </div>
+                
+                <h3>Mezclas</h3>
+                <p>Una mezcla es una <strong>combinación física</strong> de dos o más sustancias asociadas físicamente, en la que éstas <strong>conservan sus propiedades distintivas</strong>.</p>
+                
+                <ul class="lista-estados">
+                    <li>Tiene <strong>composición variable</strong>.</li>
+                    <li>Los <strong>métodos físicos</strong> constituyen un medio de separación de sus componentes.</li>
+                    <li>En un <strong>intervalo de temperatura</strong> experimentan cambios de estado.</li>
+                </ul>
+                
+                <h4>Mezclas homogéneas</h4>
+                <p>Las sustancias que se mezclan <strong>no se pueden distinguir visualmente</strong>, ni siquiera con microscopio. Su composición es <strong>uniforme</strong> en toda la muestra.</p>
+                
+                <ul class="lista-estados">
+                    <li>También conocidas como <strong>disoluciones</strong>.</li>
+                    <li>Consisten en un <strong>disolvente</strong> (generalmente líquido) mezclado con uno o más <strong>solutos</strong> (sólidos, líquidos o gases).</li>
+                </ul>
+                
+                <div class="ejemplo">
+                    <strong>💉 Ejemplos en el área de la salud:</strong>
+                    <br>• Solución fisiológica (cloruro de sodio en agua).
+                    <br>• Plasma sanguíneo (sales, azúcares, proteínas, etc.).
+                    <br>• Alcohol medicinal (agua y etanol).
+                    <br>• Lavandina (hipoclorito de sodio y agua).
+                </div>
+                
+                <h4>Mezclas heterogéneas</h4>
+                <p>No presentan un aspecto uniforme y es posible <strong>distinguir sus componentes</strong> a simple vista o con instrumentos ópticos.</p>
+                
+                <ul class="lista-estados">
+                    <li>La proporción de los componentes es <strong>variable</strong>.</li>
+                    <li>Las propiedades de los componentes se conservan <strong>de forma independiente</strong>.</li>
+                </ul>
+                
+                <div class="ejemplo">
+                    <strong>🏖️ Ejemplo clásico:</strong> Mezcla de <strong>agua con arena</strong>.
+                </div>
+            </section>
+
+            <!-- ===== ENERGÍA ===== -->
+            <section class="card" id="energia">
+                <h2>⚡ 2.2 Energía</h2>
+                
+                <h3>2.2.1 Definición</h3>
+                <p>Se define a la energía de forma simple como <strong>"todo aquello capaz de producir"</strong>. Sin embargo, la energía es más que una capacidad o habilidad: <strong>"la energía es la fuerza vital de una sociedad y la esencia de toda forma de vida"</strong>.</p>
+                
+                <ul class="lista-estados">
+                    <li>Para los seres vivos, la energía es necesaria para realizar todos aquellos cambios químicos y biológicos que les permita seguir vivos a partir de funciones vitales como <strong>nutrición, relación y reproducción</strong>.</li>
+                    <li>Los humanos se han convertido en los <strong>gestores de la energía en el planeta</strong>: iluminación, calefacción, refrigeración, transporte, obtención de alimentos, funcionamiento de fábricas, etc.</li>
+                    <li>El uso indiscriminado de la energía es uno de los principales factores de <strong>contaminación del planeta</strong>.</li>
+                    <li>Actualmente se han generado <strong>nuevas alternativas de energía</strong> para disminuir la contaminación.</li>
+                </ul>
+                
+                <div class="concepto-clave">
+                    <strong>🔬 La termodinámica</strong> es la ciencia que estudia cuantitativamente las transformaciones de energía.
+                </div>
+                
+                <h3>2.2.2 Formas de energía</h3>
+                
+                <ul class="lista-estados">
+                    <li><strong>Energía cinética:</strong> la que proviene de los cuerpos en movimiento o de las partes que los constituyen (moléculas).</li>
+                    <li><strong>Energía potencial:</strong> la que poseen los cuerpos en reposo; energía almacenada en la materia, relacionada con su distancia al centro de la Tierra.</li>
+                    <li><strong>Energía química:</strong> tipo de energía potencial incluida en la materia, debida a la distribución de moléculas y átomos. Ej: consumo de alimentos ricos en hidratos de carbono.</li>
+                    <li><strong>Energía mecánica:</strong> puede ser utilizada para mover o detener un cuerpo.</li>
+                    <li><strong>Energía osmótica:</strong> se manifiesta por el movimiento de partículas a través de <strong>membranas semipermeables</strong>.</li>
+                    <li><strong>Energía radiante:</strong> producida por el movimiento de <strong>fotones</strong>.</li>
+                    <li><strong>Energía calorífica:</strong> energía en tránsito que fluye de un cuerpo caliente a otro de menor temperatura. Participa en cambios de estado y reacciones químicas (<strong>exotérmicas</strong> = generan calor; <strong>endotérmicas</strong> = absorben calor).</li>
+                </ul>
+                
+                <h3>2.2.3 Energías alternativas, limpias o no contaminantes</h3>
+                
+                <p>Actualmente se buscan energías <strong>limpias, duraderas, baratas</strong>, que generen reducidos impactos ambientales y sociales, y que <strong>no generen desechos nocivos</strong> para la salud y la naturaleza.</p>
+                
+                <ul class="lista-estados">
+                    <li><strong>Energía solar:</strong> radiación solar captada en paneles solares.</li>
+                    <li><strong>Energía eólica:</strong> utiliza la fuerza del viento para hacer girar hélices y producir electricidad.</li>
+                    <li><strong>Energía hidráulica:</strong> utiliza el agua en movimiento para generar electricidad.</li>
+                    <li><strong>Biomasa:</strong> combustible obtenido directa o indirectamente de recursos biológicos (madera, restos de comida). Se transforma mediante <strong>combustión</strong> o <strong>pirólisis</strong> (combustión incompleta a &gt;400°C en ausencia de aire) para obtener <strong>biogás</strong>.</li>
+                </ul>
+                
+                <h4>Energía nuclear</h4>
+                <p>Procede de reacciones de <strong>fisión o fusión</strong> de átomos, liberando gigantescas cantidades de energía para producir electricidad.</p>
+                
+                <ul class="lista-estados">
+                    <li>El sistema más usado es en base al <strong>uranio-235</strong> como combustible.</li>
+                    <li>El núcleo del U-235 es bombardeado por neutrones y se rompe, originando dos átomos de tamaño aproximadamente mitad del de uranio.</li>
+                    <li>Se liberan <strong>dos o tres neutrones</strong> que inciden sobre átomos vecinos, generando una <strong>reacción en cadena</strong>.</li>
+                    <li>La fisión controlada libera energía que convierte agua en vapor, moviendo una turbina para generar electricidad.</li>
+                </ul>
+                
+                <div class="concepto-clave">
+                    <strong>⚠️ Riesgos de la energía nuclear:</strong>
+                    <br>• Catástrofe de <strong>Chernobyl (1986)</strong> en una central con deficientes medidas de seguridad.
+                    <br>• Problema del <strong>almacenamiento de residuos nucleares</strong> de alta actividad.
+                    <br>• Su uso sigue siendo controvertido.
+                </div>
+            </section>
+
+            <!-- ===== MINI PRUEBA ===== -->
+            <section class="card" id="prueba" style="border: 2px solid var(--primary);">
+                <h2>📝 Mini Prueba - 10 Preguntas Nivel Universitario</h2>
+                <p style="color: var(--text-light); margin-bottom: 15px;">Selecciona la respuesta correcta. Haz clic en "Ver respuesta" para comprobar.</p>
+                
+                <!-- Pregunta 1 -->
+                <div class="pregunta">
+                    <p><strong>1.</strong> La definición moderna de materia establece que esta puede existir en dos formas fundamentales. ¿Cuáles son estas formas?</p>
+                    <div class="opciones">
+                        a) Sólido y líquido<br>
+                        b) Masa y energía<br>
+                        c) Volumen y peso<br>
+                        d) Energía cinética y potencial<br>
+                        e) Átomos y moléculas
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) Masa y energía</strong><br>La materia se define como todo cuanto existe en el universo físico, y tanto la masa como la energía son las dos formas en las que puede existir.</div>
+                </div>
+                
+                <!-- Pregunta 2 -->
+                <div class="pregunta">
+                    <p><strong>2.</strong> La tensión superficial es una propiedad física de los líquidos. ¿Qué fenómeno molecular la explica?</p>
+                    <div class="opciones">
+                        a) Fuerzas de cohesión entre moléculas del líquido y fuerzas de adhesión con el aire<br>
+                        b) Fuerzas de repulsión entre moléculas del líquido<br>
+                        c) Energía cinética de las moléculas del líquido<br>
+                        d) La capilaridad del líquido<br>
+                        e) La densidad del líquido
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: a) Fuerzas de cohesión entre moléculas del líquido y fuerzas de adhesión con el aire</strong><br>La tensión superficial se debe a la atracción diferencial entre las partículas del líquido y del aire.</div>
+                </div>
+                
+                <!-- Pregunta 3 -->
+                <div class="pregunta">
+                    <p><strong>3.</strong> Un líquido asciende por un tubo capilar formando un menisco cóncavo. ¿Qué relación entre fuerzas explica este fenómeno?</p>
+                    <div class="opciones">
+                        a) Fuerza de cohesión > fuerza de adhesión<br>
+                        b) Fuerza de adhesión > fuerza de cohesión<br>
+                        c) Fuerza de cohesión = fuerza de adhesión<br>
+                        d) Fuerza de repulsión > fuerza de atracción<br>
+                        e) Ninguna de las anteriores
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) Fuerza de adhesión > fuerza de cohesión</strong><br>El líquido asciende si la fuerza de adhesión (entre líquido y pared) es mayor que la de cohesión (entre moléculas del líquido). El mercurio, por el contrario, tiene cohesión > adhesión.</div>
+                </div>
+                
+                <!-- Pregunta 4 -->
+                <div class="pregunta">
+                    <p><strong>4.</strong> En el estado gaseoso, los choques entre moléculas se consideran perfectamente elásticos. ¿Qué implica esto?</p>
+                    <div class="opciones">
+                        a) Las moléculas pierden energía en cada choque<br>
+                        b) Las moléculas ganan energía en cada choque<br>
+                        c) No se pierde ni se gana energía en los choques<br>
+                        d) Las moléculas se fusionan al chocar<br>
+                        e) Las moléculas se rompen al chocar
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) No se pierde ni se gana energía en los choques</strong><br>En un gas, los choques entre moléculas son perfectamente elásticos, lo que significa que la energía cinética total se conserva.</div>
+                </div>
+                
+                <!-- Pregunta 5 -->
+                <div class="pregunta">
+                    <p><strong>5.</strong> ¿Qué magnitud permite determinar la dirección del flujo de calor en un sistema gaseoso?</p>
+                    <div class="opciones">
+                        a) La presión<br>
+                        b) El volumen<br>
+                        c) La masa<br>
+                        d) La temperatura<br>
+                        e) La densidad
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: d) La temperatura</strong><br>La temperatura determina la dirección del flujo de calor, ya que el calor fluye de un cuerpo de mayor temperatura a otro de menor temperatura.</div>
+                </div>
+                
+                <!-- Pregunta 6 -->
+                <div class="pregunta">
+                    <p><strong>6.</strong> ¿Cuál de las siguientes afirmaciones sobre el Condensado de Bose-Einstein (BEC) es correcta?</p>
+                    <div class="opciones">
+                        a) Se obtiene a temperatura ambiente<br>
+                        b) Fue descubierto por Gamow y Alpher en 1948<br>
+                        c) Se logra enfriando vapor de rubidio a -273,15 °C<br>
+                        d) Es el cuarto estado de agregación de la materia<br>
+                        e) Sus átomos se mueven a gran velocidad
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) Se logra enfriando vapor de rubidio a -273,15 °C</strong><br>El BEC se obtiene al enfriar vapor de rubidio a temperaturas cercanas al cero absoluto (-273,15 °C), donde los átomos crean un "superátomo". Fue descubierto en 1995.</div>
+                </div>
+                
+                <!-- Pregunta 7 -->
+                <div class="pregunta">
+                    <p><strong>7.</strong> La combustibilidad es una propiedad que permite clasificar a una sustancia como:</p>
+                    <div class="opciones">
+                        a) Propiedad física extensiva<br>
+                        b) Propiedad física intensiva<br>
+                        c) Propiedad química<br>
+                        d) Propiedad organoléptica<br>
+                        e) Propiedad general de la materia
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) Propiedad química</strong><br>La combustibilidad es una propiedad química porque implica un cambio en la composición de la sustancia, es decir, una reacción química.</div>
+                </div>
+                
+                <!-- Pregunta 8 -->
+                <div class="pregunta">
+                    <p><strong>8.</strong> ¿Qué relación existe entre la energía potencial y la energía cinética en el estado sólido?</p>
+                    <div class="opciones">
+                        a) Energía potencial < energía cinética<br>
+                        b) Energía potencial = energía cinética<br>
+                        c) Energía potencial > energía cinética<br>
+                        d) No existe relación entre ellas<br>
+                        e) Ambas son iguales a cero
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) Energía potencial > energía cinética</strong><br>En el estado sólido, las fuerzas de atracción son fuertes y las moléculas solo tienen movimiento vibracional, por lo que la energía potencial es mucho mayor que la energía cinética.</div>
+                </div>
+                
+                <!-- Pregunta 9 -->
+                <div class="pregunta">
+                    <p><strong>9.</strong> La energía osmótica se manifiesta mediante:</p>
+                    <div class="opciones">
+                        a) El movimiento de fotones<br>
+                        b) El movimiento de partículas a través de membranas semipermeables<br>
+                        c) La fuerza del viento<br>
+                        d) La radiación solar<br>
+                        e) La combustión de biomasa
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) El movimiento de partículas a través de membranas semipermeables</strong><br>La energía osmótica es la que se manifiesta por el movimiento de partículas a través de membranas semipermeables, siendo fundamental en procesos biológicos.</div>
+                </div>
+                
+                <!-- Pregunta 10 -->
+                <div class="pregunta">
+                    <p><strong>10.</strong> En la fisión nuclear del U-235, los neutrones liberados inciden sobre átomos vecinos, generando una reacción en cadena. ¿Qué elemento se forma como subproducto de este proceso?</p>
+                    <div class="opciones">
+                        a) Carbono-14<br>
+                        b) Dos átomos de tamaño aproximadamente mitad del de uranio<br>
+                        c) Plutonio-239<br>
+                        d) Hidrógeno molecular<br>
+                        e) Oxígeno-18
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) Dos átomos de tamaño aproximadamente mitad del de uranio</strong><br>En la fisión nuclear del U-235, el núcleo se rompe originando dos átomos de un tamaño aproximadamente mitad del de uranio, liberando neutrones y energía.</div>
+                </div>
+            </section>
+
+            <!-- ===== HERRAMIENTAS ===== -->
+            <section id="herramientas">
+                <h2 style="color: white; font-weight: 600; margin-bottom: 15px;">🛠️ Herramientas de Estudio</h2>
+                <div class="herramientas-grid">
+                    
+                    <!-- Pomodoro -->
+                    <div class="herramienta-card">
+                        <h3>⏱️ Pomodoro</h3>
+                        <div class="pomodoro-circle" id="timerDisplay">25:00</div>
+                        <div class="pomodoro-controls">
+                            <button class="btn btn-primary" id="startBtn">▶ Iniciar</button>
+                            <button class="btn btn-secondary" id="pauseBtn">⏸ Pausar</button>
+                            <button class="btn btn-danger" id="resetBtn">↻ Reiniciar</button>
+                        </div>
+                        <div class="pomodoro-info">Ciclo: <span id="cycleCount">1</span> de 4</div>
+                    </div>
+                    
+                    <!-- Tareas -->
+                    <div class="herramienta-card">
+                        <h3>📋 Tareas</h3>
+                        <ul class="task-list" id="taskList">
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Leer todo el tema de Materia y Energía</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Hacer las 10 preguntas de autoevaluación</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Crear un mapa conceptual de los estados de la materia</span>
+                            </li>
+                        </ul>
+                        <div class="task-input-group">
+                            <input type="text" id="taskInput" placeholder="Nueva tarea..." aria-label="Nueva tarea">
+                            <button class="btn" id="addTaskBtn" aria-label="Agregar tarea">+</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Notas -->
+                    <div class="herramienta-card notas-card">
+                        <h3>📝 Apuntes</h3>
+                        <textarea id="notesArea" placeholder="Escribe tus notas aquí..." aria-label="Área de notas"></textarea>
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- ===== BIBLIOGRAFÍA ===== -->
+            <section class="card" id="bibliografia">
+                <h2>📚 Bibliografía</h2>
+                <ul style="font-size: 0.85rem; color: var(--text-light); line-height: 1.8;">
+                    <li>Martínez E. Química I Con enfoque en competencias. Primera ed. Munguia L, editor. Mexico D.F.: Cengage Learning Editores; 2009.</li>
+                    <li>Perez G, Garduño G, Rodríguez C. Química I. Un enfoque constructivista. Primera ed. Quintanar E, editor. Mexico: PEARSON EDUCACIÓN; 2007.</li>
+                    <li>Wolfe D. QUÍMICA GENERAL, ORGÁNICA Y BIOLÓGICA. Segunda ed. García M, editor. Mexico: McGRAW-HILL; 1996.</li>
+                    <li>Mora V. Química I : bachillerato: desarrolla competencias. Tercera ed. Mora V, editor. Mexico: ST EDITORIAL; 2012.</li>
+                    <li>Recio F. QUÍMICA INORGÁNICA. Quinta ed. Martínez A, editor. Mexico: McGRAW-HILL; 2012.</li>
+                    <li>Chang R, Goldsby KA. Química. Doceava ed. Chang R, Goldsby KA, editors. Mexico, D.F.: McGRAW-HILL; 2016.</li>
+                    <li>Petrucci RH, Herring FG, Madura JD, Bissonnette C. QUÍMICA GENERAL. PRINCIPIOS Y APLICACIONES MODERNAS. Onceava ed. Madrid: Pearson; 2017.</li>
+                    <li>Daub W, Seese W. Química. Octava ed. Quintanar E, editor. Mexico: Pearson; 2005.</li>
+                    <li>Cedrón J., Landa V., Robles J. Química general. Pontificia Universidad Católica del Perú. 2001.</li>
+                </ul>
+            </section>
+
+            <!-- ===== FOOTER ===== -->
+            <footer class="tema-footer">
+                Sistema Preuniversitario - Química Tema 2: Materia y Energía
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== FUNCIÓN PARA MOSTRAR RESPUESTAS (SEGURA) =====
+        function mostrarRespuesta(btn) {
+            const respuesta = btn.nextElementSibling;
+            if (respuesta && respuesta.classList) {
+                respuesta.classList.toggle('mostrar');
+                btn.textContent = respuesta.classList.contains('mostrar') ? 'Ocultar respuesta' : 'Ver respuesta';
+            }
+        }
+
+        // ===== POMODORO =====
+        let timeLeft = 25 * 60;
+        let timerId = null;
+        let isRunning = false;
+        let cycleCount = 1;
+
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const cycleSpan = document.getElementById('cycleCount');
+
+        function updateDisplay() {
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            timerId = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                if (timeLeft === 0) {
+                    clearInterval(timerId);
+                    isRunning = false;
+                    alert('¡Tiempo completado! 🎉');
+                    if (cycleCount < 4) {
+                        cycleCount++;
+                        cycleSpan.textContent = cycleCount;
+                        timeLeft = 25 * 60;
+                        updateDisplay();
+                    } else {
+                        alert('¡Ciclo completo! Descansa 15 minutos.');
+                        cycleCount = 1;
+                        cycleSpan.textContent = cycleCount;
+                        timeLeft = 25 * 60;
+                        updateDisplay();
+                    }
+                }
+            }, 1000);
+        }
+
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', () => {
+            clearInterval(timerId);
+            isRunning = false;
+        });
+        resetBtn.addEventListener('click', () => {
+            clearInterval(timerId);
+            isRunning = false;
+            timeLeft = 25 * 60;
+            updateDisplay();
+            cycleCount = 1;
+            cycleSpan.textContent = cycleCount;
+        });
+
+        // ===== TAREAS (CON SANITIZACIÓN) =====
+        const taskList = document.getElementById('taskList');
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+
+        // Función para sanitizar texto (previene XSS)
+        function sanitizeText(text) {
+            const element = document.createElement('div');
+            element.textContent = text;
+            return element.innerHTML;
+        }
+
+        // Cargar tareas guardadas
+        const savedTasks = localStorage.getItem('tasks-QuimicaTema2');
+        if (savedTasks) {
+            try {
+                taskList.innerHTML = savedTasks;
+                document.querySelectorAll('.task-item input[type="checkbox"]').forEach(cb => {
+                    cb.addEventListener('change', function() {
+                        this.parentElement.classList.toggle('completed');
+                        saveTasks();
+                    });
+                });
+            } catch (e) {
+                console.warn('Error al cargar tareas:', e);
+            }
+        }
+
+        function saveTasks() {
+            localStorage.setItem('tasks-QuimicaTema2', taskList.innerHTML);
+        }
+
+        function addTask() {
+            const text = taskInput.value.trim();
+            if (!text) {
+                alert('Por favor, escribe una tarea.');
+                return;
+            }
+
+            // Sanitizar el texto antes de insertarlo
+            const safeText = sanitizeText(text);
+
+            const li = document.createElement('li');
+            li.className = 'task-item';
+            li.innerHTML = `
+                <input type="checkbox">
+                <span>${safeText}</span>
+            `;
+            taskList.appendChild(li);
+            taskInput.value = '';
+            saveTasks();
+
+            li.querySelector('input[type="checkbox"]').addEventListener('change', function() {
+                this.parentElement.classList.toggle('completed');
+                saveTasks();
+            });
+        }
+
+        addTaskBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask();
+        });
+
+        // ===== NOTAS (CON SANITIZACIÓN AL GUARDAR) =====
+        const notesArea = document.getElementById('notesArea');
+        
+        const savedNotes = localStorage.getItem('notes-QuimicaTema2');
+        if (savedNotes) notesArea.value = savedNotes;
+
+        notesArea.addEventListener('input', () => {
+            // Guardamos el texto sin sanitizar porque es contenido de usuario
+            // pero al mostrarlo en un textarea no hay riesgo XSS
+            localStorage.setItem('notes-QuimicaTema2', notesArea.value);
+        });
+
+        // ===== SCROLL SUAVE PARA LA SIDEBAR =====
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
+                // Actualizar active
+                document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+
+                // En móvil, cerrar sidebar si está abierta
+                if (window.innerWidth <= 768) {
+                    // No hacemos nada extra, el sidebar ya es horizontal en móvil
+                }
+            });
+        });
+
+        // ===== DETECTAR SECCIÓN ACTIVA AL HACER SCROLL =====
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

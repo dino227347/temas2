@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anatomía Humana - Introducción | Sistema Preuniversitario</title>
+    
+    <!-- ===== CSS BASE REUTILIZADO ===== -->
+    <link rel="stylesheet" href="tema-base.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== SOBRESCRITURA DE VARIABLES PARA ANATOMÍA ===== */
+        :root {
+            --primary: #dc2626;
+            --primary-dark: #991b1b;
+            --primary-light: #fca5a5;
+            --primary-bg: #fef2f2;
+        }
+
+        /* ===== SOBRESCRITURA DEL FONDO ===== */
+        body {
+            background: linear-gradient(135deg, #0f172a, #991b1b);
+        }
+
+        /* ===== SIDEBAR (NUEVO COMPONENTE) ===== */
+        .sidebar {
+            width: var(--sidebar-width, 280px);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-brand .logo {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .sidebar-brand h2 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .sidebar-brand span {
+            color: var(--primary-light);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+        }
+
+        .sidebar-nav .nav-label {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            padding: 15px 0 8px 0;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-bottom: 2px;
+            position: relative;
+        }
+
+        .sidebar-nav a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+
+        .sidebar-nav a.active {
+            background: rgba(220, 38, 38, 0.25);
+            color: white;
+            font-weight: 500;
+        }
+
+        .sidebar-nav a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10%;
+            height: 80%;
+            width: 3px;
+            background: var(--primary-light);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .sidebar-nav a .icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-nav a .badge-nav {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1px 10px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .sidebar-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        /* ===== CONTENIDO PRINCIPAL (CON SIDEBAR) ===== */
+        .main-content {
+            flex: 1;
+            padding: 25px 30px;
+            max-width: calc(100% - var(--sidebar-width, 280px));
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+        }
+
+        .contenedor-tema {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ===== BADGE ESPECÍFICO ===== */
+        .badge-success {
+            background: var(--success);
+        }
+
+        .badge-dark {
+            background: #1f2937;
+        }
+
+        /* ===== COMPONENTES NUEVOS PARA ANATOMÍA ===== */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+        .grid-2col .col {
+            background: var(--gray-bg);
+            padding: 15px 18px;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .grid-2col .col h4 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .tabla-terminos {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .tabla-terminos th {
+            background: var(--primary);
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .tabla-terminos td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--gray-light);
+            color: var(--text-dark);
+        }
+
+        .tabla-terminos tr:hover td {
+            background: var(--gray-bg);
+        }
+
+        .lista-definiciones {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lista-definiciones li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-bg);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .lista-definiciones li::before {
+            content: "◆";
+            color: var(--primary);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .lista-definiciones li:last-child {
+            border-bottom: none;
+        }
+
+        /* ===== HERRAMIENTAS EN GRID ===== */
+        .herramientas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .herramienta-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .herramienta-card h3 {
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ===== RESPONSIVE PARA SIDEBAR ===== */
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 240px;
+            }
+            .herramientas-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 100%;
+            }
+
+            body {
+                flex-direction: column;
+                padding: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 12px 15px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+
+            .sidebar-brand {
+                padding-bottom: 0;
+                border-bottom: none;
+                margin-bottom: 0;
+                flex: 0 0 auto;
+            }
+
+            .sidebar-brand .logo {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+
+            .sidebar-brand h2 {
+                font-size: 0.8rem;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 3px;
+                flex: 1;
+                padding: 0 8px;
+            }
+
+            .sidebar-nav .nav-label {
+                display: none;
+            }
+
+            .sidebar-nav a {
+                padding: 4px 10px;
+                font-size: 0.65rem;
+                gap: 3px;
+                border-radius: 6px;
+            }
+
+            .sidebar-nav a .icon {
+                font-size: 0.8rem;
+                width: 16px;
+            }
+
+            .sidebar-nav a .badge-nav {
+                display: none;
+            }
+
+            .sidebar-nav a.active::before {
+                display: none;
+            }
+
+            .sidebar-footer {
+                display: none;
+            }
+
+            .main-content {
+                max-width: 100%;
+                padding: 12px 15px;
+                flex: 1;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .tabla-terminos {
+                display: block;
+                overflow-x: auto;
+                font-size: 0.8rem;
+            }
+
+            .tabla-terminos th,
+            .tabla-terminos td {
+                padding: 8px 10px;
+                min-width: 80px;
+            }
+
+            .herramientas-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar-nav a {
+                font-size: 0.55rem;
+                padding: 3px 7px;
+            }
+
+            .sidebar-nav a .icon {
+                font-size: 0.7rem;
+                width: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" role="navigation" aria-label="Navegación principal">
+        <div class="sidebar-brand">
+            <div class="logo">🩺</div>
+            <h2>Anatomía <span>PSA</span></h2>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-label">Contenido</div>
+            <a href="#introduccion" class="active">
+                <span class="icon">🏛️</span> Introducción
+            </a>
+            <a href="#historia">
+                <span class="icon">📜</span> Historia
+            </a>
+            <a href="#planos">
+                <span class="icon">🧭</span> Planos del cuerpo
+            </a>
+            <a href="#posiciones">
+                <span class="icon">🛏️</span> Posiciones
+            </a>
+            <a href="#terminologia">
+                <span class="icon">📖</span> Terminología
+            </a>
+            <a href="#movimiento">
+                <span class="icon">🏃</span> Movimientos
+            </a>
+            <a href="#estudio">
+                <span class="icon">🔬</span> Formas de estudio
+            </a>
+            <a href="#division">
+                <span class="icon">📊</span> División
+            </a>
+            <a href="#constitucion">
+                <span class="icon">🧬</span> Constitución
+            </a>
+            <a href="#prueba">
+                <span class="icon">❓</span> Mini Prueba
+                <span class="badge-nav">10</span>
+            </a>
+            <a href="#herramientas">
+                <span class="icon">🛠️</span> Herramientas
+            </a>
+            <a href="#bibliografia">
+                <span class="icon">📚</span> Bibliografía
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            con esfuerzo para estudiar con esfuerzo 
+        </div>
+    </aside>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main-content">
+    <div class="contenedor-tema">
+
+        <!-- ===== HEADER ===== -->
+        <header class="tema-header" id="introduccion">
+            <h1>🩺 Introducción a la Anatomía Humana</h1>
+            <p>La ciencia que "nace de la observación" y estudia las estructuras macroscópicas, microscópicas y del desarrollo que forman el cuerpo humano</p>
+            <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px;">
+                <span class="badge">Tema 1</span>
+                <span class="badge badge-success">Anatomía Humana</span>
+                <span class="badge badge-dark">🩺 Ciencias de la Salud</span>
+            </div>
+            <div style="margin-top: 14px; font-size: 0.9rem; opacity: 0.85;">
+                💡 <em>"El verdadero libro abierto e irremplazable es el cadáver humano con su proyección y aplicación funcional, clínica y quirúrgica."</em>
+            </div>
+        </header>
+
+        <!-- ============================================================ -->
+        <!-- 1. INTRODUCCIÓN Y DEFINICIÓN                                  -->
+        <!-- ============================================================ -->
+        <section class="card">
+            <h2>🏛️ 1. Definición y Etimología</h2>
+            
+            <p><strong>Definición:</strong> La Anatomía humana es la ciencia empírica que <strong>"nace de la observación"</strong> y estudia las estructuras macroscópicas, microscópicas y del desarrollo que forman el cuerpo humano. Es una disciplina fundamental en las ciencias de la salud, ya que proporciona el conocimiento estructural necesario para comprender la función (fisiología), la patología y la terapéutica.</p>
+            
+            <div class="concepto-clave">
+                <strong>📌 Etimología:</strong> La palabra anatomía deriva del griego <strong>ANATEMNEIN</strong> que significa:
+                <br>• <strong>ANA</strong> = repetición
+                <br>• <strong>TEMNEIN</strong> = cortar
+                <br><br>Su equivalente en latín es <strong>DISECARE</strong>:
+                <br>• <strong>DIS</strong> = separar
+                <br>• <strong>SECARE</strong> = cortar
+                <br><br>La <strong>disección</strong> es la técnica fundamental que sirve para el aprendizaje de la anatomía, permitiendo la observación directa de las estructuras del cuerpo humano.
+            </div>
+            
+            <p>La anatomía no es una ciencia estática; evoluciona constantemente con el avance de las técnicas de imagen (radiología, tomografía, resonancia magnética) y la microscopía electrónica, que han permitido explorar el cuerpo humano desde niveles macroscópicos hasta moleculares.</p>
+            
+            <div class="cuadro-resumen">
+                <strong>💡 Reflexión:</strong> El verdadero libro abierto e irremplazable es el cadáver humano con su proyección y aplicación Funcional (fisiología), clínica y quirúrgica. La anatomía es la base sobre la que se construye todo el conocimiento médico.
+            </div>
+            
+            <p><strong>Importancia clínica:</strong> El conocimiento anatómico es esencial para:</p>
+            <ul>
+                <li><strong>Diagnóstico:</strong> Localización precisa de órganos y estructuras para interpretar signos y síntomas.</li>
+                <li><strong>Procedimientos invasivos:</strong> Guía para cirugías, punciones, cateterismos y biopsias.</li>
+                <li><strong>Interpretación de imágenes:</strong> Lectura de radiografías, TAC, RMN y ecografías.</li>
+                <li><strong>Farmacología:</strong> Comprensión de las vías de administración y absorción de fármacos.</li>
+                <li><strong>Rehabilitación:</strong> Base para la fisioterapia y la recuperación funcional.</li>
+            </ul>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 2. HISTORIA DE LA ANATOMÍA                                    -->
+        <!-- ============================================================ -->
+        <section class="card" id="historia">
+            <h2>📜 2. Historia de la Anatomía</h2>
+            
+            <p>La historia de la anatomía es tan antigua como la humanidad misma, y su desarrollo ha estado estrechamente ligado a la evolución del pensamiento científico y las creencias culturales de cada época. Desde las primeras curaciones y embalsamamientos en el antiguo Egipto, Mesopotamia y Grecia, hasta las técnicas de imagen del siglo XXI, la anatomía ha recorrido un largo camino.</p>
+            
+            <h3>2.1 Prehistoria y Primeras Civilizaciones</h3>
+            <p>Los primeros conocimientos anatómicos surgieron de la necesidad de <strong>curar heridas y enfermedades</strong>, así como de las prácticas funerarias. En el <strong>antiguo Egipto</strong> (3000 a.C.), los embalsamadores desarrollaron un conocimiento práctico de la anatomía al extraer y conservar órganos internos durante el proceso de momificación. Sin embargo, este conocimiento era empírico y no se registraba de forma sistemática.</p>
+            
+            <p>En <strong>Mesopotamia</strong>, los sacerdotes-médicos realizaban diagnósticos basados en la observación de órganos de animales sacrificados (hepatoscopia), estableciendo los primeros vínculos entre la anatomía y la adivinación.</p>
+            
+            <div class="ejemplo">
+                <strong>🏛️ Dato histórico:</strong> El <strong>Papiro de Edwin Smith</strong> (c. 1600 a.C.) es el documento médico más antiguo conocido que contiene referencias anatómicas, describiendo el cerebro, las meninges, el corazón y los vasos sanguíneos, con un enfoque racional y sistemático.
+            </div>
+            
+            <h3>2.2 Hipócrates y el Corpus Hipocraticum</h3>
+            <p>El padre de la Medicina, <strong>Hipócrates de Cos</strong> (460-370 a.C.), en su libro <em>"Corpus Hipocraticum"</em> enuncia conceptos anatómicos fundamentales, indicando que el <strong>cerebro es el centro del pensamiento</strong> (en contraposición a la creencia aristotélica de que el centro era el corazón). Hipócrates también describió la estructura de los huesos, articulaciones y músculos, y estableció la importancia de la <strong>observación clínica</strong> para el diagnóstico.</p>
+            
+            <div class="concepto-clave">
+                <strong>🔑 Teoría de los cuatro humores:</strong>
+                <br>La medicina hipocrática se basaba en la teoría de los <strong>cuatro humores</strong> (bilis, bilis negra, flema y sangre), que se correspondían con los cuatro elementos (fuego, tierra, agua y aire). El desequilibrio de estos humores producía las enfermedades. Esta teoría dominó la medicina occidental durante más de 1500 años.
+            </div>
+            
+            <h3>2.3 Herófilo y la Escuela de Alejandría</h3>
+            <p>La práctica de las disecciones comenzó en <strong>Alejandría en el Siglo III a.C.</strong>, una de las ciudades donde no estaba prohibido realizar disecciones en cadáveres humanos. Esto marcó un <strong>hito fundamental</strong> en la historia de la anatomía.</p>
+            
+            <div class="concepto-clave">
+                <strong>🔑 Herófilo de Calcedonia (335 a.C. - 280 a.C.):</strong>
+                <br>Junto a <strong>Erasistrato de Ceos</strong>, son considerados los <strong>primeros anatomistas</strong> en realizar disecciones en forma pública y sentar las bases de la Anatomía como ciencia empírica.
+                <br><br><strong>Sus principales aportes:</strong>
+                <br>• Estudio detallado de los <strong>vasos del cerebro y meninges</strong> → estructura venosa denominada <strong>"Prensa de Herófilo"</strong> (confluente venoso posterior)
+                <br>• <strong>Diferenciación del cerebro y el cerebelo</strong>, estableciendo que el cerebro era el centro de la inteligencia
+                <br>• Descripción del <strong>nervio óptico y el nervio oculomotor</strong>
+                <br>• Descripción de los <strong>ventrículos del cerebro</strong>
+                <br>• Denominación del <strong>"Duodeno"</strong> (primera porción del intestino delgado)
+                <br>• Estudio del <strong>hígado y el aparato digestivo</strong>
+                <br>• Estudio en profundidad del <strong>aparato genital femenino</strong> → se le atribuye el <strong>"descubrimiento del óvulo"</strong>
+                <br>• Distinción entre <strong>arterias y venas</strong>
+            </div>
+            
+            <div class="ejemplo">
+                <strong>⚠️ Dato histórico:</strong> Herófilo escribió <strong>nueve tratados</strong> de Anatomía humana que fueron <strong>quemados en el incendio de la Biblioteca de Alejandría</strong> por Julio César en el año <strong>48 a.C.</strong>, una pérdida irreparable para el conocimiento médico.
+            </div>
+            
+            <h3>2.4 Galeno de Pérgamo (129 - 216 d.C.)</h3>
+            <p><strong>Galeno</strong> fue médico, cirujano, filósofo e investigador de la antigüedad, considerado la máxima autoridad médica durante más de 1300 años. Trabajó como médico de gladiadores en Pérgamo y posteriormente como médico imperial en Roma.</p>
+            
+            <div class="concepto-clave">
+                <strong>⚠️ Limitaciones y contribuciones de Galeno:</strong>
+                <br>• Realizó disecciones en <strong>monos, cerdos y otros animales</strong> porque las disecciones en humanos estaban prohibidas en el Imperio Romano
+                <br>• Sus obras contienen varios <strong>errores anatómicos</strong> debido a las diferencias entre la anatomía animal y humana
+                <br>• A pesar de los errores, sus descripciones fueron la base para el estudio de la medicina durante <strong>bastantes siglos</strong>
+                <br>• Su autoridad era tan incuestionable que sus errores se perpetuaron durante siglos
+                <br>• Sus enseñanzas predominaron hasta el año <strong>1543</strong>
+                <br><br><strong>Aportes positivos:</strong>
+                <br>• Describió detalladamente diversos <strong>órganos y aparatos internos</strong>
+                <br>• Estableció la importancia de la <strong>disección</strong> como método de estudio
+                <br>• Desarrolló la <strong>fisiología experimental</strong> (demostró la función de los nervios mediante secciones)
+            </div>
+            
+            <h3>2.5 Andreas Vesalio y la Anatomía Moderna</h3>
+            <p>En <strong>1543</strong>, el mismo año en que Copérnico publicó su teoría heliocéntrica, se publicó <em>"De Humani Corporis Fabrica"</em> (Sobre la estructura del cuerpo humano), obra de <strong>Andreas Vesalio</strong> (1514-1564), considerado el <strong>Padre de la Anatomía Moderna</strong>.</p>
+            
+            <div class="concepto-clave">
+                <strong>📖 Significado de "Humani Corporis Fabrica":</strong>
+                <br>La publicación de esta obra representó una <strong>ruptura paradigmática</strong> con la tradición galénica que había dominado la medicina por más de 1300 años.
+                <br><br><strong>Principales innovaciones:</strong>
+                <br>• Vesalio demostró, mediante <strong>observación directa y disección en cadáveres humanos</strong>, que muchas afirmaciones de Galeno eran incorrectas
+                <br>• Galeno había basado sus estudios en <strong>monos y cerdos</strong> (no en humanos), lo que explicaba sus errores
+                <br>• Estableció el principio de que la <strong>observación empírica directa</strong> debe prevalecer sobre la autoridad dogmática
+                <br>• Sentó las bases del <strong>método científico moderno</strong> en anatomía
+                <br>• Introdujo una <strong>nueva terminología anatómica</strong> y una clasificación más precisa de las estructuras
+                <br><br><strong>Impacto:</strong> La obra revolucionó la enseñanza de la anatomía y marcó el inicio de la <strong>ciencia anatómica moderna</strong>, basada en la evidencia y la observación directa.
+            </div>
+            
+            <div class="ejemplo">
+                <strong>🖼️ Dato curioso:</strong> Vesalio realizó personalmente las ilustraciones de su obra, que son consideradas obras de arte además de documentos científicos. La obra contenía más de 200 grabados en madera de gran precisión anatómica.
+            </div>
+            
+            <h3>2.6 La Anatomía en Bolivia</h3>
+            <p>La enseñanza de la anatomía en Bolivia tiene una historia rica y compleja, que refleja la evolución de la educación médica en el país.</p>
+            
+            <div class="concepto-clave">
+                <strong>📜 Historia de la Anatomía en Bolivia:</strong>
+                <br><br><strong>Llegada a La Paz:</strong> La Facultad de Medicina en La Paz tuvo varios traslados: primero al "Liceo La Paz" (Calle Campero), después al prado en la Calle Ladislao Cabrera, luego al "Liceo Venezuela" (entre Genaro Sanjinés e Ingavi), y finalmente en <strong>1923</strong> se trasladó a la final de la Av. Saavedra.
+                <br><br><strong>Primer anatomista:</strong> El <strong>Dr. José María de Quiroga</strong> fue el primer anatomista en la ciudad de La Paz (1842). Al inaugurar la primera Clase de Anatomía, pronunció estas palabras:
+                <br><em>"Nosotros vamos a estudiar la anatomía que es la base de la medicina, es en ese libro del hombre muerto en que se aprende a conocer al hombre vivo. Sin anatomía no puede haber fisiología, porque es imposible conocer una función si no se conoce de antemano al agente inmediato del que funciona, ni la lesión del órgano sino se conoce el mismo."</em>
+                <br><br><strong>Evolución curricular:</strong>
+                <br>• 1868 (presidencia de Mariano Melgarejo): Anatomía humana durante 3 años
+                <br>• 1890 (presidencia de Aniceto Arce): Anatomía descriptiva en 1° y 2° año, Anatomía topográfica en 3° año
+                <br><br><strong>Material didáctico histórico:</strong> En 1892 se compraron <strong>maniquíes de cera</strong> fabricados por renombrados anatomistas-artistas de Francia. Actualmente, el museo de Anatomía de la Facultad conserva la <strong>única pieza de cera</strong> con valor histórico-institucional.
+                <br><br><strong>Profesores destacados:</strong> Antes de la Guerra del Chaco (1932-1935), el encargado de la Cátedra de Anatomía era el <strong>Dr. Adán Fernández Hernández</strong>. Posteriormente, el <strong>Dr. Teófilo Calderón de la Barca</strong> asumió el cargo y fue declarado desaparecido en acción durante la guerra. La cátedra quedó en manos del <strong>Florentino Mejía Gandarillas</strong> (1935), cuyo nombre lleva el edificio de Morfológicas.
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 3. PLANOS DEL CUERPO HUMANO                                  -->
+        <!-- ============================================================ -->
+        <section class="card" id="planos">
+            <h2>🧭 3. Planos del Cuerpo Humano</h2>
+            
+            <p>Para la descripción anatómica, el cuerpo humano adopta una <strong>posición estándar o posición anatómica</strong>: un sujeto de pie con la mirada al horizonte y hacia el frente, la cabeza erguida, la palma de las manos extendidas y la punta de los pies hacia adelante, separadas por un puño.</p>
+            
+            <p>La descripción del cuerpo humano y de sus órganos se realiza en base a <strong>planos imaginarios</strong> en el espacio, que permiten una localización precisa y estandarizada de las estructuras.</p>
+            
+            <table class="tabla-terminos">
+                <thead>
+                    <tr>
+                        <th>Plano</th>
+                        <th>Descripción</th>
+                        <th>División</th>
+                        <th>Referencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Plano medio</strong></td>
+                        <td>Coincide con la línea media, divide el cuerpo en dos mitades iguales</td>
+                        <td>Derecha e izquierda</td>
+                        <td>Línea media del cuerpo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plano sagital</strong></td>
+                        <td>Todo plano paralelo al plano medio</td>
+                        <td>Sagital derecho o izquierdo</td>
+                        <td>Paralelo al plano medio</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plano frontal o coronal</strong></td>
+                        <td>Vertical y perpendicular al plano sagital</td>
+                        <td>Anterior y posterior</td>
+                        <td>Sutura coronal del cráneo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plano horizontal</strong></td>
+                        <td>Transversal y perpendicular a los anteriores</td>
+                        <td>Superior/craneal e inferior/caudal</td>
+                        <td>Ombligo (referencia común)</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="ejemplo">
+                <strong>🧭 Aplicación clínica:</strong>
+                <br>• Una incisión que sigue exactamente la línea media del cuerpo, desde el manubrio esternal hasta el ombligo, se realiza en el <strong>plano medio</strong>.
+                <br>• Un corte perpendicular a nivel del ombligo utiliza el <strong>plano horizontal</strong>.
+                <br>• Una tomografía axial computarizada (TAC) produce imágenes en el <strong>plano horizontal</strong>.
+                <br>• Las radiografías de tórax se toman en el <strong>plano frontal</strong> (proyección anteroposterior).
+            </div>
+            
+            <div class="concepto-clave">
+                <strong>📌 Ejes del cuerpo:</strong>
+                <br>Además de los planos, existen <strong>ejes</strong> que son líneas imaginarias alrededor de las cuales se realizan los movimientos:
+                <br>• <strong>Eje longitudinal:</strong> De arriba hacia abajo (vertical)
+                <br>• <strong>Eje transversal:</strong> De derecha a izquierda (horizontal)
+                <br>• <strong>Eje anteroposterior:</strong> De adelante hacia atrás
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 4. POSICIONES ANATÓMICAS                                      -->
+        <!-- ============================================================ -->
+        <section class="card" id="posiciones">
+            <h2>🛏️ 4. Posiciones Anatómicas</h2>
+            
+            <p>Además de la posición anatómica estándar, el cuerpo humano puede adoptar diversas posiciones que son relevantes para el examen clínico, procedimientos quirúrgicos y estudios de imagen.</p>
+            
+            <table class="tabla-terminos">
+                <thead>
+                    <tr>
+                        <th>Posición</th>
+                        <th>Descripción</th>
+                        <th>Aplicación clínica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Decúbito dorsal o Supino</strong></td>
+                        <td>Posición horizontal, acostado sobre la espalda, miembros superiores pegados al cuerpo (en aducción) e inferiores extendidos</td>
+                        <td>Examen abdominal, cirugía cardíaca, cateterismo, exploración neurológica</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Decúbito ventral o Prono</strong></td>
+                        <td>Posición horizontal, acostado sobre la parrilla costal y el abdomen, con la cabeza girada hacia un lado</td>
+                        <td>Cirugía de columna, examen rectal, masaje cardíaco (RCP), procedimientos de espalda</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Decúbito lateral derecho</strong></td>
+                        <td>Posición horizontal, acostado sobre el costado derecho, con las piernas ligeramente flexionadas</td>
+                        <td>Examen de oído, auscultación cardíaca (lado izquierdo), cirugía de cadera</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Decúbito lateral izquierdo</strong></td>
+                        <td>Posición horizontal, acostado sobre el costado izquierdo, con las piernas ligeramente flexionadas</td>
+                        <td>Punción lumbar, examen rectal, auscultación de soplos cardíacos, cirugía de tórax</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Posición de Fowler</strong></td>
+                        <td>Sentado con la espalda apoyada a 45-90°</td>
+                        <td>Insuficiencia cardíaca, dificultad respiratoria, sondaje nasogástrico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Posición de Trendelenburg</strong></td>
+                        <td>Decúbito dorsal con la cabeza más baja que los pies (15-30° de inclinación)</td>
+                        <td>Shock hipovolémico, procedimientos pélvicos, cirugía de abdomen inferior</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Posición de Litotomía</strong></td>
+                        <td>Decúbito dorsal con las piernas flexionadas y separadas, apoyadas en estribos</td>
+                        <td>Examen ginecológico, parto, cirugía urológica, exploración de recto</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="cuadro-resumen">
+                <strong>📌 Importancia clínica:</strong> La elección de la posición del paciente es fundamental para:
+                <br>• Facilitar el acceso quirúrgico a determinadas estructuras
+                <br>• Mejorar la visualización en estudios de imagen
+                <br>• Optimizar la función respiratoria y circulatoria
+                <br>• Prevenir complicaciones (úlceras por presión, lesiones nerviosas)
+                <br>• Realizar procedimientos diagnósticos y terapéuticos
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 5. TERMINOLOGÍA ANATÓMICA                                     -->
+        <!-- ============================================================ -->
+        <section class="card" id="terminologia">
+            <h2>📖 5. Terminología Anatómica</h2>
+            
+            <p>Para describir las estructuras anatómicas se usan términos que pueden ser del lenguaje común o ser propios de la anatomía. La <strong>Nomina Anatomica</strong> (terminología anatómica internacional) estandariza estos términos para facilitar la comunicación entre profesionales de la salud en todo el mundo.</p>
+            
+            <div class="grid-2col">
+                <div class="col">
+                    <h4>🔹 Relación con la superficie</h4>
+                    <ul>
+                        <li><strong>Profundo:</strong> Estructura que se halla alejada de la superficie corporal, cubierta por otras estructuras.</li>
+                        <li><strong>Superficial:</strong> Estructura que está en relación con la superficie del cuerpo, cercana a la piel.</li>
+                    </ul>
+                    <p><em>Ejemplo: La arteria femoral es superficial en la región inguinal, mientras que el fémur es profundo.</em></p>
+                </div>
+                <div class="col">
+                    <h4>🔹 Relación con el lado</h4>
+                    <ul>
+                        <li><strong>Ipsilateral u homolateral:</strong> Estructura que se encuentra en el mismo lado del cuerpo.</li>
+                        <li><strong>Contralateral:</strong> Estructura situada en el lado opuesto del cuerpo.</li>
+                    </ul>
+                    <p><em>Ejemplo: El pulmón derecho es ipsilateral al hígado (ambos en el lado derecho). El ojo derecho es contralateral al hemisferio cerebral izquierdo.</em></p>
+                </div>
+                <div class="col">
+                    <h4>🔹 Relación con el origen</h4>
+                    <ul>
+                        <li><strong>Distal:</strong> Estructura que está lejos del origen o punto de inserción.</li>
+                        <li><strong>Proximal:</strong> Estructura que está cerca del origen o punto de inserción.</li>
+                    </ul>
+                    <p><em>Ejemplo: La mano es distal al brazo; el hombro es proximal al brazo.</em></p>
+                </div>
+                <div class="col">
+                    <h4>🔹 Relación con el plano medio</h4>
+                    <ul>
+                        <li><strong>Medial:</strong> Estructura cercana al plano medio del cuerpo.</li>
+                        <li><strong>Lateral:</strong> Estructura lejana al plano medio del cuerpo.</li>
+                        <li><strong>Intermedio:</strong> Estructura situada entre dos estructuras anatómicas.</li>
+                    </ul>
+                    <p><em>Ejemplo: El corazón está en posición medial, los pulmones son laterales. La pierna está intermedia entre el muslo y el pie.</em></p>
+                </div>
+                <div class="col">
+                    <h4>🔹 Relación antero-posterior</h4>
+                    <ul>
+                        <li><strong>Anterior (ventral):</strong> Estructura en relación con la cara anterior o ventral del cuerpo.</li>
+                        <li><strong>Posterior (dorsal):</strong> Estructura en relación con la cara posterior o dorsal del cuerpo.</li>
+                    </ul>
+                    <p><em>Ejemplo: El esternón es anterior, la columna vertebral es posterior.</em></p>
+                </div>
+                <div class="col">
+                    <h4>🔹 Relación cefalo-caudal</h4>
+                    <ul>
+                        <li><strong>Superior o craneal:</strong> Estructura cerca del extremo superior o cefálico del cuerpo.</li>
+                        <li><strong>Inferior o caudal:</strong> Estructura cerca del extremo inferior o caudal del cuerpo.</li>
+                    </ul>
+                    <p><em>Ejemplo: La cabeza es superior, los pies son inferiores.</em></p>
+                </div>
+            </div>
+            
+            <div class="ejemplo">
+                <strong>🧠 Aplicación clínica - Ejemplo integrado:</strong>
+                <br>Una herida penetrante en el <strong>borde medial del muslo derecho</strong>, a 5 cm por debajo del pliegue inguinal, se describe como:
+                <br>• <strong>Medial:</strong> Cerca del plano medio del cuerpo
+                <br>• <strong>Proximal:</strong> Cerca del origen (el pliegue inguinal es la unión del muslo con el tronco)
+                <br>• <strong>Anterior:</strong> Si está en la cara anteromedial (parte delantera del muslo)
+                <br>• <strong>Ipsilateral:</strong> Respecto al lado derecho del cuerpo
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 6. TÉRMINOS DE MOVIMIENTO                                     -->
+        <!-- ============================================================ -->
+        <section class="card" id="movimiento">
+            <h2>🏃 6. Términos de Movimiento</h2>
+            
+            <p>Estos términos describen los movimientos de los miembros superiores e inferiores, así como de otras partes del cuerpo. Son fundamentales en la <strong>exploración física</strong>, la <strong>rehabilitación</strong> y la <strong>medicina deportiva</strong>.</p>
+            
+            <table class="tabla-terminos">
+                <thead>
+                    <tr>
+                        <th>Término</th>
+                        <th>Descripción</th>
+                        <th>Movimiento opuesto</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Abducción o separación</strong></td>
+                        <td>Alejamiento del plano medio del cuerpo</td>
+                        <td>Aducción</td>
+                        <td>Elevar el brazo hacia un lado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aducción o aproximación</strong></td>
+                        <td>Acercamiento al plano medio del cuerpo</td>
+                        <td>Abducción</td>
+                        <td>Bajar el brazo hacia el cuerpo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pronación</strong></td>
+                        <td>Rotación del antebrazo, palma hacia atrás (en posición anatómica, hacia abajo)</td>
+                        <td>Supinación</td>
+                        <td>Girar la palma de la mano hacia abajo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Supinación</strong></td>
+                        <td>Rotación inversa, palma hacia adelante (posición anatómica estándar)</td>
+                        <td>Pronación</td>
+                        <td>Girar la palma de la mano hacia arriba</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flexión</strong></td>
+                        <td>Formación de un "ángulo decreciente" entre dos estructuras; una estructura se aproxima a otra</td>
+                        <td>Extensión</td>
+                        <td>Flexionar el codo (antebrazo se acerca al brazo)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Extensión</strong></td>
+                        <td>Movimiento inverso a la flexión; formación de ángulo creciente</td>
+                        <td>Flexión</td>
+                        <td>Extender el codo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rotación</strong></td>
+                        <td>Movimiento giratorio alrededor del eje longitudinal</td>
+                        <td>-</td>
+                        <td>Rotación medial (interna) o lateral (externa) del hombro</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Circunducción</strong></td>
+                        <td>Movimiento combinado: aducción + abducción + flexión + extensión (movimiento circular)</td>
+                        <td>-</td>
+                        <td>Mover el brazo en círculo (como nadar)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Eversión</strong></td>
+                        <td>Planta del pie se aleja del plano medio, dirigida lateralmente</td>
+                        <td>Inversión</td>
+                        <td>Girar la planta del pie hacia fuera</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inversión</strong></td>
+                        <td>Planta del pie se dirige al plano medio (movimiento contrario a la eversión)</td>
+                        <td>Eversión</td>
+                        <td>Girar la planta del pie hacia dentro</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flexión plantar</strong></td>
+                        <td>Movimiento del pie hacia la planta (extensión del tobillo)</td>
+                        <td>Flexión dorsal</td>
+                        <td>Ponerse de puntillas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flexión dorsal</strong></td>
+                        <td>Movimiento del pie hacia la cara dorsal (flexión del tobillo)</td>
+                        <td>Flexión plantar</td>
+                        <td>Levantar los dedos del pie hacia la pierna</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="concepto-clave">
+                <strong>📌 Movimientos especiales:</strong>
+                <br>• <strong>Oposición:</strong> Movimiento del pulgar que permite tocar la punta de otros dedos (función prensil de la mano)
+                <br>• <strong>Protacción:</strong> Movimiento hacia adelante (ej: mandíbula, hombro)
+                <br>• <strong>Retracción:</strong> Movimiento hacia atrás (ej: mandíbula, hombro)
+                <br>• <strong>Elevación:</strong> Movimiento hacia arriba (ej: escápula, mandíbula)
+                <br>• <strong>Depresión:</strong> Movimiento hacia abajo (ej: escápula, mandíbula)
+                <br>• <strong>Desviación radial:</strong> Movimiento de la mano hacia el lado del radio (pulgar)
+                <br>• <strong>Desviación cubital:</strong> Movimiento de la mano hacia el lado del cúbito (meñique)
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 7. FORMAS DE ESTUDIO DE LA ANATOMÍA                           -->
+        <!-- ============================================================ -->
+        <section class="card" id="estudio">
+            <h2>🔬 7. Formas de Estudio de la Anatomía</h2>
+            
+            <p>La anatomía humana puede estudiarse desde dos enfoques complementarios: el <strong>sistemático</strong> y el <strong>topográfico</strong>. Ambos enfoques son necesarios para una comprensión integral del cuerpo humano.</p>
+            
+            <div class="grid-2col">
+                <div class="col">
+                    <h4>📋 Anatomía Sistemática o Descriptiva</h4>
+                    <p><strong>Definición:</strong> Estudia una estructura anatómica con una descripción detallada desde el concepto, forma, situación, posición, inserción (en músculos) y funcionalidad (qué órganos inerva o irriga).</p>
+                    <p><strong>Objetivo:</strong> Comprender cada estructura de forma aislada, sus características y su contribución a la formación de un sistema o aparato.</p>
+                    <p><strong>Ejemplo de estudio:</strong></p>
+                    <ul>
+                        <li><strong>Hueso:</strong> Concepto, forma, situación, posición, inserciones musculares</li>
+                        <li><strong>Nervio:</strong> Origen, trayecto, ramas, territorio de inervación</li>
+                        <li><strong>Vaso sanguíneo:</strong> Origen, trayecto, ramas, territorio de irrigación</li>
+                        <li><strong>Músculo:</strong> Origen, inserción, acción, inervación, irrigación</li>
+                        <li><strong>Órgano visceral:</strong> Forma, situación, relaciones, función</li>
+                    </ul>
+                    <p><strong>Ventaja:</strong> Proporciona un conocimiento detallado y sistemático de cada estructura.</p>
+                </div>
+                <div class="col">
+                    <h4>🗺️ Anatomía Topográfica o Regional</h4>
+                    <p><strong>Definición:</strong> Estudia una determinada región anatómica considerando: localización, forma, límites, contenido y planos anatómicos.</p>
+                    <p><strong>Objetivo:</strong> Comprender las relaciones espaciales entre las estructuras en una región específica del cuerpo.</p>
+                    <p><strong>Ejemplo de estudio:</strong></p>
+                    <ul>
+                        <li><strong>Región carotídea:</strong> (cuello) contenido vascular y nervioso</li>
+                        <li><strong>Región inguinal:</strong> (pared abdominal) contenido de los conductos</li>
+                        <li><strong>Región supramesocólica:</strong> (cavidad abdominal) órganos y relaciones</li>
+                        <li><strong>Región axilar:</strong> (hombro) contenido vascular y nervioso</li>
+                        <li><strong>Región poplítea:</strong> (rodilla) contenido de la fosa</li>
+                    </ul>
+                    <p><strong>Ventaja:</strong> Permite orientar el aprendizaje con <strong>proyección superficial</strong> de órganos, vasos y nervios, esencial para el <strong>acto quirúrgico</strong> y la <strong>exploración médica</strong>.</p>
+                </div>
+            </div>
+            
+            <div class="concepto-clave">
+                <strong>💡 Complementariedad:</strong> Ambos enfoques son complementarios. La anatomía sistemática proporciona el conocimiento detallado de cada estructura, mientras que la anatomía topográfica permite entender cómo se relacionan esas estructuras en el espacio, lo que es esencial para la <strong>clínica</strong> y la <strong>cirugía</strong>.
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 8. DIVISIÓN DE LA ANATOMÍA                                    -->
+        <!-- ============================================================ -->
+        <section class="card" id="division">
+            <h2>📊 8. División de la Anatomía Humana</h2>
+            
+            <p>La anatomía humana se divide en varias ramas según el nivel de estudio, el método de observación y el enfoque:</p>
+            
+            <h3>🔬 Anatomía Macroscópica</h3>
+            <p>Estudia todas las estructuras que se pueden observar <strong>a simple vista</strong>, sin necesidad de aumentos. Se subclasifica en:</p>
+            
+            <ul class="lista-definiciones">
+                <li><strong>Anatomía de superficie:</strong> Estudio de las estructuras proyectadas a la superficie corporal para su <strong>palpación</strong>, percusión y auscultación. Es fundamental para el <strong>diagnóstico clínico</strong>.</li>
+                <li><strong>Anatomía funcional:</strong> Estudia las estructuras desde el punto de vista de su <strong>función</strong>, integrando la anatomía con la fisiología.</li>
+                <li><strong>Anatomía descriptiva:</strong> Estudia la <strong>descripción detallada</strong> de cada una de las estructuras del cuerpo humano, incluyendo forma, situación, relaciones y función.</li>
+                <li><strong>Anatomía topográfica:</strong> Estudia el cuerpo humano <strong>segmentándolo en regiones</strong> y proporcionando límites exactos a cada una de ellas. Es la base para la <strong>cirugía</strong> y los <strong>procedimientos invasivos</strong>.</li>
+                <li><strong>Anatomía comparada:</strong> Realiza estudio de <strong>comparación con estructuras similares de los animales</strong>, fundamental para entender la evolución y la filogenia.</li>
+                <li><strong>Anatomía radiológica:</strong> Estudio de las estructuras mediante <strong>técnicas de imagen</strong> (radiografía, TAC, RMN, ecografía).</li>
+            </ul>
+            
+            <h3>🔬 Histología o Anatomía Microscópica</h3>
+            <p>Estudio de todas las estructuras <strong>celulares y tisulares</strong> con ayuda de aparatos que amplifican el tamaño, como el <strong>microscopio óptico</strong> y el <strong>microscopio electrónico</strong>.</p>
+            
+            <ul>
+                <li><strong>Citología:</strong> Estudio de las <strong>células</strong> (sus organelas, núcleo, membrana).</li>
+                <li><strong>Histología general:</strong> Estudio de los <strong>tejidos básicos</strong> (epitelial, conectivo, muscular, nervioso).</li>
+                <li><strong>Histología especial:</strong> Estudio de la <strong>microscopía de órganos y sistemas</strong>.</li>
+            </ul>
+            
+            <h3>🔬 Embriología o Anatomía del Desarrollo</h3>
+            <p>Estudio desde la <strong>fecundación</strong>, el <strong>desarrollo</strong> y las <strong>malformaciones</strong> de todas las partes del cuerpo humano.</p>
+            
+            <ul>
+                <li><strong>Embriología general:</strong> Desarrollo embrionario temprano (gametogénesis, fecundación, segmentación, gastrulación).</li>
+                <li><strong>Embriología especial:</strong> Desarrollo de cada sistema y órgano (organogénesis).</li>
+                <li><strong>Teratología:</strong> Estudio de las <strong>malformaciones congénitas</strong> y sus causas.</li>
+            </ul>
+            
+            <div class="cuadro-resumen">
+                <strong>📌 Otras divisiones:</strong>
+                <br>• <strong>Anatomía patológica:</strong> Estudio de las alteraciones estructurales causadas por enfermedades
+                <br>• <strong>Anatomía quirúrgica:</strong> Estudio de las estructuras en relación con los procedimientos quirúrgicos
+                <br>• <strong>Anatomía antropológica:</strong> Estudio de las variaciones anatómicas entre poblaciones
+                <br>• <strong>Neuroanatomía:</strong> Estudio específico del sistema nervioso
+                <br>• <strong>Anatomía vegetativa:</strong> Estudio del sistema nervioso autónomo
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 9. CONSTITUCIÓN DEL CUERPO EN ÓRGANOS, APARATOS Y SISTEMAS   -->
+        <!-- ============================================================ -->
+        <section class="card" id="constitucion">
+            <h2>🧬 9. Constitución del Cuerpo Humano en Órganos, Aparatos y Sistemas</h2>
+            
+            <p>El cuerpo humano está organizado jerárquicamente desde el nivel molecular hasta el organismo completo. Esta organización permite comprender la <strong>estructura</strong> y la <strong>función</strong> del cuerpo humano.</p>
+            
+            <div class="concepto-clave">
+                <strong>📌 Niveles de organización:</strong>
+                <br>• <strong>Nivel químico:</strong> Átomos → Moléculas (ADN, proteínas, lípidos, carbohidratos)
+                <br>• <strong>Nivel celular:</strong> Células (unidades funcionales básicas)
+                <br>• <strong>Nivel tisular:</strong> Tejidos (agrupaciones de células similares)
+                <br>• <strong>Nivel orgánico:</strong> Órganos (estructuras con funciones específicas)
+                <br>• <strong>Nivel sistémico:</strong> Sistemas y aparatos (conjunto de órganos con función común)
+                <br>• <strong>Nivel organismo:</strong> Cuerpo humano completo
+            </div>
+            
+            <p>Los <strong>tejidos</strong> (epitelial, conectivo, muscular y nervioso) se organizan para formar <strong>ÓRGANOS</strong>. El conjunto de órganos con <strong>estructura histológica similar</strong> conforma un <strong>SISTEMA</strong>. Todos los sistemas agrupados que concurren a una misma función forman los <strong>APARATOS</strong>.</p>
+            
+            <div class="ejemplo">
+                <strong>📖 Diferencia fundamental:</strong>
+                <br><strong>Sistema:</strong> Conjunto de órganos con <strong>estructura histológica similar</strong>.
+                <br><strong>Ejemplo:</strong> <strong>Sistema nervioso</strong> (compuesto por neuronas y células gliales con estructura similar)
+                <br><br><strong>Aparato:</strong> Conjunto de órganos de <strong>diferente estructura histológica</strong> que trabajan juntos.
+                <br><strong>Ejemplo:</strong> <strong>Aparato digestivo</strong> (boca, esófago, estómago, hígado, páncreas, intestinos - todos con diferentes estructuras histológicas)
+            </div>
+            
+            <h3>A) Aparatos de la Vida de Relación</h3>
+            <p>Permiten la <strong>interacción del organismo con el medio externo</strong> y la <strong>adaptación al entorno</strong>:</p>
+            <ul>
+                <li><strong>Aparato de locomoción:</strong> Huesos (esqueleto), articulaciones y músculos. Permite el <strong>movimiento</strong> y el <strong>soporte estructural</strong>.</li>
+                <li><strong>Aparato de inervación:</strong> Sistema nervioso central (encéfalo y médula espinal), sistema nervioso periférico (nervios) y sistema nervioso autónomo (simpático y parasimpático). Permite la <strong>comunicación</strong> y el <strong>control</strong> de todas las funciones corporales.</li>
+                <li><strong>Aparato sensorial:</strong> Los cinco órganos de los sentidos: vista (ojos), oído (orejas), gusto (lengua), olfato (nariz) y tacto (piel). Permiten la <strong>percepción del entorno</strong>.</li>
+            </ul>
+            
+            <h3>B) Aparatos de la Vida de Nutrición</h3>
+            <p>Permiten la <strong>incorporación, procesamiento y distribución de nutrientes</strong>, así como la <strong>eliminación de desechos</strong>:</p>
+            <ul>
+                <li><strong>Aparato digestivo:</strong> Transforma los alimentos en <strong>nutrientes absorbibles</strong> (carbohidratos, proteínas, lípidos, vitaminas, minerales) y elimina los desechos no digeribles.</li>
+                <li><strong>Aparato circulatorio:</strong> Transporta <strong>nutrientes, gases (O₂ y CO₂), hormonas y desechos</strong> por todo el cuerpo a través de la sangre y los vasos sanguíneos.</li>
+                <li><strong>Aparato respiratorio:</strong> Realiza el <strong>intercambio de gases</strong> (oxígeno y dióxido de carbono) entre el organismo y el ambiente a través de los pulmones.</li>
+                <li><strong>Aparato urinario:</strong> Elimina los <strong>desechos metabólicos</strong> (urea, creatinina, ácido úrico) y regula el <strong>equilibrio hídrico y electrolítico</strong> a través de los riñones y las vías urinarias.</li>
+            </ul>
+            
+            <h3>C) Aparatos de la Generación</h3>
+            <p>Permiten la <strong>reproducción</strong> y la <strong>continuidad de la especie</strong>:</p>
+            <ul>
+                <li><strong>Aparato genital masculino:</strong> Testículos (producción de espermatozoides y testosterona), conductos deferentes, próstata, pene y glándulas accesorias. Produce <strong>gametos masculinos</strong> y <strong>hormonas sexuales</strong>.</li>
+                <li><strong>Aparato genital femenino:</strong> Ovarios (producción de óvulos y hormonas: estrógenos y progesterona), trompas de Falopio, útero, vagina y vulva. Produce <strong>gametos femeninos</strong>, permite la <strong>fecundación</strong>, el <strong>embarazo</strong> y el <strong>parto</strong>.</li>
+            </ul>
+            
+            <div class="cuadro-resumen">
+                <strong>🔗 Relación funcional clave:</strong>
+                <br>El <strong>aparato circulatorio y el respiratorio</strong> están íntimamente relacionados:
+                <br>• El sistema cardiovascular transporta el <strong>oxígeno</strong> captado en los pulmones hacia todos los tejidos del cuerpo (a través de la hemoglobina en los glóbulos rojos).
+                <br>• Al mismo tiempo, recoge el <strong>dióxido de carbono</strong> (producto del metabolismo celular) para llevarlo de vuelta a los pulmones y ser eliminado en la espiración.
+                <br>• Esta interdependencia funcional es esencial para la <strong>respiración celular</strong> y la <strong>supervivencia</strong>.
+                <br><br>De manera similar, el <strong>aparato digestivo y el circulatorio</strong> trabajan juntos: los nutrientes absorbidos en el intestino son transportados por la sangre a todas las células del cuerpo.
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 10. MINI PRUEBA                                                -->
+        <!-- ============================================================ -->
+        <section class="card" id="prueba" style="border: 2px solid var(--primary);">
+            <h2>❓ Mini Prueba - 10 Preguntas Nivel Universitario</h2>
+            <p style="color: var(--text-light); margin-bottom: 15px;">Selecciona la respuesta correcta. Haz clic en "Ver respuesta" para comprobar.</p>
+            
+            <!-- Pregunta 1 -->
+            <div class="pregunta">
+                <p><strong>1.</strong> ¿Qué implicación epistemológica tuvo la publicación de "Humani Corporis Fabrica" (1543) de Andreas Vesalio en el desarrollo de la anatomía como ciencia, y cómo contradijo las enseñanzas de Galeno?</p>
+                <div class="opciones">
+                    a) Vesalio confirmó todas las enseñanzas de Galeno mediante disecciones en animales<br>
+                    b) La obra demostró que la observación empírica directa debe prevalecer sobre la autoridad dogmática, contradiciendo a Galeno porque este basó sus estudios en monos y cerdos, no en humanos<br>
+                    c) Vesalio propuso que la anatomía debía estudiarse únicamente mediante textos antiguos<br>
+                    d) La obra estableció que los errores de Galeno eran irrelevantes para la medicina<br>
+                    e) Vesalio demostró que los humanos y los monos tienen la misma anatomía
+                </div>
+                <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                <div class="respuesta">✅ <strong>Respuesta correcta: b)</strong><br>La obra de Vesalio representó una ruptura paradigmática con la tradición galénica que había dominado por más de 1300 años. Demostró, mediante observación directa y disección en cadáveres humanos, que muchas afirmaciones de Galeno eran incorrectas porque este basó sus estudios en monos y cerdos, estableciendo que la observación empírica debe prevalecer sobre la autoridad.</div>
+            </div>
+            
+            <!-- Pregunta 2 -->
+            <div class="pregunta">
+                <p><strong>2.</strong> Un paciente presenta una herida penetrante en el borde medial del muslo derecho, a 5 cm por debajo del pliegue inguinal. Utilizando terminología anatómica precisa, describa la ubicación de la herida en relación con el plano medio, su relación proximal/distal con el tronco, y su relación anterior/posterior si está en la cara anteromedial.</p>
+                <div class="opciones">
+                    a) Lateral, distal, posterior<br>
+                    b) Medial, proximal, anterior<br>
+                    c) Medial, distal, anterior<br>
+                    d) Lateral, proximal, posterior<br>
+                    e) Intermedio, distal, posterior
+                </div>
+                <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                <div class="respuesta">✅ <strong>Respuesta correcta: b) Medial, proximal, anterior</strong><br>• <strong>Medial:</strong> El borde medial del muslo está cerca del plano medio.<br>• <strong>Proximal:</strong> El pliegue inguinal es la unión del muslo con el tronco; 5 cm por debajo sigue siendo proximal respecto al pie.<br>• <strong>Anterior:</strong> La cara anteromedial está en la parte delantera del muslo.</div>
+            </div>
+            
+            <!-- Pregunta 3 -->
+            <div class="pregunta">
+                <p><strong>3.</strong> ¿Por qué la Escuela de Alejandría (Siglo III a.C.) representa un hito en la historia de la anatomía? Mencione al menos dos anatomistas destacados de esta escuela y sus contribuciones específicas.</p>
+                <div class="opciones">
+                    a) Porque fue la primera escuela que prohibió las disecciones; destacaron Hipócrates y Galeno<br>
+                    b) Porque fue uno de los primeros lugares donde se permitieron las disecciones humanas sistemáticas; destacaron Herófilo y Erasistrato<br>
+                    c) Porque se fundó en Roma; destacaron Vesalio y Galeno<br>
+                    d) Porque fue la primera escuela que utilizó el microscopio; destacaron Herófilo y Vesalio<br>
+                    e) Porque se especializó en anatomía comparada; destacaron Erasistrato y Galeno
+                </div>
+                <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                <div class="respuesta">✅ <strong>Respuesta correcta: b)</strong><br>La Escuela de Alejandría fue uno de los primeros lugares donde se permitieron disecciones humanas sistemáticas. <strong>Herófilo</strong> describió el cerebro, meninges, nervio óptico, "Prensa de Herófilo" y el duodeno. <strong>Erasistrato</strong> realizó disecciones públicas junto a Herófilo y contribuyó al estudio del sistema circulatorio.</div>
+            </div>
+            
+            <!-- Pregunta 4 -->
+            <div class="pregunta">
+                <p><strong>4.</strong> Un cirujano realiza una incisión que sigue exactamente la línea media del cuerpo, desde el manubrio esternal hasta el ombligo. Luego realiza un corte perpendicular a esta línea a la altura del ombligo. ¿En qué planos anatómicos se realizan estos cortes respectivamente?</p>
+                <div class="opciones">
+                    a) Plano sagital y plano frontal<br>
+                    b) Plano medio y plano horizontal<br>
+                    c) Plano frontal y plano sagital<br>
+                    d) Plano horizontal y plano medio<br>
+                    e) Plano coronal y plano sagital
+                </div>
+                <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                <div class="respuesta">✅ <strong>Respuesta correcta: b) Plano medio y plano horizontal</strong><br>La incisión en la línea media se realiza en el <strong>plano medio</strong>, que divide el cuerpo en dos mitades iguales. El corte perpendicular a nivel del ombligo se realiza en el <strong>plano horizontal</strong>, que divide el cuerpo en parte superior (craneal) e inferior (caudal).</div>
+            </div>
+            
+            <!-- Pregunta 5 -->
+            <div class="pregunta">
+                <p><strong>5.</strong> El corazón se encuentra en el mediastino medio, ligeramente desplazado hacia la izquierda del plano medio. En relación con el pulmón izquierdo, ¿el corazón es ipsilateral o contralateral?</p>
+                <div class="opciones">
+                    a) Contralateral, porque está en el lado opuesto<br>
+                    b) Ipsilateral, porque ambas estructuras están en el mismo lado del cuerpo<br>
+                    c) Contralateral, porque el corazón está en el mediastino<br>
+                    d) Ipsilateral, porque el corazón está en el centro del cuerpo<br>
+                    e) No se puede determinar con la información proporcionada
+                </div>
+                <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                <div class="respuesta">✅ <strong>Respuesta correcta: b) Ipsilateral</strong><br>El corazón y el pulmón izquierdo son <strong>ipsilaterales</strong> porque ambas estructuras se encuentran en el mismo lado del cuerpo (lado izquierdo). Aunque el corazón está ligeramente desplazado a la izquierda, comparte el hemitórax izquierdo con el pulmón izquierdo.</div>
+            </div>
+            
+            <!-- Pregunta 6 -->
+            <div class="pregunta">
+                <p><strong>6.</strong> ¿Cuál es la diferencia fundamental entre un "sistema" y un "aparato" en anatomía humana? Proporcione un ejemplo de cada uno.</p>
+                <div class="opciones">
+                    a) Sistema: órganos de diferente estructura; Aparato: órganos de estructura similar<br>
+                    b) Sistema: órganos de estructura similar; Aparato: órganos de diferente estructura<br>
+                    c) Sistema: solo en el sistema nervioso; Aparato: solo en el sistema digestivo<br>
+                    d) Sistema: estudio macroscópico; Aparato: estudio microscópico<br>
+                    e) Sistema: función única; Aparato: función múltiple
+                </div>
+                <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                <div class="respuesta">✅ <strong>Respuesta correcta: b)</strong><br><strong>Sistema:</strong> Conjunto de órganos con estructura histológica similar (ej: sistema nervioso).<br><strong>Aparato:</strong> Conjunto de órganos de diferente estructura histológica que trabajan juntos (ej: aparato digestivo: boca, esófago, estómago, hígado, páncreas).</div>
+            </div>
+            
+            <!-- Pregunta 7 -->
+            <div class="pregunta">
+                <p><strong>7.</strong> Un médico necesita localizar con precisión el trayecto de la arteria femoral en la región inguinal para realizar un cateterismo. ¿Qué división de la anatomía es la más relevante para este procedimiento?</p>
+                <div class="opciones">
+                    a) Anatomía descriptiva, porque estudia la arteria femoral de forma aislada<br>
+                    b) Anatomía topográfica, porque estudia el cuerpo segmentado en regiones con límites exactos<br>
+                    c) Anatomía microscópica, porque se necesita ver las células<br>
+                    d) Anatomía comparada, porque se compara con animales<br>
+                    e) Embriología, porque se necesita conocer el desarrollo de la arteria
+                </div>
+                <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                <div class="respuesta">✅ <strong>Respuesta correcta: b) Anatomía topográfica</strong><br>La anatomía topográfica estudia el cuerpo segmentado en regiones (en este caso, la región inguinal), proporcionando límites exactos y la relación espacial entre estructuras (arteria femoral, nervio femoral, vena femoral), esencial para procedimientos quirúrgicos.</div>
+            </div>
+            
+            <!-- Pregunta 8 -->
+            <div class="pregunta">
+                <p><strong>8.</strong> ¿Quién fue el primer anatomista en la ciudad de La Paz y qué frase célebre pronunció al inaugurar la primera clase de Anatomía?</p>
+                <div class="opciones">
+                    a) Dr. Adán Fernández Hernández: "La anatomía es el futuro de la medicina"<br>
+                    b) Dr. Teófilo Calderón de la Barca: "Sin anatomía no hay cirugía"<br>
+                    c) Dr. José María de Quiroga: "Es en ese libro del hombre muerto en que se aprende a conocer al hombre vivo"<br>
+                    d) Dr. Florentino Mejía Gandarillas: "La anatomía es la base de toda la medicina"<br>
+                    e) Dr. Melgarejo: "La anatomía debe estudiarse durante 3 años"
+                </div>
+                <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                <div class="respuesta">✅ <strong>Respuesta correcta: c)</strong><br>El Dr. José María de Quiroga fue el primer anatomista en La Paz (1842). Su frase célebre fue: <em>"Nosotros vamos a estudiar la anatomía que es la base de la medicina, es en ese libro del hombre muerto en que se aprende a conocer al hombre vivo. Sin anatomía no puede haber fisiología, porque es imposible conocer una función si no se conoce de antemano al agente inmediato del que funciona, ni la lesión del órgano sino se conoce el mismo."</em></div>
+            </div>
+            
+            <!-- Pregunta 9 -->
+            <div class="pregunta">
+                <p><strong>9.</strong> Los aparatos de la vida de nutrición son fundamentales para la homeostasis. ¿Cuáles son los cuatro aparatos que conforman este grupo y qué relación funcional existe entre el aparato circulatorio y el respiratorio?</p>
+                <div class="opciones">
+                    a) Digestivo, circulatorio, respiratorio y urinario; el circulatorio transporta el oxígeno captado por el respiratorio hacia los tejidos y recoge el CO₂ para ser eliminado<br>
+                    b) Digestivo, circulatorio, nervioso y urinario; trabajan de forma independiente<br>
+                    c) Respiratorio, circulatorio, endocrino y urinario; el circulatorio bombea sangre al respiratorio<br>
+                    d) Digestivo, respiratorio, reproductor y urinario; no tienen relación entre sí<br>
+                    e) Circulatorio, respiratorio, digestivo y endocrino; todos producen hormonas
+                </div>
+                <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                <div class="respuesta">✅ <strong>Respuesta correcta: a)</strong><br>Los aparatos de la vida de nutrición son: <strong>digestivo, circulatorio, respiratorio y urinario</strong>. La relación circulatorio-respiratorio es fundamental: el sistema cardiovascular transporta el oxígeno captado en los pulmones hacia todos los tejidos y recoge el dióxido de carbono (producto del metabolismo) para llevarlo de vuelta a los pulmones y ser eliminado en la espiración.</div>
+            </div>
+            
+            <!-- Pregunta 10 -->
+            <div class="pregunta">
+                <p><strong>10.</strong> ¿Qué significado tuvo la "Prensa de Herófilo" en la historia de la anatomía y qué estructura anatómica recibe este nombre?</p>
+                <div class="opciones">
+                    a) Es un instrumento quirúrgico inventado por Herófilo para disecciones<br>
+                    b) Es el confluente venoso posterior (seno venoso) que Herófilo describió en el cerebro<br>
+                    c) Es un tratado de anatomía escrito por Herófilo que se conserva en Alejandría<br>
+                    d) Es un método de enseñanza anatómica utilizado en la Escuela de Alejandría<br>
+                    e) Es el nombre del primer cadáver disecado por Herófilo en público
+                </div>
+                <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                <div class="respuesta">✅ <strong>Respuesta correcta: b)</strong><br>La <strong>"Prensa de Herófilo"</strong> es el nombre que recibe el <strong>confluente venoso posterior</strong> (seno venoso), una estructura venosa del cerebro que fue descrita por Herófilo de Calcedonia durante sus estudios anatómicos en la Escuela de Alejandría (Siglo III a.C.).</div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 11. BIBLIOGRAFÍA                                              -->
+        <!-- ============================================================ -->
+        <section class="card" id="bibliografia">
+            <h2>📚 Bibliografía</h2>
+            <ul style="font-size: 0.85rem; color: var(--text-light); line-height: 1.8;">
+                <li>Robertis, E. (2019) FUNDAMENTOS DE BIOLOGIA CELULAR Y MOLECULAR (16ª.ed.,) MADRID: EL ATENEO.</li>
+                <li>Tortora, G. J., & Derrickson, B. (2010). PRINCIPIOS DE ANATOMIA Y FISIOLOGIA (11a. ed., 4a. reimp.). BUENOS AIRES: MEDICA PANAMERICANA.</li>
+                <li>Rouviére, H., & Delmas, A. (2005). Anatomía Humana: Descriptiva, topográfica y funcional (11a. ed. ---). Barcelona: Elsevier Masson.</li>
+                <li>LATARJET, M. (2008). ANATOMIA HUMANA (4a. ed., 6a. reimp.). BUENOS AIRES: MEDICA PANAMERICANA.</li>
+                <li>Drake, R. L., Vogl, A. W., & Mitchell, A. W. (2015). Gray Anatomía para estudiantes (3a. ed. ---). Barcelona: Elsevier.</li>
+                <li>Moore, K. L., Agur, A. M., & Dalley, A. F. (2015). Fundamentos de Anatomía con orientación clínica (5a. ed. ---). Barcelona: Wolters Kluwer.</li>
+                <li>Saladin, K. S. (2013). Anatomía y fisiología: La unidad entre forma y función (6a. ed.). México D.F.: McGraw-Hill.</li>
+            </ul>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="tema-footer">
+            aque que pregunta es tonto por un minuto pero el que no lo hace lo es por toda vida
+        </footer>
+
+    </div>
+</main>
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== FUNCIÓN PARA MOSTRAR RESPUESTAS =====
+        function mostrarRespuesta(btn) {
+            const respuesta = btn.nextElementSibling;
+            if (respuesta && respuesta.classList) {
+                respuesta.classList.toggle('mostrar');
+                btn.textContent = respuesta.classList.contains('mostrar') ? 'Ocultar respuesta' : 'Ver respuesta';
+            }
+        }
+
+        // ===== POMODORO =====
+        let timeLeft = 25 * 60;
+        let timerId = null;
+        let isRunning = false;
+        let cycleCount = 1;
+
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const cycleSpan = document.getElementById('cycleCount');
+
+        function updateDisplay() {
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            timerId = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                if (timeLeft === 0) {
+                    clearInterval(timerId);
+                    isRunning = false;
+                    alert('¡Tiempo completado! 🎉');
+                    if (cycleCount < 4) {
+                        cycleCount++;
+                        cycleSpan.textContent = cycleCount;
+                        timeLeft = 25 * 60;
+                        updateDisplay();
+                    } else {
+                        alert('¡Ciclo completo! Descansa 15 minutos.');
+                        cycleCount = 1;
+                        cycleSpan.textContent = cycleCount;
+                        timeLeft = 25 * 60;
+                        updateDisplay();
+                    }
+                }
+            }, 1000);
+        }
+
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', () => {
+            clearInterval(timerId);
+            isRunning = false;
+        });
+        resetBtn.addEventListener('click', () => {
+            clearInterval(timerId);
+            isRunning = false;
+            timeLeft = 25 * 60;
+            updateDisplay();
+            cycleCount = 1;
+            cycleSpan.textContent = cycleCount;
+        });
+
+        // ===== TAREAS (CON SANITIZACIÓN) =====
+        const taskList = document.getElementById('taskList');
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+
+        function sanitizeText(text) {
+            const element = document.createElement('div');
+            element.textContent = text;
+            return element.innerHTML;
+        }
+
+        const savedTasks = localStorage.getItem('tasks-AnatomiaTema1');
+        if (savedTasks) {
+            try {
+                taskList.innerHTML = savedTasks;
+                document.querySelectorAll('.task-item input[type="checkbox"]').forEach(cb => {
+                    cb.addEventListener('change', function() {
+                        this.parentElement.classList.toggle('completed');
+                        saveTasks();
+                    });
+                });
+            } catch (e) {
+                console.warn('Error al cargar tareas:', e);
+            }
+        }
+
+        function saveTasks() {
+            localStorage.setItem('tasks-AnatomiaTema1', taskList.innerHTML);
+        }
+
+        function addTask() {
+            const text = taskInput.value.trim();
+            if (!text) {
+                alert('Por favor, escribe una tarea.');
+                return;
+            }
+
+            const safeText = sanitizeText(text);
+
+            const li = document.createElement('li');
+            li.className = 'task-item';
+            li.innerHTML = `
+                <input type="checkbox">
+                <span>${safeText}</span>
+            `;
+            taskList.appendChild(li);
+            taskInput.value = '';
+            saveTasks();
+
+            li.querySelector('input[type="checkbox"]').addEventListener('change', function() {
+                this.parentElement.classList.toggle('completed');
+                saveTasks();
+            });
+        }
+
+        addTaskBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask();
+        });
+
+        // ===== NOTAS =====
+        const notesArea = document.getElementById('notesArea');
+        
+        const savedNotes = localStorage.getItem('notes-AnatomiaTema1');
+        if (savedNotes) notesArea.value = savedNotes;
+
+        notesArea.addEventListener('input', () => {
+            localStorage.setItem('notes-AnatomiaTema1', notesArea.value);
+        });
+
+        // ===== SCROLL SUAVE PARA LA SIDEBAR =====
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
+                document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // ===== DETECTAR SECCIÓN ACTIVA AL HACER SCROLL =====
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

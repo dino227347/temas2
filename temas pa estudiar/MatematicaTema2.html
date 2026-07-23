@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matemática - Conjuntos | Sistema Preuniversitario</title>
+    
+    <!-- ===== CSS BASE REUTILIZADO ===== -->
+    <link rel="stylesheet" href="tema-base.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== SOBRESCRITURA DE VARIABLES PARA MATEMÁTICA ===== */
+        :root {
+            --primary: #7c3aed;
+            --primary-dark: #5b21b6;
+            --primary-light: #a78bfa;
+            --primary-bg: #ede9fe;
+        }
+
+        /* ===== SOBRESCRITURA DEL FONDO ===== */
+        body {
+            background: linear-gradient(135deg, #0f172a, #5b21b6);
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: var(--sidebar-width, 280px);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-brand .logo {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .sidebar-brand h2 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .sidebar-brand span {
+            color: var(--primary-light);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+        }
+
+        .sidebar-nav .nav-label {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            padding: 15px 0 8px 0;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-bottom: 2px;
+            position: relative;
+        }
+
+        .sidebar-nav a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+
+        .sidebar-nav a.active {
+            background: rgba(124, 58, 237, 0.25);
+            color: white;
+            font-weight: 500;
+        }
+
+        .sidebar-nav a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10%;
+            height: 80%;
+            width: 3px;
+            background: var(--primary-light);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .sidebar-nav a .icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-nav a .badge-nav {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1px 10px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .sidebar-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        /* ===== CONTENIDO PRINCIPAL ===== */
+        .main-content {
+            flex: 1;
+            padding: 25px 30px;
+            max-width: calc(100% - var(--sidebar-width, 280px));
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+        }
+
+        .contenedor-tema {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ===== BADGES ===== */
+        .badge-success {
+            background: var(--success);
+        }
+
+        .badge-dark {
+            background: #1f2937;
+        }
+
+        /* ===== COMPONENTES PARA MATEMÁTICA ===== */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+        .grid-2col .col {
+            background: var(--gray-bg);
+            padding: 15px 18px;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .grid-2col .col h4 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .tabla-mate {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .tabla-mate th {
+            background: var(--primary);
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .tabla-mate td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--gray-light);
+            color: var(--text-dark);
+        }
+
+        .tabla-mate tr:hover td {
+            background: var(--gray-bg);
+        }
+
+        .lista-conceptos {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lista-conceptos li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-bg);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .lista-conceptos li::before {
+            content: "◆";
+            color: var(--primary);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .lista-conceptos li:last-child {
+            border-bottom: none;
+        }
+
+        .formula-destacada {
+            background: var(--primary-bg);
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            color: var(--text-dark);
+            border: 2px solid var(--primary);
+        }
+
+        .ejercicio-resuelto {
+            background: #f0fdf4;
+            border: 2px solid var(--success);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 12px 0;
+        }
+
+        .ejercicio-resuelto strong {
+            color: var(--success);
+        }
+
+        .ejercicio-resuelto .paso {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .nota-importante {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            margin: 10px 0;
+        }
+
+        .nota-importante strong {
+            color: #d97706;
+        }
+
+        /* ===== HERRAMIENTAS ===== */
+        .herramientas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .herramienta-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .herramienta-card h3 {
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 240px;
+            }
+            .herramientas-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 100%;
+            }
+
+            body {
+                flex-direction: column;
+                padding: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 12px 15px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+
+            .sidebar-brand {
+                padding-bottom: 0;
+                border-bottom: none;
+                margin-bottom: 0;
+                flex: 0 0 auto;
+            }
+
+            .sidebar-brand .logo {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+
+            .sidebar-brand h2 {
+                font-size: 0.8rem;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 3px;
+                flex: 1;
+                padding: 0 8px;
+            }
+
+            .sidebar-nav .nav-label {
+                display: none;
+            }
+
+            .sidebar-nav a {
+                padding: 4px 10px;
+                font-size: 0.65rem;
+                gap: 3px;
+                border-radius: 6px;
+            }
+
+            .sidebar-nav a .icon {
+                font-size: 0.8rem;
+                width: 16px;
+            }
+
+            .sidebar-nav a .badge-nav {
+                display: none;
+            }
+
+            .sidebar-nav a.active::before {
+                display: none;
+            }
+
+            .sidebar-footer {
+                display: none;
+            }
+
+            .main-content {
+                max-width: 100%;
+                padding: 12px 15px;
+                flex: 1;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .tabla-mate {
+                display: block;
+                overflow-x: auto;
+                font-size: 0.8rem;
+            }
+
+            .tabla-mate th,
+            .tabla-mate td {
+                padding: 8px 10px;
+                min-width: 80px;
+            }
+
+            .herramientas-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .formula-destacada {
+                font-size: 0.9rem;
+                padding: 10px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar-nav a {
+                font-size: 0.55rem;
+                padding: 3px 7px;
+            }
+
+            .sidebar-nav a .icon {
+                font-size: 0.7rem;
+                width: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" role="navigation" aria-label="Navegación principal">
+        <div class="sidebar-brand">
+            <div class="logo">📐</div>
+            <h2>Matemática <span>PSA</span></h2>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-label">Contenido</div>
+            <a href="#introduccion" class="active">
+                <span class="icon">📖</span> Introducción
+            </a>
+            <a href="#conceptos">
+                <span class="icon">🔑</span> Conceptos básicos
+            </a>
+            <a href="#notacion">
+                <span class="icon">✏️</span> Notación
+            </a>
+            <a href="#descripcion">
+                <span class="icon">📋</span> Descripción
+            </a>
+            <a href="#especiales">
+                <span class="icon">⭐</span> Conjuntos especiales
+            </a>
+            <a href="#relaciones">
+                <span class="icon">🔗</span> Relaciones
+            </a>
+            <a href="#operaciones">
+                <span class="icon">➕</span> Operaciones
+            </a>
+            <a href="#cardinalidad">
+                <span class="icon">🔢</span> Cardinalidad
+            </a>
+            <a href="#ejercicios">
+                <span class="icon">📝</span> Ejercicios resueltos
+            </a>
+            <a href="#prueba">
+                <span class="icon">❓</span> Mini Prueba
+                <span class="badge-nav">10</span>
+            </a>
+            <a href="#herramientas">
+                <span class="icon">🛠️</span> Herramientas
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Sistema Preuniversitario
+        </div>
+    </aside>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <main class="main-content">
+        <div class="contenedor-tema">
+
+            <!-- ===== HEADER ===== -->
+            <header class="tema-header" id="introduccion">
+                <h1>📐 Conjuntos</h1>
+                <p>Fundamentos de la Teoría de Conjuntos y sus aplicaciones</p>
+                <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px;">
+                    <span class="badge">Tema 2</span>
+                    <span class="badge badge-success">Matemática</span>
+                    <span class="badge badge-dark">🧮 Álgebra</span>
+                </div>
+                <div style="margin-top: 14px; font-size: 0.9rem; opacity: 0.85;">
+                    💡 <em>"La Teoría de Conjuntos constituye un pilar fundamental para una formación sólida y concisa de la matemática y otras áreas."</em>
+                </div>
+            </header>
+
+            <!-- ============================================================ -->
+            <!-- 1. INTRODUCCIÓN                                               -->
+            <!-- ============================================================ -->
+            <section class="card">
+                <h2>📖 1. Introducción</h2>
+                
+                <p>Uno de los temas más importantes y estudiados que abarca el área de la matemática es el concepto de <strong>conjuntos</strong>, el cual puede ser entendido, por el momento, como una <strong>colección de objetos</strong>.</p>
+                
+                <p>No es de extrañarse que esté inmerso en distintas áreas: en <strong>aritmética</strong> se trabaja con un conjunto de números, en <strong>geometría</strong> con un conjunto de formas, en las áreas de la <strong>salud</strong> con un conjunto de síntomas padecidos por algún paciente, etc. Así este tema constituye un <strong>pilar fundamental</strong> para una formación sólida y concisa de la matemática y otras áreas.</p>
+                
+                <div class="concepto-clave">
+                    <strong>📌 Desarrollo histórico:</strong>
+                    <br>La Teoría de Conjuntos fue desarrollada durante los siglos <strong>XIX y XX</strong>:
+                    <br>• <strong>George Peacock (1791-1858):</strong> Pionero en la revolución del concepto de Álgebra y Aritmética.
+                    <br>• <strong>George Boole (1815-1864):</strong> Formalizó el álgebra de conjuntos en 1854.
+                    <br>• <strong>George Cantor (1845-1918):</strong> Definió un conjunto apelando a nociones intuitivas en 1895.
+                    <br>• <strong>Bertrand Russell (1872-1970):</strong> Descubrió la <strong>"Paradoja de Russell"</strong>.
+                    <br>• <strong>Ernst Zermelo (1851-1953):</strong> Trabajó los axiomas principales para el desarrollo de la teoría de conjuntos.
+                </div>
+                
+                <div class="cuadro-resumen">
+                    <strong>🎯 Objetivos del capítulo:</strong>
+                    <br>1. Identificar los <strong>elementos más importantes</strong> de un conjunto.
+                    <br>2. Conocer la aplicación e importancia de las <strong>operaciones entre conjuntos</strong>.
+                    <br>3. Aplicar los conocimientos en la <strong>resolución de ejercicios</strong>.
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 2. CONCEPTOS BÁSICOS                                         -->
+            <!-- ============================================================ -->
+            <section class="card" id="conceptos">
+                <h2>🔑 2. Conceptos Básicos de Conjuntos</h2>
+                
+                <h3>2.1 Definición de Conjunto</h3>
+                <p>Se llama <strong>Conjunto</strong> a una colección o agrupación de objetos los cuales están <strong>bien definidos</strong>. La palabra <strong>"Bien definido"</strong> significa que es posible determinar si un objeto está en el conjunto observado.</p>
+                
+                <p><strong>Ejemplos de conjuntos:</strong></p>
+                <ul>
+                    <li>📚 El conjunto de libros que hablan de anatomía.</li>
+                    <li>🎓 El conjunto de estudiantes que aprobaron el curso preuniversitario.</li>
+                    <li>📝 El conjunto de estudiantes inscritos para la prueba de suficiencia académica.</li>
+                    <li>🩺 El conjunto de personas que padecen tuberculosis.</li>
+                </ul>
+                
+                <h3>2.2 Requisitos para formar un Conjunto</h3>
+                <p>Para poder tener conjuntos que estén construidos de manera efectiva, es necesario que cumplan ciertas reglas:</p>
+                
+                <ul class="lista-conceptos">
+                    <li><strong>Bien definido:</strong> La colección de objetos tiene que estar bien definida, es decir, se debe saber cuándo un objeto pertenece al conjunto y cuando no.</li>
+                    <li><strong>Elementos distintos:</strong> Ningún objeto del conjunto puede aparecer más de una vez. Los elementos deben ser distintos.</li>
+                    <li><strong>Orden no importa:</strong> El orden en el que se enlisten los elementos no tiene importancia.</li>
+                </ul>
+                
+                <div class="nota-importante">
+                    <strong>⚠️ Ejemplo de conjunto NO bien definido:</strong>
+                    <br>Si se considera el conjunto de <strong>"las mejores farmacias de La Paz"</strong>, no es posible decir cuáles deberían pertenecer al conjunto, ya que se requiere de ciertos criterios para poder afirmar que una farmacia es "buena".
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 3. NOTACIÓN                                                  -->
+            <!-- ============================================================ -->
+            <section class="card" id="notacion">
+                <h2>✏️ 3. Notación de Conjuntos</h2>
+                
+                <p>Una vez que se tiene la manera correcta de construir un conjunto, es necesario establecer una <strong>notación</strong>, es decir, tener una serie de símbolos mediante la cual se podrá hacer referencia a ciertos elementos.</p>
+                
+                <table class="tabla-mate">
+                    <thead>
+                        <tr>
+                            <th>Símbolo</th>
+                            <th>Significado</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Letras mayúsculas</strong></td>
+                            <td>Denotan conjuntos</td>
+                            <td><em>A, B, C, D, ...</em></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Letras minúsculas</strong></td>
+                            <td>Denotan elementos</td>
+                            <td><em>a, b, c, ... o 1, 2, 3, ...</em></td>
+                        </tr>
+                        <tr>
+                            <td><strong>{ }</strong></td>
+                            <td>Llaves que encierran elementos del conjunto</td>
+                            <td><em>{1, 2, 3, 4}</em></td>
+                        </tr>
+                        <tr>
+                            <td><strong>∈</strong></td>
+                            <td>Pertenece al conjunto</td>
+                            <td><em>a ∈ A</em> → "a pertenece a A"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>∉</strong></td>
+                            <td>No pertenece al conjunto</td>
+                            <td><em>a ∉ A</em> → "a no pertenece a A"</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="ejemplo">
+                    <strong>📌 Ejemplo 1:</strong>
+                    <br>Sea A el conjunto formado por los números entre 1 y 10:
+                    <br><strong>A = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}</strong>
+                    <br>Así se tiene que <strong>1 ∈ A</strong> sin embargo <strong>14 ∉ A</strong>
+                    <br><br>
+                    <strong>📌 Ejemplo 2:</strong>
+                    <br>Sea B el conjunto formado por las vocales del abecedario:
+                    <br><strong>B = {a, e, i, o, u}</strong>
+                    <br>Por tanto se tiene que <strong>e ∈ B</strong> pero <strong>z ∉ B</strong>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 4. DESCRIPCIÓN DE UN CONJUNTO                               -->
+            <!-- ============================================================ -->
+            <section class="card" id="descripcion">
+                <h2>📋 4. Descripción de un Conjunto</h2>
+                
+                <p>Cuando se quiere describir un conjunto, existen <strong>2 maneras</strong> de hacerlo:</p>
+                
+                <div class="grid-2col">
+                    <div class="col">
+                        <h4>📝 Por Extensión</h4>
+                        <p>Un conjunto es escrito por <strong>extensión</strong> cuando se <strong>nombran todos los elementos</strong> que posee.</p>
+                        <p><strong>Ejemplo:</strong></p>
+                        <p><strong>A = {2, 3, 5, 7}</strong> (números primos entre 1 y 10)</p>
+                        <p><strong>Con puntos suspensivos:</strong></p>
+                        <p><strong>B = {3, 6, 9, ..., 60}</strong> (múltiplos de 3 hasta 60)</p>
+                    </div>
+                    <div class="col">
+                        <h4>📝 Por Comprensión</h4>
+                        <p>Un conjunto es escrito por <strong>comprensión</strong> cuando existe una <strong>regla o propiedad</strong> que permite encontrar los elementos que posee.</p>
+                        <p><strong>Ejemplo:</strong></p>
+                        <p><strong>C = {x / x es un entero y 1 < x < 6}</strong></p>
+                        <p>La línea <strong>" / "</strong> se lee como <strong>"tal que"</strong></p>
+                        <p>Entonces: <strong>C = {2, 3, 4, 5}</strong></p>
+                    </div>
+                </div>
+                
+                <div class="formula-destacada">
+                    Forma general por comprensión: <br>
+                    <strong>{ x ∈ U / "x cumple la propiedad P" }</strong>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 5. CONJUNTOS ESPECIALES                                     -->
+            <!-- ============================================================ -->
+            <section class="card" id="especiales">
+                <h2>⭐ 5. Conjuntos Especiales</h2>
+                
+                <table class="tabla-mate">
+                    <thead>
+                        <tr>
+                            <th>Conjunto</th>
+                            <th>Símbolo</th>
+                            <th>Definición</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Conjunto Universo</strong></td>
+                            <td>U</td>
+                            <td>Colección de todos los elementos que intervienen en algún tema de interés</td>
+                            <td>Si C = {x / x es entero y 1 < x < 6}, U = números enteros</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Conjunto Vacío</strong></td>
+                            <td>∅ o {}</td>
+                            <td>Conjunto que no posee ningún elemento</td>
+                            <td>A = {x ∈ U / x > 5 y x < 3} = ∅</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Conjunto Finito</strong></td>
+                            <td>-</td>
+                            <td>Es posible contar cuántos elementos tiene</td>
+                            <td>A = {2, 4, 6, 8, 10, 12} (6 elementos)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Conjunto Infinito</strong></td>
+                            <td>-</td>
+                            <td>No es posible conocer el último elemento</td>
+                            <td>A = {x ∈ U / x es par} = {..., -4, -2, 0, 2, 4, ...}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="nota-importante">
+                    <strong>📌 Nota:</strong> El conjunto vacío es <strong>subconjunto de cualquier conjunto</strong> y el conjunto universo depende de la situación donde se esté trabajando.
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 6. RELACIONES ENTRE CONJUNTOS                               -->
+            <!-- ============================================================ -->
+            <section class="card" id="relaciones">
+                <h2>🔗 6. Relaciones entre Conjuntos</h2>
+                
+                <h3>6.1 Inclusión (⊂)</h3>
+                <p>Sean A y B dos conjuntos. Se dice que <strong>"A es un subconjunto de B"</strong>, denotado <strong>A ⊂ B</strong>, si <strong>todos los elementos de A pertenecen al conjunto B</strong>.</p>
+                
+                <div class="formula-destacada">
+                    A ⊂ B  ⇔  (∀x)(x ∈ A → x ∈ B)
+                </div>
+                
+                <p><strong>Propiedades de la inclusión:</strong></p>
+                <ul class="lista-conceptos">
+                    <li><strong>Reflexiva:</strong> Para todo conjunto A, A ⊂ A (inclusión impropia, simbolizada con ⊆)</li>
+                    <li><strong>Transitiva:</strong> Si A ⊂ B y B ⊂ C, entonces A ⊂ C</li>
+                    <li>El <strong>conjunto vacío</strong> es subconjunto de cualquier conjunto: ∅ ⊂ A</li>
+                </ul>
+                
+                <div class="ejemplo">
+                    <strong>📌 Ejemplo:</strong>
+                    <br>A = {1, 2, 3, 4, 5, 6, 7, 8}, B = {2, 4, 6, 8}, C = {1, 3, 5, 7}
+                    <br>• <strong>B ⊂ A</strong> (todos los elementos de B están en A)
+                    <br>• <strong>C ⊂ A</strong> (todos los elementos de C están en A)
+                    <br>• <strong>B ⊄ C</strong> (existe 2 ∈ B que no está en C)
+                </div>
+                
+                <h3>6.2 Igualdad (=)</h3>
+                <p>Sean A y B dos conjuntos. Se dice que <strong>"A es igual a B"</strong>, denotado <strong>A = B</strong>, si <strong>ambos conjuntos poseen los mismos elementos</strong>.</p>
+                
+                <div class="formula-destacada">
+                    A = B  ⇔  A ⊂ B  ∧  B ⊂ A
+                </div>
+                
+                <p><strong>Propiedades de la igualdad:</strong></p>
+                <ul class="lista-conceptos">
+                    <li><strong>Reflexiva:</strong> Para todo conjunto A, A = A</li>
+                    <li><strong>Simétrica:</strong> Si A = B, entonces B = A</li>
+                    <li><strong>Transitiva:</strong> Si A = B y B = C, entonces A = C</li>
+                </ul>
+                
+                <h3>6.3 Diagramas de Venn</h3>
+                <p>Los <strong>Diagramas de Venn</strong> permiten tener una representación gráfica de los conjuntos. Un conjunto es representado con una <strong>figura cerrada</strong> (generalmente un círculo) y sus elementos con puntos en el interior.</p>
+                
+                <ul>
+                    <li>El <strong>conjunto universo U</strong> es representado por un <strong>rectángulo</strong>.</li>
+                    <li>Los <strong>subconjuntos</strong> son representados por <strong>círculos</strong> dentro del rectángulo.</li>
+                    <li>Para enfatizar un conjunto se <strong>sombreado</strong> el interior de la curva cerrada.</li>
+                </ul>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 7. OPERACIONES ENTRE CONJUNTOS                              -->
+            <!-- ============================================================ -->
+            <section class="card" id="operaciones">
+                <h2>➕ 7. Operaciones entre Conjuntos</h2>
+                
+                <h3>7.1 Complemento (A<sup>c</sup>)</h3>
+                <p>El <strong>complemento</strong> de A, denotado <strong>A<sup>c</sup></strong>, es el conjunto de elementos de U que <strong>no están en A</strong>.</p>
+                <div class="formula-destacada">
+                    A<sup>c</sup> = {x ∈ U / x ∉ A}
+                </div>
+                
+                <p><strong>Propiedades del complemento:</strong></p>
+                <ul>
+                    <li>U<sup>c</sup> = ∅</li>
+                    <li>∅<sup>c</sup> = U</li>
+                    <li>(A<sup>c</sup>)<sup>c</sup> = A</li>
+                </ul>
+                
+                <div class="ejemplo">
+                    <strong>📌 Ejemplo:</strong> U = {1, 2, 3, 4, 5, 6}, A = {2, 4, 6} → A<sup>c</sup> = {1, 3, 5}
+                </div>
+                
+                <h3>7.2 Unión (A ∪ B)</h3>
+                <p>La <strong>unión</strong> de A y B, denotado <strong>A ∪ B</strong>, es el conjunto formado por todos los elementos que pertenecen a <strong>A o a B</strong> (o a ambos).</p>
+                <div class="formula-destacada">
+                    A ∪ B = {x ∈ U / x ∈ A ∨ x ∈ B}
+                </div>
+                
+                <p><strong>Propiedades de la unión:</strong></p>
+                <ul>
+                    <li>A ∪ A = A</li>
+                    <li>A ∪ B = B ∪ A (Conmutativa)</li>
+                    <li>A ∪ U = U</li>
+                    <li>A ∪ ∅ = A</li>
+                </ul>
+                
+                <h3>7.3 Intersección (A ∩ B)</h3>
+                <p>La <strong>intersección</strong> de A y B, denotado <strong>A ∩ B</strong>, es el conjunto formado por todos los elementos que pertenecen a <strong>A y a B</strong>.</p>
+                <div class="formula-destacada">
+                    A ∩ B = {x ∈ U / x ∈ A ∧ x ∈ B}
+                </div>
+                
+                <p><strong>Propiedades de la intersección:</strong></p>
+                <ul>
+                    <li>A ∩ A = A</li>
+                    <li>A ∩ B = B ∩ A (Conmutativa)</li>
+                    <li>A ∩ U = A</li>
+                    <li>A ∩ ∅ = ∅</li>
+                </ul>
+                
+                <h3>7.4 Diferencia (A − B)</h3>
+                <p>La <strong>diferencia</strong> de A y B, denotado <strong>A − B</strong>, es el conjunto formado por todos los elementos que pertenecen a <strong>A y no pertenecen a B</strong>.</p>
+                <div class="formula-destacada">
+                    A − B = {x ∈ U / x ∈ A ∧ x ∉ B}
+                </div>
+                
+                <p><strong>Propiedades de la diferencia:</strong></p>
+                <ul>
+                    <li>A − B ≠ B − A</li>
+                    <li>A − B = A ∩ B<sup>c</sup></li>
+                </ul>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 8. CARDINALIDAD                                              -->
+            <!-- ============================================================ -->
+            <section class="card" id="cardinalidad">
+                <h2>🔢 8. Cardinalidad de un Conjunto</h2>
+                
+                <p>La <strong>cardinalidad</strong> de un conjunto A, denotado <strong>|A|</strong>, es la <strong>cantidad de elementos</strong> que posee.</p>
+                
+                <div class="formula-destacada">
+                    |A| = número de elementos de A
+                </div>
+                
+                <p><strong>Fórmula para la unión:</strong></p>
+                <div class="formula-destacada">
+                    |A ∪ B| = |A| + |B| − |A ∩ B|
+                </div>
+                
+                <div class="ejercicio-resuelto">
+                    <strong>📌 Ejemplo de aplicación:</strong>
+                    <br>De un grupo de <strong>70 personas</strong> se sabe que todas hablan <strong>inglés o francés</strong>. Se conoce que <strong>53</strong> hablan inglés y <strong>34</strong> hablan francés.
+                    <br><br><strong>¿Cuántas personas hablan inglés y francés?</strong>
+                    <br><br>Sean:
+                    <br>A = Conjunto de personas que hablan inglés
+                    <br>B = Conjunto de personas que hablan francés
+                    <br><br>|A ∪ B| = 70, |A| = 53, |B| = 34
+                    <br><br>|A ∩ B| = |A| + |B| − |A ∪ B|
+                    <br>|A ∩ B| = 53 + 34 − 70 = <strong>17 personas</strong>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 9. EJERCICIOS RESUELTOS                                     -->
+            <!-- ============================================================ -->
+            <section class="card" id="ejercicios">
+                <h2>📝 9. Ejercicios Resueltos Paso a Paso</h2>
+                
+                <div class="ejercicio-resuelto">
+                    <strong>📌 Ejercicio 1:</strong>
+                    <br>Sea U = {-2, -1, 0, 1, 2, 3, ...} y A = {x ∈ U / x² + 2x ≤ 0}. Verifique que -1 ∈ A y 1 ∉ A.
+                    <br><br><strong>Solución:</strong>
+                    <br>• <span class="paso">Verificando -1 ∈ A:</span> (-1)² + 2(-1) = 1 − 2 = -1 ≤ 0 → <strong>-1 ∈ A ✓</strong>
+                    <br>• <span class="paso">Verificando 1 ∈ A:</span> (1)² + 2(1) = 1 + 2 = 3 ≤ 0 → Falso → <strong>1 ∉ A ✓</strong>
+                </div>
+                
+                <div class="ejercicio-resuelto">
+                    <strong>📌 Ejercicio 2:</strong>
+                    <br>Sea U = {1, 2, 3, 4, ...}. Escribir por extensión: A = {x ∈ U / x es potencia de 2 ∧ 2 ≤ x ≤ 2⁵}
+                    <br><br><strong>Solución:</strong>
+                    <br>Potencias de 2: 2¹ = 2, 2² = 4, 2³ = 8, 2⁴ = 16, 2⁵ = 32
+                    <br><span class="paso">Verificando:</span> 2, 4, 8, 16, 32 cumplen la condición.
+                    <br><strong>A = {2, 4, 8, 16, 32}</strong>
+                </div>
+                
+                <div class="ejercicio-resuelto">
+                    <strong>📌 Ejercicio 3:</strong>
+                    <br>Sea U = {1, 2, 3, ..., 14}. Dados:
+                    <br>A = {x ∈ U / x es múltiplo de 3 y x < 14} = {3, 6, 9, 12}
+                    <br>B = {x ∈ U / x es par y x < 10} = {2, 4, 6, 8}
+                    <br>C = {3, 4, 6, 8, 10, 12}
+                    <br><br>Calcular: a) A ∪ B &nbsp; b) A ∩ C &nbsp; c) C<sup>c</sup> &nbsp; d) (A ∪ B) − C
+                    <br><br><strong>Solución:</strong>
+                    <br>a) <span class="paso">A ∪ B</span> = {3, 6, 9, 12} ∪ {2, 4, 6, 8} = <strong>{2, 3, 4, 6, 8, 9, 12}</strong>
+                    <br>b) <span class="paso">A ∩ C</span> = {3, 6, 9, 12} ∩ {3, 4, 6, 8, 10, 12} = <strong>{3, 6, 12}</strong>
+                    <br>c) <span class="paso">C<sup>c</sup></span> = U − C = {1, 2, 5, 7, 9, 11, 13, 14}
+                    <br>d) <span class="paso">(A ∪ B) − C</span> = {2, 3, 4, 6, 8, 9, 12} − {3, 4, 6, 8, 10, 12} = <strong>{2, 9}</strong>
+                </div>
+                
+                <div class="ejercicio-resuelto">
+                    <strong>📌 Ejercicio 4:</strong>
+                    <br>Determine los conjuntos A y B, sabiendo que:
+                    <br>A − B = {1, 3, 7, 11}, B − A = {2, 6, 8}, A ∩ B = {4, 9}
+                    <br><br><strong>Solución:</strong>
+                    <br>Los elementos de A − B están <strong>solo en A</strong>.
+                    <br>Los elementos de B − A están <strong>solo en B</strong>.
+                    <br>Los elementos de A ∩ B están en <strong>ambos</strong>.
+                    <br><br><span class="paso">A</span> = (A − B) ∪ (A ∩ B) = {1, 3, 7, 11} ∪ {4, 9} = <strong>{1, 3, 4, 7, 9, 11}</strong>
+                    <br><span class="paso">B</span> = (B − A) ∪ (A ∩ B) = {2, 6, 8} ∪ {4, 9} = <strong>{2, 4, 6, 8, 9}</strong>
+                </div>
+                
+                <div class="ejercicio-resuelto">
+                    <strong>📌 Ejercicio 5:</strong>
+                    <br>Sea N = {1, 2, 3, 4, ...}, A = {2, 5, √2, 7, π, 2/5} y B = {2, 4, √2, 7/8}
+                    <br>Encontrar: a) A ∩ B &nbsp; b) A ∪ B &nbsp; c) N ∩ A &nbsp; d) N ∪ B
+                    <br><br><strong>Solución:</strong>
+                    <br>a) <span class="paso">A ∩ B</span> = {2, 5, √2, 7, π, 2/5} ∩ {2, 4, √2, 7/8} = <strong>{2, √2}</strong>
+                    <br>b) <span class="paso">A ∪ B</span> = {2, 4, 5, 7, √2, π, 2/5, 7/8}
+                    <br>c) <span class="paso">N ∩ A</span> = {1, 2, 3, 4, ...} ∩ {2, 5, √2, 7, π, 2/5} = <strong>{2, 5, 7}</strong>
+                    <br>d) <span class="paso">N ∪ B</span> = {1, 2, 3, 4, ...} ∪ {2, 4, √2, 7/8} = {√2, 7/8, 1, 2, 3, 4, 5, ...}
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 10. MINI PRUEBA                                              -->
+            <!-- ============================================================ -->
+            <section class="card" id="prueba" style="border: 2px solid var(--primary);">
+                <h2>❓ Mini Prueba - 10 Preguntas Nivel Universitario</h2>
+                <p style="color: var(--text-light); margin-bottom: 15px;">Selecciona la respuesta correcta. Haz clic en "Ver respuesta" para comprobar.</p>
+                
+                <!-- Pregunta 1 -->
+                <div class="pregunta">
+                    <p><strong>1.</strong> Sea U = {1, 2, 3, 4, ...}. Dado A = {x ∈ U / x = 2n + 1; n = 1, 2, 3, 4}. ¿Cuál de las siguientes afirmaciones es verdadera?</p>
+                    <div class="opciones">
+                        a) 7 ∈ A y 2 ∉ A<br>
+                        b) 4 ∈ A y 3 ∉ A<br>
+                        c) 1 ∈ A y 4 ∈ A<br>
+                        d) 5 ∉ A y 8 ∈ A
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: a) 7 ∈ A y 2 ∉ A</strong><br>Para n = 1,2,3,4: x = 3,5,7,9. Por tanto A = {3,5,7,9}. 7 ∈ A y 2 ∉ A es correcto.</div>
+                </div>
+                
+                <!-- Pregunta 2 -->
+                <div class="pregunta">
+                    <p><strong>2.</strong> Sea U = {1, 2, 3, 4, ..., 20}. A = {x ∈ U / x = 4n; n = 1,2,3,4} y B = {x ∈ U / x = 2n; n = 1,2,...,8}. Si A ⊂ B, ¿cuál afirmación es verdadera?</p>
+                    <div class="opciones">
+                        a) A<sup>c</sup> ⊂ B<sup>c</sup><br>
+                        b) B<sup>c</sup> ⊂ A<br>
+                        c) B<sup>c</sup> ⊂ A<sup>c</sup><br>
+                        d) A<sup>c</sup> ⊂ B
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) B<sup>c</sup> ⊂ A<sup>c</sup></strong><br>Si A ⊂ B, entonces B<sup>c</sup> ⊂ A<sup>c</sup> (los complementos invierten la inclusión).</div>
+                </div>
+                
+                <!-- Pregunta 3 -->
+                <div class="pregunta">
+                    <p><strong>3.</strong> Para U = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}. A = {1, 2, 3, 4}, B = {1, 2, 4, 8}, C = {1, 2, 3, 5, 7}. Calcule (A ∪ B) ∩ C.</p>
+                    <div class="opciones">
+                        a) {2, 4, 6}<br>
+                        b) {3, 4, 5}<br>
+                        c) {1, 2, 3}<br>
+                        d) {1, 3, 5}
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) {1, 2, 3}</strong><br>A ∪ B = {1, 2, 3, 4, 8}. (A ∪ B) ∩ C = {1, 2, 3}.</div>
+                </div>
+                
+                <!-- Pregunta 4 -->
+                <div class="pregunta">
+                    <p><strong>4.</strong> Para U = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}. A = {1, 2, 3, 4}, B = {1, 2, 4, 8}, C = {1, 2, 3, 5, 7}. Calcule (A ∪ B) − C.</p>
+                    <div class="opciones">
+                        a) {1, 2, 3, 4, 8}<br>
+                        b) {4, 6, 8, 9, 10}<br>
+                        c) {4, 8}<br>
+                        d) {1, 2, 3}
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) {4, 8}</strong><br>A ∪ B = {1, 2, 3, 4, 8}. (A ∪ B) − C = {4, 8}.</div>
+                </div>
+                
+                <!-- Pregunta 5 -->
+                <div class="pregunta">
+                    <p><strong>5.</strong> Se sabe que A − B = {1, 2, 4}, B − A = {7, 8}, A ∪ B = {1, 2, 4, 5, 7, 8, 9}. Determine A y B.</p>
+                    <div class="opciones">
+                        a) A = {1, 2, 4, 5, 9} y B = {5, 7, 8, 9}<br>
+                        b) A = {1, 2, 4, 5, 9} y B = {5, 7, 8}<br>
+                        c) A = {1, 2, 4, 5, 9} y B = {5, 7, 8, 9}<br>
+                        d) A = {1, 2, 4, 5, 9} y B = {7, 8, 9}
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: a) A = {1, 2, 4, 5, 9} y B = {5, 7, 8, 9}</strong><br>A contiene A−B y la intersección. B contiene B−A y la intersección. De A∪B, el elemento 5 está en ambos y 9 en ambos.</div>
+                </div>
+                
+                <!-- Pregunta 6 -->
+                <div class="pregunta">
+                    <p><strong>6.</strong> Sea U = {1, 2, 3, ..., 29, 30}. A = {1, 2, 3, 4, 6, 9, 15} y B = {2, 3, 6, 15, 22, 29}. ¿Cuánto vale |A ∪ B|?</p>
+                    <div class="opciones">
+                        a) 13<br>
+                        b) 7<br>
+                        c) 9<br>
+                        d) 6
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) 9</strong><br>A ∪ B = {1, 2, 3, 4, 6, 9, 15, 22, 29} → 9 elementos.</div>
+                </div>
+                
+                <!-- Pregunta 7 -->
+                <div class="pregunta">
+                    <p><strong>7.</strong> En un grupo de 300 estudiantes, 47 cursan Bioquímica y Parasitología, 183 cursan Bioquímica. ¿Cuántos cursan Parasitología?</p>
+                    <div class="opciones">
+                        a) 136<br>
+                        b) 164<br>
+                        c) 230<br>
+                        d) 117
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: b) 164</strong><br>|B ∪ P| = |B| + |P| − |B ∩ P| → 300 = 183 + |P| − 47 → |P| = 300 − 183 + 47 = 164</div>
+                </div>
+                
+                <!-- Pregunta 8 -->
+                <div class="pregunta">
+                    <p><strong>8.</strong> Sea U = {1, 2, 3, 4, ...}, A = {x ∈ U / x es par} y B = {x ∈ U / x es impar}. ¿Cuál es A ∪ B?</p>
+                    <div class="opciones">
+                        a) {1, 3, 5, 7, ...}<br>
+                        b) {2, 4, 6, 8, ...}<br>
+                        c) {1, 2, 3, 4, ...}<br>
+                        d) {2, 3, 4, 5, ...}
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: c) {1, 2, 3, 4, ...}</strong><br>La unión de pares e impares es el conjunto de todos los números naturales.</div>
+                </div>
+                
+                <!-- Pregunta 9 -->
+                <div class="pregunta">
+                    <p><strong>9.</strong> Sea U = {1, 2, 3, 4, ...}, A = {x ∈ U / x es par} y B = {x ∈ U / x es impar}. ¿Cuál es A ∩ B?</p>
+                    <div class="opciones">
+                        a) {0}<br>
+                        b) {2, 4, 6, 8, ...}<br>
+                        c) {1, 3, 5, 7, ...}<br>
+                        d) ∅
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: d) ∅</strong><br>Un número no puede ser par e impar al mismo tiempo, la intersección es vacía.</div>
+                </div>
+                
+                <!-- Pregunta 10 -->
+                <div class="pregunta">
+                    <p><strong>10.</strong> Sea U = {1, 2, 3, 4, ...}. A = {x ∈ U / x = 4n; n = 1, 2, 3} y B = {x ∈ U / x es par y x < 14}. ¿Qué relación es correcta?</p>
+                    <div class="opciones">
+                        a) A ⊂ B<br>
+                        b) B ⊂ A<br>
+                        c) A = B<br>
+                        d) Ninguna de las anteriores
+                    </div>
+                    <button class="btn-ver-respuesta" onclick="mostrarRespuesta(this)">Ver respuesta</button>
+                    <div class="respuesta">✅ <strong>Respuesta correcta: a) A ⊂ B</strong><br>A = {4, 8, 12}. B = {2, 4, 6, 8, 10, 12}. Como 4, 8, 12 ∈ B, entonces A ⊂ B.</div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 11. BIBLIOGRAFÍA                                             -->
+            <!-- ============================================================ -->
+            <section class="card" id="bibliografia">
+                <h2>📚 Bibliografía</h2>
+                <ul style="font-size: 0.85rem; color: var(--text-light); line-height: 1.8;">
+                    <li>Grimaldi R. Matemáticas Discreta y Combinatoria. México: Addison Wesley Longman; 1998</li>
+                    <li>Adalid C, Ariza Gómez E, Breña Valle V. Álgebra Básica: Soluciones con el Paquete Matemática. México; 2001</li>
+                    <li>Aguayo Flores P, Perdant Rodriguez A, Rodriguez Franco J. Fundamentos de Matemáticas. México; 2005</li>
+                    <li>Rojo A. Álgebra I. Buenos Aires: El ateneo; 1996</li>
+                    <li>Kisbye P, Tiraboschi A. Elementos de Lógica y Teoría de Conjuntos. Argentina; 2008</li>
+                    <li>UMSA-Facultad de Ciencias Puras y Naturales. Guía de ejercicios de Álgebra: II - 2017</li>
+                    <li>UMSA-Facultad de Ciencias Puras y Naturales. Guía de ejercicios Álgebra: I - 2018</li>
+                </ul>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 12. HERRAMIENTAS                                             -->
+            <!-- ============================================================ -->
+            <section id="herramientas">
+                <h2 style="color: white; font-weight: 600; margin-bottom: 15px;">🛠️ Herramientas de Estudio</h2>
+                <div class="herramientas-grid">
+                    
+                    <!-- Pomodoro -->
+                    <div class="herramienta-card">
+                        <h3>⏱️ Pomodoro</h3>
+                        <div class="pomodoro-circle" id="timerDisplay">25:00</div>
+                        <div class="pomodoro-controls">
+                            <button class="btn btn-primary" id="startBtn">▶ Iniciar</button>
+                            <button class="btn btn-secondary" id="pauseBtn">⏸ Pausar</button>
+                            <button class="btn btn-danger" id="resetBtn">↻ Reiniciar</button>
+                        </div>
+                        <div class="pomodoro-info">Ciclo: <span id="cycleCount">1</span> de 4</div>
+                    </div>
+                    
+                    <!-- Tareas -->
+                    <div class="herramienta-card">
+                        <h3>📋 Tareas</h3>
+                        <ul class="task-list" id="taskList">
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Leer todo el tema de Conjuntos</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Memorizar los símbolos y operaciones</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Resolver los ejercicios propuestos</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox">
+                                <span>Practicar con diagramas de Venn</span>
+                            </li>
+                        </ul>
+                        <div class="task-input-group">
+                            <input type="text" id="taskInput" placeholder="Nueva tarea..." aria-label="Nueva tarea">
+                            <button class="btn" id="addTaskBtn" aria-label="Agregar tarea">+</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Notas -->
+                    <div class="herramienta-card notas-card">
+                        <h3>📝 Apuntes</h3>
+                        <textarea id="notesArea" placeholder="Escribe tus notas aquí..." aria-label="Área de notas"></textarea>
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- ===== FOOTER ===== -->
+            <footer class="tema-footer">
+                Sistema Preuniversitario - Matemática Tema 2: Conjuntos
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== FUNCIÓN PARA MOSTRAR RESPUESTAS =====
+        function mostrarRespuesta(btn) {
+            const respuesta = btn.nextElementSibling;
+            if (respuesta && respuesta.classList) {
+                respuesta.classList.toggle('mostrar');
+                btn.textContent = respuesta.classList.contains('mostrar') ? 'Ocultar respuesta' : 'Ver respuesta';
+            }
+        }
+
+        // ===== POMODORO =====
+        let timeLeft = 25 * 60;
+        let timerId = null;
+        let isRunning = false;
+        let cycleCount = 1;
+
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const cycleSpan = document.getElementById('cycleCount');
+
+        function updateDisplay() {
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            timerId = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                if (timeLeft === 0) {
+                    clearInterval(timerId);
+                    isRunning = false;
+                    alert('¡Tiempo completado! 🎉');
+                    if (cycleCount < 4) {
+                        cycleCount++;
+                        cycleSpan.textContent = cycleCount;
+                        timeLeft = 25 * 60;
+                        updateDisplay();
+                    } else {
+                        alert('¡Ciclo completo! Descansa 15 minutos.');
+                        cycleCount = 1;
+                        cycleSpan.textContent = cycleCount;
+                        timeLeft = 25 * 60;
+                        updateDisplay();
+                    }
+                }
+            }, 1000);
+        }
+
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', () => {
+            clearInterval(timerId);
+            isRunning = false;
+        });
+        resetBtn.addEventListener('click', () => {
+            clearInterval(timerId);
+            isRunning = false;
+            timeLeft = 25 * 60;
+            updateDisplay();
+            cycleCount = 1;
+            cycleSpan.textContent = cycleCount;
+        });
+
+        // ===== TAREAS (CON SANITIZACIÓN) =====
+        const taskList = document.getElementById('taskList');
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+
+        function sanitizeText(text) {
+            const element = document.createElement('div');
+            element.textContent = text;
+            return element.innerHTML;
+        }
+
+        const savedTasks = localStorage.getItem('tasks-MatematicaTema2');
+        if (savedTasks) {
+            try {
+                taskList.innerHTML = savedTasks;
+                document.querySelectorAll('.task-item input[type="checkbox"]').forEach(cb => {
+                    cb.addEventListener('change', function() {
+                        this.parentElement.classList.toggle('completed');
+                        saveTasks();
+                    });
+                });
+            } catch (e) {
+                console.warn('Error al cargar tareas:', e);
+            }
+        }
+
+        function saveTasks() {
+            localStorage.setItem('tasks-MatematicaTema2', taskList.innerHTML);
+        }
+
+        function addTask() {
+            const text = taskInput.value.trim();
+            if (!text) {
+                alert('Por favor, escribe una tarea.');
+                return;
+            }
+
+            const safeText = sanitizeText(text);
+
+            const li = document.createElement('li');
+            li.className = 'task-item';
+            li.innerHTML = `
+                <input type="checkbox">
+                <span>${safeText}</span>
+            `;
+            taskList.appendChild(li);
+            taskInput.value = '';
+            saveTasks();
+
+            li.querySelector('input[type="checkbox"]').addEventListener('change', function() {
+                this.parentElement.classList.toggle('completed');
+                saveTasks();
+            });
+        }
+
+        addTaskBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask();
+        });
+
+        // ===== NOTAS =====
+        const notesArea = document.getElementById('notesArea');
+        
+        const savedNotes = localStorage.getItem('notes-MatematicaTema2');
+        if (savedNotes) notesArea.value = savedNotes;
+
+        notesArea.addEventListener('input', () => {
+            localStorage.setItem('notes-MatematicaTema2', notesArea.value);
+        });
+
+        // ===== SCROLL SUAVE PARA LA SIDEBAR =====
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
+                document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // ===== DETECTAR SECCIÓN ACTIVA AL HACER SCROLL =====
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
